@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=yes" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="noindex" />
+		<meta name="author" content="Fiocruz, Campus Virtual" />
+		<meta name="description" content="Introdução à Análise de Dados com Pandas" />
+		<meta name="keywords" content="Fiocruz, Ciência de Dados, Saúde, Python, Pandas" />
+		<link rel="apple-touch-icon" sizes="180x180" href="../../media/icons/apple-icon-180x180.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../../media/icons/favicon-32x32.png" />
+		<link rel="manifest" href="../media/icons/manifest.json" />
+		<meta name="theme-color" content="#001833" />
+		<title>Ciência de Dados aplicada à Saúde: Introdução à Análise de Dados com Pandas | Módulo 2 | Aula 2 | Tópico 10</title>
+		<link rel="stylesheet" href="../../source/bootstrap-5.1.3/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+	</head>
+	<body>
+		<header class="header">
+			<div class="mobile-toggle-open">
+				<a class="mobile-toggle__button" tabindex="0" role="button">
+					<span class="icon material-symbols-rounded">read_more</span>
+				</a>
+			</div>
+			<div class="brand">
+				<img class="img-fluid logo-black" src="../../media/logos/header-fiocruz-campus-virtual.png" alt="Campus Virtual Fiocruz" />
+			</div>
+			<div class="title">
+				<h1>Ciência de Dados aplicada à Saúde</h1>
+			</div>
+			<ul class="nav nav-pills">
+				<li class="nav-item"><a href="../../index.html" class="nav-link">Início</a></li>
+				<li class="nav-item"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-creditos">Créditos</a></li>
+			</ul>
+		</header>
+		<div class="main">
+			<div class="sidebar" role="navigation">
+				<div class="sidebar__inner" style="position: relative">
+					<div class="sidebar__group d-lg-none">
+						<div class="sidebar__group-item">
+							<div class="sidebar__header">
+								<span>Curso</span>
+								<a class="mobile-toggle-close" tabindex="0" role="button"><span class="icon material-symbols-rounded">read_more</span></a>
+							</div>
+						</div>
+						<div class="sidebar__group-item">
+							<div class="sidebar__title">
+								<h1>Ciência de Dados aplicada à Saúde</h1>
+							</div>
+						</div>
+						<div class="sidebar__group-item">
+							<ul class="nav">
+								<li class="nav-item">
+									<a href="../../index.html" class="nav-link" tabindex="0"><span class="icon material-symbols-rounded" aria-hidden="true">home</span>Início</a>
+								</li>
+								<li class="nav-item">
+									<a href="#" class="nav-link" tabindex="0" data-bs-toggle="modal" data-bs-target="#modal-creditos"><span class="icon material-symbols-rounded" aria-hidden="true">format_list_bulleted</span>Créditos</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="sidebar__group">
+						<div class="sidebar__group-item">
+							<div class="dropend">
+								<button id="dropdown-modulos" type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,30">
+									<span class="icon material-symbols-rounded" aria-hidden="true">grid_view</span>
+									<span class="label">Módulos</span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdown-modulos">
+									<li class="d-lg-none dropdown-menu__header">
+										<a class="dropdown-menu__back-button" tabindex="0" role="button"><span class="icon material-symbols-rounded">chevron_left</span> Voltar</a>
+										<a class="mobile-toggle-close" tabindex="0" role="button"><span class="icon material-symbols-rounded">read_more</span></a>
+									</li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="../../modulo1/aula1/topico1.html"><strong>Módulo 1</strong><br />Introdução à Ciência de Dados aplicada à Saúde</a></li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="../aula1/topico1.html"><strong>Módulo 2</strong><br />Python para Análise de Dados em Saúde</a></li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="../../modulo3/aula1/topico1.html"><strong>Módulo 3</strong><br />Machine Learning aplicado à Saúde</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="divider"><hr /></div>
+					<div class="sidebar__group">
+						<div class="sidebar__group-item">
+							<span class="text module">Módulo <br class="d-none d-lg-block" /><span>2</span></span>
+						</div>
+						<div class="sidebar__group-item">
+							<div class="dropend">
+								<button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,30">
+									<span class="icon material-symbols-rounded" aria-hidden="true">apps</span>
+									<span class="label">Conteúdo</span>
+								</button>
+								<ul class="dropdown-menu">
+									<li class="d-lg-none dropdown-menu__header">
+										<a class="dropdown-menu__back-button" tabindex="0" role="button"><span class="icon material-symbols-rounded">chevron_left</span> Voltar</a>
+										<a class="mobile-toggle-close" tabindex="0" role="button"><span class="icon material-symbols-rounded">read_more</span></a>
+									</li>
+									<li class="dropdown-menu__title">
+										<span class="label">Módulo 2</span>
+										<span class="title">Python para Análise de Dados em Saúde</span>
+									</li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="../aula1/topico1.html"><strong>Aula 1: </strong>Introdução ao Python para Análise de Dados em Saúde</a></li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="topico1.html"><strong>Aula 2: </strong>Introdução à Análise de Dados com Pandas</a></li>
+<li class="dropdown-menu__item"><a class="dropdown-menu__item-link" tabindex="0" role="link" href="../aula3/topico1.html"><strong>Aula 3: </strong>EDA e visualização da informação — dando vida aos dados</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="divider"><hr /></div>
+					<div class="sidebar__group">
+						<div class="sidebar__group-item">
+							<span class="text class">Aula 2</span>
+						</div>
+						<div class="sidebar__group-item">
+							<div class="dropend">
+								<button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,30">
+									<span class="icon material-symbols-rounded" aria-hidden="true">format_list_bulleted</span>
+									<span class="label">Tópicos</span>
+								</button>
+								<ul class="dropdown-menu">
+									<li class="d-lg-none dropdown-menu__header">
+										<a class="dropdown-menu__back-button" tabindex="0" role="button"><span class="icon material-symbols-rounded">chevron_left</span> Voltar</a>
+										<a class="mobile-toggle-close" tabindex="0" role="button"><span class="icon material-symbols-rounded">read_more</span></a>
+									</li>
+									<li class="dropdown-menu__title">
+										<span class="label">Aula 2</span>
+										<span class="title">Introdução à Análise de Dados com Pandas</span>
+									</li>
+									<li class="dropdown-menu__item">
+										<nav class="topic-list"><a href="topico1.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Sobre esta aula</a><a href="topico2.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Autoria</a><a href="topico3.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Introdução</a><a href="topico4.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>O estudo de caso: mortalidade em saúde pública</a><a href="topico5.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Series e DataFrame: as estruturas do Pandas</a><a href="topico6.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Importando bases de dados</a><a href="topico7.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Diagnóstico e inspeção inicial da base</a><a href="topico8.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Limpeza e tratamento de inconsistências</a><a href="topico9.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Agrupando dados: a lógica do groupby</a><a href="topico10.html" tabindex="0" role="link" class="topic-list__item active" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Integrando dados com concat() e merge()</a><a href="topico11.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Exportando e compartilhando resultados</a><a href="topico12.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Exercícios práticos e estudo de caso estendido</a><a href="topico13.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Recursos complementares recomendados</a><a href="topico14.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Atividade</a><a href="topico15.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Resumo da aula</a><a href="topico16.html" tabindex="0" role="link" class="topic-list__item" aria-label="Tópico não concluído"><span class="material-symbols-rounded"></span>Referências</a></nav>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div id="page-title">
+					<div class="container">
+						<div class="row align-items-center hstify-content-center justify-content-xxl-start ms-lg-5">
+							<div class="col-12 col-md-10 col-lg-11">
+								<h2 class="title">
+									<span class="label">Módulo 2 | Aula 2</span>
+									<br />
+									Introdução à Análise de Dados com Pandas
+								</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="page-content" class="">
+					<section>
+						<div class="container">
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-4"><div class="heading__block"><span class="small">Tópico 10</span><h3 class="heading__title">Integrando dados com concat() e merge()</h3></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Em análises de saúde pública, frequentemente precisamos trabalhar com mais de uma tabela. Podemos, por exemplo, reunir os dados do SIM de diferentes anos em uma única base ou relacionar os registros de óbitos com informações de população do IBGE.</p><p>O Pandas oferece duas funções importantes para essas situações: pd.concat() e pd.merge(). Embora ambas sejam usadas para combinar DataFrames, elas realizam operações diferentes: concat() é utilizado principalmente para empilhar tabelas, enquanto merge() permite relacionar tabelas a partir de uma ou mais colunas em comum.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-4"><div class="heading__block"><h4 class="heading__title">Empilhando tabelas com pd.concat()</h4></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Imagine que temos duas tabelas do SIM: uma com os óbitos de 2019 e outra com os óbitos de 2020. Se as duas possuem a mesma estrutura, podemos empilhar os registros de uma tabela abaixo dos registros da outra, formando uma única base com os dois anos. É exatamente esse tipo de operação que a função pd.concat() realiza.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><figure class="mb-0"><img class="img-fluid w-100 rounded" src="../../media/modulo2/aula2/concat.png" alt="Funcionamento do método concat() no Python." /><figcaption class="figure-caption fonte small mt-2 mb-0">Legenda: Funcionamento do método concat() no Python. Fonte: Elaborada pelo autor</figcaption></figure></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Nesse exemplo, os registros são empilhados de sim_2019 até o sim_2022. As colunas são alinhadas pelo nome. Assim, se ambas as tabelas possuem as mesmas colunas, os valores de cada coluna permanecem organizados corretamente.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Empilhando as bases anuais do SIM
+sim_consolidado = pd.concat(
+    [sim_2019, sim_2020, sim_2021, sim_2022,],
+    ignore_index=True
+)</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Se as bases não possuírem linhas duplicadas e não houve filtragem durante a operação, o número de linhas da base consolidada será igual à soma do número de linhas das bases.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="card border-0 rounded overflow-hidden" style="background-color:var(--fio-sys-color-accent-dark);background-image:url(../../media/templates/fundo-flipcard.jpg);background-position:center;background-repeat:no-repeat;background-size:cover;"><div class="card-body p-4 p-md-5"><p class="mb-0 text-white"><strong class="text-white">Cada DataFrame possui um índice utilizado para identificar suas linhas. Como diferentes DataFrames podem ter índices iguais, ao empilhá-los esses índices podem se repetir. O argumento ignore_index=True ignora os índices originais e cria um novo índice sequencial, de 0 até o número total de registros menos 1.</strong></p></div></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-4"><div class="heading__block"><h4 class="heading__title">Relacionando tabelas com pd.merge()</h4></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Agora considere uma situação diferente. Temos o código do município no DataFrame com os óbitos. Mas para os relatórios que queremos criar, precisaremos do nome do município. Repare que nesse caso não queremos simplesmente colocar uma tabela abaixo da outra. Queremos adicionar novas informações aos nossos dados. Para isso, utilizaremos o método pd.merge() do Pandas e um novo conjunto de dados (municipios_rj) com duas colunas: codigo_municipio e nome_municipio.</p><p>O método merge() realiza uma operação semelhante a um JOIN em bancos de dados SQL e estabelece a correspondência por meio de uma coluna-chave que esteja presente nas duas tabelas, como codigo_municipio. A imagem a seguir ilustra esse processo.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><figure class="mb-0"><img class="img-fluid w-100 rounded" src="../../media/modulo2/aula2/merge.png" alt="Ilustração do funcionamento do método merge() do Python." /><figcaption class="figure-caption fonte small mt-2 mb-0">Legenda: Ilustração do funcionamento do método merge() do Python. Fonte: Elaborada pelo autor</figcaption></figure></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Nesse exemplo, on="codigo_municipio" informa ao Pandas qual coluna deve ser utilizada para encontrar a correspondência entre as duas tabelas. Já how="left" determina que todos os registros do sim_consolidado serão mantidos, mesmo que algum código de município não seja encontrado na tabela municipios_rj.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Acrescentar o nome do município aos dados do SIM (sim_consolidado)
+sim_consolidado = pd.merge(
+    sim_consolidado, municipios_rj,
+    on="codigo_municipio", how="left"
+)</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Após a execução do código, o DataFrame sim_consolidado passa a conter, além das informações originais dos registros de óbitos, o nome_municipio correspondente a cada codigo_municipio. Dessa forma, o merge() permite enriquecer uma base de dados com informações provenientes de outra fonte.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-4"><div class="heading__block"><h4 class="heading__title">Relacionando óbitos e população por município</h4></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Depois de aprender a utilizar merge() para acrescentar informações a registros individuais, podemos aplicá-lo a uma situação muito comum em análises de saúde pública: relacionar informações agregadas de uma base de óbitos com dados populacionais. Nesse caso, queremos primeiro saber quantos óbitos foram registrados em cada município e, depois, acrescentar a população correspondente. Essa combinação é importante porque o número absoluto de óbitos, isoladamente, não permite comparar adequadamente municípios de diferentes tamanhos populacionais. Ao relacionar os óbitos à população, criamos a estrutura necessária para posteriormente calcular taxas e outros indicadores de mortalidade.</p><p>Para começar, agrupamos os registros do SIM por ano, município e nome do município e contamos quantos óbitos existem em cada grupo:</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Total de óbitos por município e ano
+obitos_muni = (
+    sim_consolidado
+    .groupby(["ano_obito","codigo_municipio","nome_municipio"])
+    .size()
+    .reset_index(name="total_obitos")
+)</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>O groupby() reúne os registros que possuem a mesma combinação de ano, código do município e nome do município. Em seguida, o método size() conta quantos registros existem em cada grupo. Por fim, reset_index(name="total_obitos") transforma o resultado novamente em um DataFrame e dá o nome total_obitos à coluna com as contagens.</p><p>O resultado é uma tabela em que cada linha representa um município em determinado ano, acompanhada do número de óbitos registrados:</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="table-responsive"><table class="table table-bordered align-middle mb-0"><thead><tr><th scope="col"></th><th scope="col">ano_obito</th><th scope="col">codigo_municipio</th><th scope="col">nome_municipio</th><th scope="col">total_obitos</th></tr></thead><tbody><tr><th scope="row">68</th><td>2022</td><td>330270</td><td>Maricá</td><td>1158</td></tr><tr><th scope="row">20</th><td>2020</td><td>330045</td><td>Belford Roxo</td><td>2922</td></tr><tr><th scope="row">3</th><td>2019</td><td>330190</td><td>Itaboraí</td><td>1273</td></tr></tbody></table></div><p class="figure-caption fonte small mt-2 mb-0">Legenda: Número total de óbitos agregados por ano_obito, codigo_municipio e nome_municipio. Fonte: Elaborada pelo autor</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Agora podemos relacionar essa tabela com populacao_rj, que contém estimativas populacionais e, para 2022, o dado censitário disponível. Nesse caso, precisamos utilizar duas informações para encontrar a população correta: o código do município e o ano. Um município aparece várias vezes na tabela de população, uma vez para cada ano. Portanto, não basta encontrar o município; precisamos também garantir que a população seja referente ao mesmo ano dos óbitos.</p><p>Além disso, as colunas que representam o ano possuem nomes diferentes nas duas tabelas: ano_obito no DataFrame de óbitos e ano no de população. Por isso, utilizamos left_on e right_on para indicar quais colunas correspondem entre as duas tabelas:</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Relacionando os óbitos por município e ano com a população
+obitos_muni_ano = pd.merge(
+    obitos_muni,
+    populacao_rj,
+    left_on=["codigo_municipio", "ano_obito"],
+    right_on=["codigo_municipio", "ano"],
+    how="left"
+)</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Nesse código, left_on indica as colunas que serão utilizadas como chave no DataFrame obitos_muni, enquanto right_on indica as colunas correspondentes no DataFrame populacao_rj. Assim, o Pandas procura uma correspondência em que o código do município e o ano coincidam.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="table-responsive"><table class="table table-bordered align-middle mb-0"><thead><tr><th scope="col"></th><th scope="col">ano_obito</th><th scope="col">codigo_municipio</th><th scope="col">nome_municipio</th><th scope="col">total_obitos</th><th scope="col">ano</th><th scope="col">estimativa_populacao</th><th scope="col">tipo_dado</th></tr></thead><tbody><tr><th scope="row">67</th><td>2022</td><td>330260</td><td>Mangaratiba</td><td>246</td><td>2022</td><td>41220</td><td>censo_2022</td></tr><tr><th scope="row">36</th><td>2020</td><td>330490</td><td>São Gonçalo</td><td>6969</td><td>2020</td><td>1091737</td><td>estimativa</td></tr><tr><th scope="row">34</th><td>2020</td><td>330414</td><td>Queimados</td><td>923</td><td>2020</td><td>151335</td><td>estimativa</td></tr></tbody></table></div><p class="figure-caption fonte small mt-2 mb-0">Legenda: DataFrame sim_com_populacao. Fonte: Elaborada pelo autor</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="card border-0 rounded overflow-hidden" style="background-color:var(--fio-sys-color-accent-dark);background-image:url(../../media/templates/fundo-flipcard.jpg);background-position:center;background-repeat:no-repeat;background-size:cover;"><div class="card-body p-4 p-md-5"><p class="mb-0 text-white"><strong class="text-white">O número de óbitos é uma medida absoluta e pode ser maior simplesmente porque um município possui uma população maior. Ao combinar o número de óbitos com a população, podemos avançar para medidas relativas, como taxas ou coeficientes de mortalidade, permitindo comparações mais adequadas entre diferentes municípios.</strong></p></div></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-4"><div class="heading__block"><h4 class="heading__title">Construindo o indicador: taxa de mortalidade por 100 mil habitantes</h4></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Depois de relacionarmos o número de óbitos com a população de cada município, podemos calcular a taxa de mortalidade, um indicador que permite comparar municípios de diferentes tamanhos populacionais. A ideia é simples: dividimos o número de óbitos pela população do município e multiplicamos o resultado por 100.000. Esse fator de multiplicação permite expressar o indicador como número de óbitos para cada 100 mil habitantes.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Calculando a taxa de mortalidade por 100 mil habitantes
+obitos_muni_ano["taxa_mortalidade"] = (
+    obitos_muni_ano["total_obitos"] /
+    obitos_muni_ano["estimativa_populacao"] *
+    100000
+)</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>O resultado é armazenado em uma nova coluna chamada taxa_mortalidade. Como o cálculo é realizado diretamente sobre as colunas do DataFrame, o Pandas aplica a operação linha a linha, sem a necessidade de utilizar um for para percorrer os municípios. Por exemplo, se um município possui 500 óbitos e uma população de 250.000 habitantes:</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code>(500 / 250.000) × 100.000 = 200</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>Isso significa uma taxa bruta de 200 óbitos para cada 100 mil habitantes. Depois de calcular a taxa, podemos ordenar os municípios do maior para o menor valor e visualizar os cinco primeiros:</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="table-responsive"><table class="table table-bordered align-middle mb-0"><thead><tr><th scope="col"></th><th scope="col">nome_municipio</th><th scope="col">ano_obito</th><th scope="col">total_obitos</th><th scope="col">estimativa_populacao</th><th scope="col">taxa_mortalidade</th></tr></thead><tbody><tr><th scope="row">51</th><td>Niterói</td><td>2021</td><td>4967</td><td>516981</td><td>960.770318</td></tr><tr><th scope="row">48</th><td>Maricá</td><td>2021</td><td>1604</td><td>167668</td><td>956.652432</td></tr><tr><th scope="row">31</th><td>Niterói</td><td>2020</td><td>4570</td><td>515317</td><td>886.832765</td></tr><tr><th scope="row">47</th><td>Mangaratiba</td><td>2021</td><td>405</td><td>45941</td><td>881.565486</td></tr><tr><th scope="row">50</th><td>Nilópolis</td><td>2021</td><td>1377</td><td>162893</td><td>845.340193</td></tr></tbody></table></div><p class="figure-caption fonte small mt-2 mb-0">Legenda: Taxa bruta de mortalidade. Fonte: Elaborada pelo autor</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><p>O método sort_values() organiza as linhas de acordo com uma coluna. Nesse caso, usamos taxa_mortalidade e ascending=False para colocar os maiores valores primeiro.</p></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="code-container"><pre aria-label="Exemplo de código"><code># Ordenando pela taxa de mortalidade, da maior para a menor
+top5_mortalidade = (
+    obitos_muni_ano
+    .sort_values("taxa_mortalidade", ascending=False)
+    .head(5)
+)
+top5_mortalidade</code></pre></div></div></div>
+<div class="row justify-content-center"><div class="col-12 col-md-10 col-lg-8 mb-5"><div class="card border-0 rounded overflow-hidden" style="background-color:var(--fio-sys-color-accent-dark);background-image:url(../../media/templates/fundo-flipcard.jpg);background-position:center;background-repeat:no-repeat;background-size:cover;"><div class="card-body p-4 p-md-5"><p class="mb-0 text-white"><strong class="text-white">Os dados utilizados neste exercício são recortes preparados para fins didáticos, e as informações populacionais são estimativas. Portanto, os resultados obtidos não devem ser utilizados como resultados oficiais ou para tomada de decisão fora do contexto deste exercício. Além disso, uma taxa de mortalidade maior não significa necessariamente que um município tenha o maior número absoluto de óbitos. Municípios com populações menores podem apresentar taxas elevadas mesmo com um número relativamente pequeno de óbitos. Por isso, a interpretação do indicador deve considerar tanto o tamanho da população quanto o número de eventos observados.</strong></p></div></div></div></div>
+						</div>
+					</section>
+				</div>
+				<section>
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-12 col-md-10 col-lg-8">
+								<div class="page-nav d-flex justify-content-evenly flex-wrap gap-3"><a class="fio-button fio-button-primary" href="topico9.html" rel="prev"><span class="material-symbols-rounded" aria-hidden="true">west</span> Tópico anterior</a><a class="fio-button fio-button-primary" href="topico11.html" rel="next">Próximo tópico <span class="material-symbols-rounded" aria-hidden="true">east</span></a></div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<div class="container-fluid">
+						<div class="row justify-content-center align-items-center linha-de-marcas">
+							<div class="col-12 text-center py-3">
+								<img class="img-fluid regua-logos" src="../../media/logos/regua-de-logos.png" alt="Régua de logos: ICICT, Campus Virtual Fiocruz e Fiocruz" />
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<script src="../../source/bootstrap-5.1.3/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="../../assets/js/ResizeSensor.js"></script>
+		<script type="text/javascript" src="../../assets/js/sticky-sidebar.js"></script>
+		<script type="text/javascript" src="../../assets/js/sidebar.js"></script>
+		<script type="text/javascript">
+			var sidebar = new StickySidebar('.sidebar', {
+				topSpacing: 0,
+				bottomSpacing: 0,
+				containerSelector: '.main',
+				innerWrapperSelector: '.sidebar__inner',
+				minWidth: 991,
+			});
+			function refreshSidebarSticky() {
+				if (sidebar && typeof sidebar.updateSticky === 'function') {
+					sidebar.updateSticky();
+				}
+			}
+			window.addEventListener('load', refreshSidebarSticky);
+			window.addEventListener('resize', refreshSidebarSticky);
+			document.querySelectorAll('.content img').forEach(function (img) {
+				if (!img.complete) {
+					img.addEventListener('load', refreshSidebarSticky);
+					img.addEventListener('error', refreshSidebarSticky);
+				}
+			});
+		</script>
+		
+		<script type="text/javascript" src="../../assets/js/scripts.js"></script>
+		<script type="text/javascript" src="../../assets/js/custom-anime.js"></script>
+		<script type="text/javascript" src="../../source/animate/aos/dist/aos.js"></script>
+		<script>
+			AOS.init();
+		</script>
+	</body>
+</html>
