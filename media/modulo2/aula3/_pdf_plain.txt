@@ -1,0 +1,752 @@
+
+===== PAGE 1 =====
+EDA e visualização da informação: 
+dando vida aos dados
+Sobre esta aula
+Seja bem-vindo e bem-vinda à aula "EDA e visualização da informação: dando vida  
+aos dados". A seguir, veja algumas informações importantes sobre esta aula.
+Objetivos de aprendizagem
+ 
+Ao final desta aula esperamos que você seja capaz de:
+	
+Compreender o que é a Análise Exploratória de Dados (EDA) e qual o seu papel antes  
+	
+de qualquer modelagem ou comunicação de resultados.
+	
+Escolher o tipo de gráfico adequado a cada tipo de pergunta: categórica, numérica,  
+	
+temporal ou geográfica.
+	
+Gerar gráficos rápidos de inspeção diretamente de um DataFrame com o método .plot()  
+	
+do Pandas e gráficos interativos utilizando o Plotly.
+	
+Explorar distribuições de variáveis numéricas com histogramas e boxplots utilizando  
+	
+o Seaborn.
+	
+Relacionar esses conceitos às atividades de análise de dados em saúde que serão  
+	
+desenvolvidas nas próximas aulas.
+	
+Planejar e executar uma EDA completa sobre um recorte de dado de saúde à sua  
+	
+escolha, como projeto final do módulo.    
+Autoria
+Jefferson Lima
+Doutor em Informação e Comunicação em Saúde (PPGICS/Fiocruz), mestre em Modelagem 
+Matemática da Informação (EMAP/FGV), especialista em Sistemas de Informação (NCE/UFRJ) 
+e graduação em Matemática (UERJ). Atualmente é Tecnologista em Saúde Pública do  
+Instituto de Comunicação e Informação Científica e Tecnológica em Saúde da Fundação 
+Oswaldo Cruz (Icict/Fiocruz) e Coordenador Adjunto da Plataforma de Ciência de Dados  
+aplicada à Saúde (PCDaS) do Icict. 
+Introdução
+Na aula anterior você viu como transformar arquivos brutos do SIM em tabelas limpas,  
+integradas e agregadas. Até o momento você aprendeu a: 
+	
+Importar.
+	
+Inspecionar.
+	
+Filtrar.
+	
+Tratar inconsistências.
+	
+Empilhar bases anuais com concat().
+	
+Cruzar dados com merge().
+	
+Calcular indicadores com groupby().
+ 
+Assim, você chegou a uma tabela final consolidada, com o total de óbitos e a taxa de  
+mortalidade por 100 mil habitantes em cada município.
+Como já mencionado neste módulo, uma tabela, à medida que o número de linhas e  
+colunas cresce, torna-se complexa para realizar uma interpretação rápida. Nesta aula você 
+verá como  transformar essas tabelas em gráficos que agilizem a descoberta de padrões a 
+PYTHON PARA ANÁLISE  
+DE DADOS EM SAÚDE
+MÓDULO 2 | AULA 3
+
+===== PAGE 2 =====
+O que é e para que serve a EDA?
+A Análise Exploratória de Dados (EDA, do inglês Exploratory Data Analysis) é a etapa  
+em que olhamos para os dados de forma sistemática antes de tirar conclusões ou construir 
+modelos estatísticos. Seu objetivo não é confirmar uma hipótese, mas descobrir padrões, 
+identificar valores discrepantes e formular boas perguntas.
+Já praticamos uma parte da EDA na aula anterior, quando usamos .head(), .info(), .describe(), 
+.unique() e .value_counts() para inspecionar um subconjunto dos dados do Sistema de  
+Informação sobre Mortalidade (SIM). A visualização gráfica é a continuação natural desse 
+processo: um histograma revela em segundos uma assimetria que uma tabela de médias  
+esconderia, e um mapa evidencia desigualdades territoriais que uma lista de municípios não 
+comunica. Veja algumas das principais contribuições da visualização gráfica para a EDA:
+	
+Detectar problemas: valores fora do intervalo esperado, categorias mal padronizadas,  
+	
+concentrações inesperadas de dados faltantes.
+	
+Descrever o comportamento dos dados: forma da distribuição, presença de assimetria,  
+	
+dispersão entre grupos.
+	
+Gerar hipóteses: identificar padrões que merecem investigação mais aprofundada,  
+	
+com testes estatísticos ou modelos.
+	
+Comunicar resultados: um gráfico bem escolhido é, com frequência, o produto final que 
+	
+chega à gestão em saúde.
+Gráficos rápidos com .plot() do Pandas
+O Pandas incorpora a biblioteca Matplotlib e disponibiliza o método .plot() diretamente  
+sobre DataFrames e Series. É a forma mais rápida de visualizar um dado durante a própria 
+inspeção, sem sair do fluxo de trabalho de limpeza e agregação.
+partir de três formas de gerar visualizações em Python: o método .plot() do próprio Pandas, 
+as bibliotecas Seaborn para explorar distribuições e a biblioteca Plotly para gráficos  
+interativos. Você também vai aprender a escolher o gráfico mais adequado para cada tipo  
+de pergunta.
+Além disso, vamos encerrar este módulo com uma reflexão sobre o uso de assistentes de  
+Inteligência Artificial (IA) como apoio à programação, e com um projeto final em que você 
+conduzirá uma EDA completa sobre um recorte de dado de saúde à sua escolha.
+Antes de seguir para o próximo tópico, é importante que os arquivos  
+obitos_muni_ano.csv e sim_consolidado.csv, produzidos na aula anterior, 
+já estejam disponíveis no seu notebook. 
+Se necessário, refaça rapidamente os passos de importação e as  
+operações concat() e merge(), que você já viu na aula anterior, antes de 
+prosseguir. No notebook disponibilizado para esta aula, os dados serão 
+carregados automaticamente.
+SAIBA MAIS!
+Clique aqui para acessar o material complementar contendo:
+• Tutorial rápido para o Colab.
+• Links para abrir os notebooks das aulas diretamente no Colab ou para download.
+• Bases de dados para download.
+SAIBA MAIS!
+Use .plot() enquanto ainda está explorando e limpando os dados, dentro  
+do próprio notebook de análise. Reserve o Seaborn e o Plotly, bibliotecas que  
+serão apresentadas ainda nesta aula, para os gráficos que efetivamente irão compor 
+o relatório ou a apresentação final, pois eles oferecem mais controle sobre estética  
+e interatividade.
+O parâmetro kind define o tipo de gráfico ('hist', 'bar', 'barh', 'line', 'box', 'pie',  
+entre outros), o que torna o .plot() versátil para uma primeira inspeção visual.  
+Mais informações podem ser consultadas aqui. 
+
+===== PAGE 3 =====
+Fonte: Elaborado pelo autor (2026).
+Seaborn: explorando distribuições
+O Seaborn é construído sobre o Matplotlib e oferece gráficos estatísticos prontos, com boa 
+estética por padrão e integração direta com DataFrames do Pandas. É a ferramenta ideal 
+para investigar como uma variável numérica se distribui e como ela se compara entre grupos 
+categóricos.
+Histograma: a forma da distribuição
+Veja como criar no Seaborn um gráfico similar ao anterior, feito com o Matblotlib. Repare que 
+agora temos um melhor acabamento estético e, em geral, a sintaxe é mais simples e clara.
+	
+import seaborn as sns
+ 
+	
+# Histograma com curva de densidade (KDE) da idade dos óbitos
+	
+sns.histplot(data=sim_consolidado, x="idade", bins=20, kde=True)
+	
+plt.title("Distribuição da idade dos óbitos no SIM")
+	
+plt.show()
+Histograma de idade de óbito (Seaborn).
+Para um primeiro exemplo, agruparemos as idades em um histograma. Por padrão, o  
+método .plot(kind="hist) divide os dados em 10 intervalos (bins) de igual largura. Veja:
+ 
+	
+import matplotlib.pyplot as plt
+	
+# Histograma rápido da idade dos óbitos
+	
+sim_consolidado["idade_obito"].plot(kind="hist)
+	
+plt.show()
+Histograma de idade de óbito (Pandas + Matplotlib).
+ 
+0
+20000
+40000
+60000
+80000
+0
+20
+40
+60
+80
+100
+120
+Frequency
+Distribuição da idade dos óbitos
+0
+10000
+20000
+30000
+40000
+50000
+0
+20
+40
+60
+80
+100
+120
+Frequency
+Idade
+Fonte: Elaborado pelo autor (2026). 
+Avançando um pouco, definimos que os dados devem ser agrupados em 20 intervalos  
+(bins) e que o gráfico deve apresentar um título (title), assim como um rótulo para o  
+eixo X (plt.xlabel). 
+ 
+	
+import matplotlib.pyplot as plt
+	
+# Histograma com dados agrupados em 20 intervalos e com títulos
+	
+sim_consolidado["idade"].plot(kind="hist", bins=20, title= 
+	
+"Distribuição da idade dos óbitos")
+	
+plt.xlabel("Idade")
+	
+plt.show()
+Histograma de idade de óbito com títulos e 20 bins (Pandas + Matplotlib).
+Fonte: Elaborado pelo autor (2026).
+0
+20
+40
+60
+80
+100
+120
+idade_obito
+0
+10000
+20000
+30000
+40000
+50000
+Count
+Distribuição da idade dos óbitos no SIM
+
+===== PAGE 4 =====
+Boxplot: comparando grupos
+O boxplot resume a distribuição em cinco números, são eles:
+	
+Mínimo.
+	
+Primeiro quartil.
+	
+Mediana.
+	
+Terceiro quartil.
+	
+Máximo.
+Ele também destaca pontos fora desse intervalo como possíveis outliers, tornando-se  
+especialmente útil para comparar rapidamente vários municípios ou faixas etárias lado  
+a lado. Veja o exemplo a seguir:
+	
+# Boxplot da idade dos óbitos, comparando sexo feminino e masculino
+	
+sns.boxplot(data=sim_consolidado, x="sexo", y="idade")
+	
+plt.title("Idade dos óbitos por sexo")
+	
+plt.show()
+Boxplot de idade de óbito agregada por sexo (Seaborn).
+Fonte: Elaborado pelo autor (2026).
+Plotly: gráficos interativos
+Enquanto Matplotlib e Seaborn são utilizados principalmente para criar gráficos estáticos,  
+o Plotly Express (px) permite gerar gráficos interativos, com recursos como zoom, tooltips  
+e filtros de legenda. Esses recursos podem ser valiosos para explorar os dados de forma  
+interativa.
+Série temporal
+Neste exemplo você criará um gráfico de linhas. O eixo X conterá os anos e o eixo o total  
+de óbitos. Os dados serão divididos em 3 séries em função dos valores de sexo.  
+Neste primeiro momento, crie o conjunto de dados que servirá de base para o gráfico.
+	
+import plotly.express as px
+	
+obitos_ano_sexo = (
+    		
+sim_consolidado
+    		
+.groupby(["ano_obito", "sexo"])
+    		
+.size()
+    		
+.reset_index(name="total_obitos")
+	
+)
+	
+obitos_ano_sexo.head(3)
+Resultado:
+Um outlier em um boxplot de dados de saúde nem sempre é um erro de  
+digitação, pode ser um óbito real em uma idade incomum. Antes de descartar  
+um valor extremo, volte à base original e investigue o registro. A EDA serve  
+para levantar a suspeita, não para decidir sozinha o que é ruído e o que é sinal.
+ATENÇÃO
+Masculino
+Feminino
+Ignorado
+sexo
+0
+20
+40
+60
+80
+100
+120
+idade_obito
+Idade dos óbitos por sexo
+Tooltips são informações  
+exibidas ao passar o mouse  
+sobre os elementos do gráfico.
+Clicando na palavra  
+tooltips abre um  
+popover com a  
+informação abaixo.
+
+===== PAGE 5 =====
+Agora, crie um gráfico de linhas com o Plotly.
+	
+# Ano como texto [...].astype(str) deixa o eixo X discreto (categórico): 
+ 	 só 2019, 2020, 2021 e 2022
+	
+obitos_ano_sexo["ano_obito"] = obitos_ano_sexo["ano_obito"].astype(str)
+ 
+fig = px.line(
+    	data_frame = obitos_ano_sexo,
+    	x="ano_obito",
+    	y="total_obitos",
+    	color="sexo",
+    	title="Evolução dos óbitos por ano e sexo",
+    	markers=True,
+	
+)
+ 
+# Exibe o gráfico
+	
+f	 ig.show()
+Gráfico de linhas com total de óbitos por sexo ao longo dos anos (Plotly).
+	
+	
+Fonte: Elaborado pelo autor (2026).
+Comparando capítulos da CID-10 ao longo dos anos  
+com Plotly
+Além de acompanhar a evolução dos óbitos por sexo, também podemos comparar diferentes 
+grupos de causas ao longo dos anos. Neste exemplo, vamos utilizar os capítulos da CID-10 
+para verificar como o número de óbitos varia entre os anos de 2019-2022.
+Assim como no exemplo anterior, primeiro precisamos criar uma tabela resumida que será 
+utilizada para construir o gráfico. Para isso, agrupamos os registros por ano do óbito e  
+capítulo da CID-10 e contamos o número de registros em cada combinação:
+	
+import plotly.express as px
+	
+obitos_ano_capitulo = (
+    		
+sim_consolidado
+    		
+.groupby(["ano_obito", "causabas_capitulo"])
+    		
+.size()
+    		
+.reset_index(name="total_obitos")
+	
+)
+	
+obitos_ano_capitulo.head()
+O método groupby() agrupa os registros de acordo com a combinação das colunas ano_obito 
+e causabas_capitulo. Em seguida, size() conta quantos registros existem em cada grupo.  
+Por fim, reset_index(name="total_obitos") transforma o resultado em um novo DataFrame  
+e atribui o nome total_obitos à coluna com as contagens. Esse é o mesmo procedimento  
+utilizado anteriormente para preparar os dados do gráfico de linhas por ano e sexo.
+Como o ano será apresentado como uma categoria no eixo horizontal, podemos convertê-lo 
+para texto:
+	
+obitos_ano_capitulo["ano_obito"] = (
+    		
+obitos_ano_capitulo["ano_obito"].astype(str)
+	
+)
+Agora, você já pode criar o gráfico de barras:
+ 
+fig = px.bar(
+    	obitos_ano_capitulo,
+    	x="ano_obito",
+    	y="total_obitos",
+    	color="causabas_capitulo",
+    	barmode="group",
+    	title="Óbitos por capítulo CID-10 e ano",
+    	labels={
+        "ano_obito": "Ano",
+        "total_obitos": "Óbitos",
+        "causabas_capitulo": "Capítulo CID-10",
+    	},
+	
+)
+ 
+fig.show()
+2019
+2020
+2021
+2022
+ano_obito
+0
+10k
+20k
+30k
+40k
+50k
+total_obitos
+sexo=Feminino
+ano_obito=2019
+total_obitos=35.845k
+Evolução dos óbitos por ano e sexo
+sexo
+Feminino
+Ignorado
+Masculino
+
+===== PAGE 6 =====
+O objetivo do gráfico é ajudar a perceber rapidamente um padrão,  
+uma diferença, uma tendência ou uma relação presente nos dados.  
+Logo, o tipo de visualização não deve ser escolhido apenas porque  
+você conhece determinado modelo de gráfico ou porque uma  
+biblioteca oferece uma função específica. A escolha deve partir da  
+pergunta que você deseja responder. 
+Diferentes perguntas exigem formas de representação distintas. Se queremos comparar  
+grupos, podemos utilizar um gráfico de barras; se queremos compreender como os valores 
+estão distribuídos, histogramas e boxplots podem ser mais adequados; quando o interesse 
+está em acompanhar uma evolução ao longo do tempo, gráficos de linhas são  
+frequentemente utilizados. Quando os dados possuem uma dimensão espacial, como  
+municípios ou estados, mapas temáticos podem ajudar a identificar padrões geográficos.
+O quadro a seguir apresenta algumas situações comuns e serve como um guia inicial para  
+relacionar a pergunta de análise ao tipo de visualização:
+Nesse gráfico, x="ano_obito" define os anos no eixo horizontal, enquanto y="total_obitos" 
+representa a quantidade de óbitos. O parâmetro color="causabas_capitulo" utiliza uma cor 
+diferente para cada capítulo da CID-10.
+A opção barmode="group" organiza as barras lado a lado, permitindo comparar os  
+diferentes capítulos dentro de cada ano. Dessa forma, você pode observar tanto as  
+diferenças entre os grupos de causas quanto suas variações ao longo do período analisado.
+Por fim, fig.show() exibe o gráfico interativo. Ao passar o cursor sobre uma barra, é possível 
+consultar os valores correspondentes, aproveitando um dos principais recursos do Plotly: a 
+exploração interativa dos dados.
+Esse exemplo mostra como as operações de agrupamento aprendidas com o Pandas podem 
+ser combinadas com o Plotly para construir visualizações mais detalhadas. Primeiro você  
+organiza e resume os dados e, em seguida, utiliza o gráfico para facilitar a comparação entre 
+os capítulos da CID-10 e os diferentes anos.
+Número de óbitos por capítulo CID-10 e ano (Plotly).
+Escolhendo o tipo de gráfico 
+Antes de escolher uma biblioteca ou começar a construir um gráfico, vale pensar: qual  
+pergunta você quer responder com esses dados? Você quer identificar um padrão, comparar 
+valores, observar uma tendência ou entender a relação entre variáveis?
+Fonte: Elaborado pelo autor (2026).
+O gráfico mostra que o número de óbitos varia entre os anos e entre os  
+diferentes capítulos da CID-10. Algumas causas apresentam aumento ou redução  
+ao longo do período, enquanto outras permanecem relativamente estáveis. 
+O que pode explicar essas mudanças? Elas refletem alterações reais na situação  
+de saúde da população ou eventos específicos ocorridos no período?
+2019
+2020
+2021
+2022
+Ano
+0
+5000
+10000
+15000
+20000
+25000
+30000
+35000
+Óbitos
+Capítulo CID-10
+I. Algumas doenças infecciosas e parasitárias
+II. Neoplasias (tumores)
+IX. Doenças do aparelho circulatório
+X. Doenças do aparelho respiratório
+XX. Causas externas de morbidade e mortalidade
+
+===== PAGE 7 =====
+Guia rápido para escolher o gráfico conforme o tipo de pergunta.
+Tipo de pergunta
+Exemplo epidemiológico
+Exemplos de gráficos
+Categórico  
+(comparar grupos)
+Quantos óbitos ocorreram em cada 
+sexo ou capítulo da CID-10?
+Gráfico de barras — df.plot 
+(kind="bar") ou sns.barplot()
+Numérica  
+(distribuição)
+Como se distribui a idade dos  
+óbitos? Existem valores muito  
+diferentes dos demais?
+Histograma ou boxplot — sns.
+histplot() / sns.boxplot()
+Temporal  
+(evolução)
+Como o número de óbitos ou a  
+taxa de mortalidade evoluiu entre 
+2019 e 2022?
+Gráfico de linhas — df.plot 
+(kind="line") ou px.line()
+Geográfica  
+(distribuição espacial) 
+Quais municípios apresentam as 
+maiores taxas de mortalidade?
+Mapa coroplético —  
+px.choropleth()
+Relação entre  
+variáveis
+Existe alguma relação entre  
+população e número de óbitos  
+entre os municípios?
+Gráfico de dispersão — sns. 
+scatterplot() ou px.scatter()
+Composição  
+(partes de um total)
+Como os óbitos se distribuem  
+proporcionalmente entre  
+diferentes grupos de causas?
+Barras empilhadas ou outras 
+formas de composição,  
+conforme o objetivo.
+Essa classificação não é uma regra rígida ou exaustiva. O mesmo conjunto de dados pode  
+ser representado de diferentes formas, dependendo da pergunta que queremos responder 
+e do que queremos destacar. Por exemplo: um gráfico de barras pode comparar municípios, 
+uma série temporal mostrar sua evolução e um mapa revelar sua distribuição espacial. 
+Erros comuns em visualização de dados  
+de saúde
+Um gráfico pode estar tecnicamente correto e, ainda assim, dificultar ou distorcer a  
+interpretação dos dados. Em Saúde Pública isso pode ocorrer tanto pela escolha inadequada 
+do indicador quanto pela forma como ele é apresentado. Escalas, cores, quantidade de  
+categorias e informações como título, unidades e fonte também influenciam a compreensão 
+do gráfico. Algumas situações comuns merecem atenção. Vamos conhecê-las e ver  
+algumas dicas?
+Comparar municípios pelo total absoluto de óbitos
+Municípios mais populosos tendem a apresentar mais óbitos  
+simplesmente porque possuem mais habitantes. 
+Dica: Para comparar populações de tamanhos diferentes,  
+utilize taxas ou outros indicadores relativos.
+Utilizar escalas de cores inadequadas em mapas
+A escolha das cores pode dificultar a percepção das diferenças entre os valores. 
+Dica: Para indicadores que variam de baixo a alto, escalas de cores  
+sequenciais são geralmente mais adequadas.
+Utilizar um eixo de valores que não começa em zero em gráficos de barras
+Essa escolha pode fazer pequenas diferenças parecerem  
+maiores do que realmente são. 
+Dica: Em gráficos de barras, mantenha o eixo de valores começando em zero.
+Utilizar gráficos de pizza com muitas categorias
+Quando há muitas categorias, torna-se difícil comparar o tamanho das fatias. 
+Dica: Utilize um gráfico de barras, porque esse tipo de visualização  
+costuma facilitar a comparação e a ordenação dos valores. 
+
+===== PAGE 8 =====
+Os LLMs são ferramentas úteis para aprender, gerar e depurar código, 
+mas seu uso exige atenção, especialmente na análise de dados de saúde. 
+Erros na manipulação, análise ou interpretação dos dados podem  
+comprometer os resultados e, em contextos de saúde, afetar decisões  
+e produzir impactos negativos sobre as pessoas. Por isso, o código  
+e os resultados gerados com apoio de LLMs devem sempre ser  
+compreendidos e validados pelo analista.
+Esses exemplos são apenas uma introdução aos princípios de visualização de dados.  
+Existem outros aspectos importantes, como percepção visual, escolha de escalas, uso de  
+cores e características do público. Nesta aula o nosso objetivo é desenvolver uma noção  
+inicial sobre como escolher e produzir gráficos que apresentem os dados de saúde de forma 
+clara e evitem interpretações equivocadas.
+LLMs como apoio ao aprendizado de  
+programação e análise de dados
+Os Large Language Models (LLMs) são modelos de IA capazes de gerar e interpretar textos  
+e códigos a partir de instruções em linguagem natural. Ferramentas como ChatGPT, Microsoft 
+Copilot, Google Gemini e Claude podem ser utilizadas como apoio ao aprendizado e à  
+realização de tarefas de programação e análise de dados.
+No aprendizado de Python e Pandas, por exemplo, um LLM pode explicar o funcionamento  
+de um comando, sugerir formas de selecionar e filtrar dados, ajudar a interpretar uma  
+mensagem de erro ou mostrar diferentes maneiras de realizar uma mesma tarefa.  
+Na análise de dados, pode sugerir operações de agrupamento, indicar formas de explorar  
+uma base e explicar um código. Na visualização da informação, pode sugerir tipos de  
+gráficos adequados para determinada pergunta e auxiliar na criação de código usando  
+bibliotecas como Seaborn e Plotly.
+Por exemplo, em vez de procurar isoladamente como utilizar groupby(), o aluno pode  
+perguntar ao LLM: "Tenho um DataFrame chamado sim_2022 e quero calcular a idade  
+média dos óbitos por sexo. Como posso fazer isso usando Pandas? Explique o código."
+Assim, o LLM pode apresentar uma solução e explicar cada etapa, permitindo que o  
+estudante aprenda enquanto resolve o problema. Ele deve ser utilizado como apoio ao  
+aprendizado e não como substituto da compreensão e da validação dos resultados.  
+A responsabilidade por verificar o código e os resultados é de quem analisa os dados.  
+Veja algumas dicas:
+	
+Leia o código antes de executá-lo: procure entender o que cada linha faz, especialmente  
+	
+filtros, agrupamentos e cálculos.
+	
+Confira os resultados: verifique se os valores e categorias apresentados são compatíveis  
+	
+com a base. Atributos e métodos como shape, unique() e value_counts() podem ajudar  
+	
+nessa verificação.
+	
+Não presuma que os resultados são reais: quando o LLM não tem acesso à sua base,  
+	
+ele não conhece os valores dos seus dados. Execute o código e confira os resultados  
+	
+diretamente no DataFrame.
+	
+Use o LLM para depurar erros: apresente a mensagem de erro e peça uma explicação,  
+	
+mas teste e compreenda a correção sugerida antes de utilizá-la.
+Omitir informações necessárias para interpretar o gráfico
+Um gráfico sem título, unidades, rótulos dos eixos, legenda ou fonte pode 
+perder seu significado quando apresentado fora do contexto original. 
+Dica: Inclua essas informações sempre que forem necessárias 
+para compreender os dados.
+
+===== PAGE 9 =====
+Quadro de referência rápida de visualização
+Referência rápida dos comandos apresentados nesta aula.
+Ação desejada
+Sintaxe em Python
+Histograma rápido a partir do Pandas
+df['coluna'].plot(kind='hist', bins=20)
+Gráfico de barras a partir do Pandas
+df['coluna'].value_counts().plot(kind='bar')
+Histograma com curva de densidade (Seaborn)
+sns.histplot(data=df, x='coluna', kde=True)
+Boxplot comparando grupos (Seaborn)
+sns.boxplot(data=df, x='grupo', y='valor')
+Série temporal interativa (Plotly)
+px.line(df, x='ano', y='total', color='grupo')
+Exibir um gráfico Matplotlib/Seaborn
+plt.show()
+Recursos complementares recomendados
+Veja mais informações acessando os sites indicados.
+	
+FROM DATA TO VIZ. [S. l.: s. n.], [20--]
+	
+PLOTLY. Plotly Express. [S. l.] - Plotly Technologies. 
+	
+SEABORN. [S. l.] - Michael Waskom. 
+Atividade
+Qual é o principal objetivo da Análise Exploratória de Dados (EDA) apresentado na aula?
+	
+a) 	Confirmar automaticamente uma hipótese de pesquisa.
+	
+b) 	Descobrir padrões, identificar valores discrepantes e formular perguntas.
+	
+c) 	Substituir completamente os modelos estatísticos.
+	
+d) 	Produzir somente gráficos para apresentação final.
+	
+e) 	Eliminar automaticamente todos os valores extremos.
+Feedback específico por alternativa:
+	
+a) 	Incorreta. A EDA não tem como objetivo principal confirmar uma hipótese.
+	
+	
+A aula define EDA como a etapa de olhar sistematicamente para os dados antes  
+	
+	
+de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+	
+b) 	Correta. Essa é a função central apresentada para a EDA.
+	
+c) 	Incorreta. A EDA ocorre antes de conclusões ou modelagem e não substitui outras  
+	
+	
+etapas analíticas.
+	
+	
+A aula define EDA como a etapa de olhar sistematicamente para os dados antes  
+	
+	
+de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+	
+d) 	Incorreta. A EDA também serve para detectar problemas e explorar os dados.
+	
+	
+A aula define EDA como a etapa de olhar sistematicamente para os dados antes  
+	
+	
+de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+	
+e) 	Incorreta. Um valor extremo precisa ser investigado antes de ser considerado erro.
+	
+	
+A aula define EDA como a etapa de olhar sistematicamente para os dados antes  
+	
+	
+de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+Atividade Prática
+Antes de partir para o projeto final, pratique os três recursos apresentados nesta aula com a 
+base sim_consolidado e a tabela obitos_muni_ano construídas na aula anterior.
+Desafio
+Habilidade praticada
+Gere um histograma da idade dos óbitos usando  
+.plot(kind='hist') e depois com sns.histplot().
+.plot(), sns.histplot()
+Construa um boxplot da idade por causa básica de óbito  
+(limite às 5 causas mais frequentes).
+sns.boxplot(), value_counts()
+Crie uma série temporal interativa dos óbitos por mês,  
+caso a base tenha uma coluna de data.
+px.line()
+Projeto final do módulo: uma EDA  
+completa
+Para encerrar o módulo 2 com uma atividade para fixar e desenvolver novas habilidades,  
+você vai conduzir uma EDA completa sobre um recorte de dado de saúde à sua escolha.  
+Pode ser uma continuação do estudo de caso do SIM, um outro recorte do próprio SIM  
+(por exemplo, óbitos por causas externas) ou uma base de outro sistema de informação  
+em saúde com a qual você já tenha contato profissional. Veja um exemplo: um estudante  
+que escolher continuar com o SIM pode apresentar uma análise contendo a distribuição  
+da idade dos óbitos (histograma), a comparação da idade entre os sexos (boxplot), a evolução 
+mensal dos óbitos (série temporal) e a distribuição das principais causas de óbito segundo  
+os capítulos da CID-10 (gráfico de barras).
+
+===== PAGE 10 =====
+Agora, que você já viu um exemplo, vamos conhecer os requisitos?
+Seu projeto deve conter, no mínimo:
+Etapa
+O que deve conter
+Importação e inspeção
+Carregamento do arquivo, shape, info(), visualização de  
+alguns registros e verificação de valores nulos.
+Limpeza
+Tratamento de pelo menos uma inconsistência real  
+(nulos, tipos ou categorias), com uma breve justificativa  
+da decisão adotada.
+Distribuição numérica
+Um histograma ou boxplot de uma variável numérica,  
+acompanhado de uma interpretação dos resultados.
+Comparação categórica
+Um gráfico de barras comparando grupos, como sexo  
+ou causa básica de óbito.
+Tempo ou geografia (desafio!)
+Uma série temporal (data_obito, por exemplo) ou uma  
+visualização geográfica (municípios em um mapa  
+cloroplético). Os LLMs podem ajudar bastante nesta tarefa.
+Conclusão
+Um parágrafo com os principais achados e as perguntas  
+que ficaram em aberto.
+Resumo da aula e do módulo
+Ao longo deste módulo você passou da manipulação manual de valores para a análise  
+estruturada de bases de dados de Saúde Pública. Iniciou seu aprendizado em Python,  
+aprendeu a organizar e a limpar dados com o Pandas, integrar diferentes fontes e utilizar  
+gráficos para explorar e comunicar os resultados. Esse percurso — importar, inspecionar,  
+limpar, integrar, agregar e visualizar — constitui uma base comum a muitos processos  
+analíticos de dados em saúde, desde análises de rotina até projetos de pesquisa.
+A partir daqui você pode ampliar gradualmente seus conhecimentos. Os mesmos dados  
+que exploramos neste módulo podem ser utilizados em análises mais avançadas, como  
+testes de hipótese, modelos de regressão, séries temporais e painéis interativos.  
+As ferramentas que você conheceu, como Pandas, Seaborn e Plotly, continuarão sendo  
+úteis nesse caminho.
+Os notebooks deste módulo são modelos reutilizáveis de EDA que você  
+pode adaptar para qualquer nova base de dados que chegar até você no trabalho  
+ou na pesquisa. 
+Além disso, pratique com bases que você já conheça. Explorar dados de temas  
+familiares ajuda a consolidar o aprendizado, a desenvolver autonomia e  
+a descobrir novas possibilidades de uso do Python e do Pandas.
+Referências
+Você concluiu esta aula, continue se empenhando nos seus estudos.
+Siga para o próximo módulo!

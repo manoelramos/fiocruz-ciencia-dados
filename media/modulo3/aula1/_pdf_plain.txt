@@ -1,0 +1,808 @@
+
+===== PAGE 1 =====
+Introdução ao Machine Learning
+Sobre esta aula
+Seja bem-vindo e bem-vinda ao módulo 3! 
+Antes de começar, vale olhar o caminho que você percorreu até aqui. No módulo 1 vimos  
+que a Ciência de Dados aplicada à Saúde se organiza em processos como o KDD-PH, que  
+vai da definição de um problema de Saúde Pública até a geração de conhecimento para a 
+ação. Na aula 3 do módulo 1, conhecemos as principais tarefas de mineração de dados:  
+classificação, regressão, clusterização e sumarização, e combinamos que essas tarefas  
+seriam aprofundadas neste módulo.
+No módulo 2 passamos da teoria à prática. Aprendemos os fundamentos do Python e  
+usamos o Pandas para importar, limpar, integrar e agregar microdados do Sistema de  
+Informação sobre Mortalidade (SIM). Ao final, construímos a tabela obitos_muni_ano, com  
+a taxa de mortalidade por 100 mil habitantes de cada município. Na aula 3 do módulo  
+fizemos a Análise Exploratória de Dados (EDA), que, como vimos, é a etapa que antecede 
+qualquer modelagem.
+Em termos do KDD-PH, você já percorreu a seleção, o pré-processamento e a transformação 
+dos dados. Chegamos agora à etapa de mineração, quando aplicamos algoritmos capazes  
+de aprender padrões a partir dos dados. É aqui que entra o Machine Learning (ML), ou  
+aprendizado de máquina.
+Tabela 1 – O percurso do curso nas etapas do KDD-PH.
+MACHINE LEARNING 
+APLICADO À SAÚDE
+MÓDULO 3 | AULA 1
+Até aqui, nossas análises responderam à pergunta "o que aconteceu?". Descrevemos a  
+distribuição da idade dos óbitos, comparamos causas e acompanhamos a evolução das taxas 
+ao longo do tempo. Com o ML, podemos também perguntar "o que é provável que aconteça?" 
+ou "quais grupos se parecem entre si?" Isso ajuda a antecipar demandas, identificar  
+precocemente grupos de risco e apoiar a alocação de recursos no SUS.
+Nesta aula veremos o que significa uma máquina "aprender", como formalizar um problema 
+de aprendizado, quais são os grandes paradigmas de ML e, ponto essencial, como verificar 
+se um modelo aprendeu de fato. Faremos isso com um primeiro exemplo prático em Python, 
+usando a mesma tabela construída no módulo 2. Por fim, discutiremos os cuidados éticos e 
+legais que acompanham o uso de modelos preditivos na Saúde Pública.
+Etapa do KDD-PH
+Onde trabalhamos no curso
+Seleção
+Aula 2 do módulo 1 (sistemas de informação em saúde) e  
+aula 2 do módulo 2 (importação dos arquivos do SIM).
+Pré-processamento
+Aula 2 do módulo 2 (valores ausentes, tipos de dados,  
+categorias inconsistentes).
+Transformação
+Aula 2 do módulo 2  (concat( ), merge( ), groupby( )  
+e cálculo de taxas).
+Mineração e ML
+Módulo 3 – a partir desta aula
+Interpretação/avaliação
+Aula 3 do módulo 2 (EDA) e módulo 3 (avaliação de modelos).
+O Machine Learning não substitui a epidemiologia nem a estatística. Como  
+discutimos nas aulas 1 e 3 do módulo 1, a Ciência de Dados em Saúde funciona 
+melhor como um procedimento híbrido: a abordagem orientada por dados  
+(data-driven) amplia a capacidade de descoberta, e o conhecimento teórico  
+e epidemiológico (theory-driven) orienta as perguntas e valida se os padrões  
+encontrados fazem sentido. Um modelo que acerta muito, mas cujo resultado  
+não tem plausibilidade epidemiológica, deve ser visto com desconfiança.
+IMPORTANTE!
+IMPORTANTE!
+
+===== PAGE 2 =====
+O notebook e as bases estão disponíveis em https://git.icict.fiocruz.br/cdas/modulo-3-
+machine-learning-aplicado-a-saude, com links para abrir no Colab ou para download.
+Da programação de regras ao aprendizado 
+a partir de exemplos
+Na aula 1 do módulo 2, escrevemos nosso primeiro programa de classificação, mesmo  
+sem usar esse nome. Para decidir se uma pessoa era idosa, bastou uma regra explícita:
+	
+idade = 67
+	
+if idade >= 60:
+    		
+print("Pessoa idosa")
+	
+else:
+    		
+print("Pessoa não idosa")
+Nesse caso, a regra é conhecida e simples: quem a escreve é o analista e o computador  
+apenas a executa. Essa é a lógica da programação tradicional: fornecemos regras e dados,  
+e o programa produz respostas.
+Agora pense em uma pergunta como: "quais características de uma internação indicam maior 
+risco de óbito hospitalar?" A resposta depende de dezenas de fatores: idade, diagnóstico  
+principal, procedimento realizado, tipo de estabelecimento, município de residência, que se 
+combinam de maneiras que ninguém conseguiria listar à mão em comandos if. Ainda assim,  
+o SIH/SUS registra milhões de internações para as quais já sabemos o desfecho.
+O aprendizado de máquina inverte a lógica: em vez de escrever as regras, fornecemos  
+exemplos com as respostas conhecidas, e um algoritmo infere, a partir deles, as regras que 
+melhor relacionam os dados às respostas. O resultado desse processo é chamado de modelo, 
+e a etapa em que o algoritmo aprende com os exemplos é chamada de treinamento.
+Objetivos de aprendizagem
+ 
+Ao final desta aula você será capaz de:
+	
+Situar o Machine Learning na etapa de mineração do KDD-PH e reconhecer sua  
+	
+relação de complementaridade com a estatística e a epidemiologia.
+	
+Compreender a diferença entre programar regras explicitamente e aprender regras  
+	
+a partir de exemplos.
+•		 Representar um problema de aprendizado supervisionado como uma função f: X gY,  
+	 identificando variáveis preditoras (X) e variável alvo (Y) em bases do SUS.
+	
+Diferenciar os paradigmas supervisionado, não supervisionado, semissupervisionado  
+	
+e por reforço, bem como as tarefas de regressão, classificação, clusterização e  
+	
+redução de dimensionalidade.
+	
+Explicar por que um modelo deve ser avaliado em dados que não viu durante o  
+	
+treinamento, reconhecendo os problemas de sobreajuste e subajuste.
+	
+Refletir sobre os desafios éticos, a auditabilidade algorítmica e a conformidade com  
+	
+a LGPD no uso de modelos preditivos em saúde.
+    
+Autoria
+Marcel Pedroso
+Doutor em Administração Pública pela Universidade de Brasília, mestre em Economia pela 
+Pontifícia Universidade Católica de São Paulo e bacharel em História pela Universidade  
+de São Paulo. Atualmente é Pesquisador em Saúde Pública do Instituto de Comunicação  
+e Informação Científica e Tecnológica em Saúde da Fundação Oswaldo Cruz (Icict/Fiocruz), 
+Chefe do Laboratório de Informação em Saúde, Coordenador da Plataforma de Ciência de 
+Dados aplicada à Saúde (PCDaS) do Icict, Jovem Cientista do Nosso Estado (JCNE/FAPERJ), 
+docente permanente do Programa de Pós-Graduação Stricto Sensu em Informação e  
+Comunicação em Saúde (PPGICS/Icict) e pesquisador visitante do Laboratório Nacional de 
+Computação Científica (LNCC).
+Jefferson Lima 
+Doutor em Informação e Comunicação em Saúde (PPGICS/Fiocruz), mestre em Modelagem 
+Matemática da Informação (EMAP/FGV), especialista em Sistemas de Informação (NCE/UFRJ) 
+e graduação em Matemática (UERJ). Atualmente, é Tecnologista em Saúde Pública do  
+Instituto de Comunicação e Informação Científica e Tecnológica em Saúde da Fundação 
+Oswaldo Cruz (Icict/Fiocruz) e Coordenador Adjunto da Plataforma de Ciência de Dados  
+aplicada à Saúde (PCDaS) do Icict. 
+Nesta aula retomaremos a tabela obitos_muni_ano.csv, produzida na aula 2  
+do módulo 2. No notebook disponibilizado para esta aula, os dados serão  
+carregados automaticamente. A biblioteca scikit-learn, que utilizaremos para  
+os primeiros modelos, já vem instalada no Google Colab, a mesma plataforma 
+apresentada na aula 1 do módulo 2.
+IMPORTANTE!
+IMPORTANTE!
+
+===== PAGE 3 =====
+Confira
+Aprendizado  
+de máquina
+Confira
+Programação 
+tradicional
+Programação 
+tradicional 
+O analista escreve explicitamente  
+as regras que processam  
+os dados para produzir respostas  
+(Regras + Dados g Respostas).
+Aprendizado  
+de máquina 
+O algoritmo recebe dados  
+e respostas conhecidas e infere  
+as regras que os relacionam  
+(Dados + Respostas g Regras).
+Figura 1 - Programação tradicional e aprendizado de máquina supervisionado.
+Fonte: Elaborada pelos autores (2026).
+Confira
+Treinamento
+Confira
+Modelo 
+Modelo  
+O conjunto de regras aprendidas,  
+que pode ser aplicado a  
+casos novos para gerar previsões.
+Treinamento 
+A etapa em que o algoritmo  
+ajusta o modelo a partir  
+de exemplos.
+
+===== PAGE 4 =====
+Fonte: Elaborada pelos autores (2026).
+A Tabela 2 mostra como diferentes perguntas de Saúde Pública podem ser formuladas nes-
+ses termos. Repare que o mesmo sistema de informação pode dar origem a problemas bem 
+diferentes, dependendo da escolha de X e de Y.
+Tabela 2 – Perguntas de Saúde Pública formuladas como f: X g Y.
+SAIBA MAIS!
+O estatístico Leo Breiman descreveu essa diferença de ênfase como "duas  
+culturas" da modelagem estatística: uma voltada a explicar o mecanismo que  
+gerou os dados e outra voltada à precisão preditiva. O artigo é uma leitura  
+clássica para quem quer entender a relação entre estatística e aprendizado  
+de máquina: BREIMAN, L. Statistical modeling: the two cultures.  
+Statistical Science, v. 16, n. 3, p. 199-231, 2001.
+SAIBA MAIS!
+E a estatística?
+Uma dúvida comum é se o ML seria uma alternativa à estatística. Não é. Muitos métodos 
+usados em ML, como regressão linear, cujos fundamentos remontam ao século XIX,  
+nasceram na estatística, e ambos os campos aprendem parâmetros a partir de dados.  
+A diferença está mais na ênfase do que no método. A estatística clássica costuma priorizar  
+a inferência: estimar efeitos, medir incertezas e explicar relações entre variáveis. O ML  
+costuma priorizar a predição: acertar o desfecho de casos que ainda não foram observados.
+Na Saúde Pública, as duas perguntas importam. Saber que a escolaridade materna está  
+associada a baixo peso ao nascer (inferência) orienta políticas; estimar quais gestantes de 
+um território têm maior risco (predição) orienta a organização do cuidado. É exatamente a 
+complementaridade defendida desde a aula 1: a Ciência de Dados não substitui a estatística, 
+ela a expande.
+Formalizando o problema:  
+a função f: X gY
+No aprendizado supervisionado, o tipo mais comum de ML e aquele representado na  
+Figura 1, o objetivo é encontrar uma função f capaz de mapear entradas em saídas:
+f: X g Y
+	
+X (variáveis preditoras ou atributos): as informações de entrada, como características  
+	
+demográficas, clínicas, socioeconômicas, geográficas ou ambientais.
+	
+Y (variável alvo ou desfecho): aquilo que se deseja prever, como a ocorrência de óbito,  
+	
+o diagnóstico ou o tempo de internação.
+Essa notação conversa diretamente com o que você aprendeu no Pandas. Em uma tabela  
+de dados, cada linha é uma observação (um paciente, uma internação, um município)  
+e cada coluna é um atributo. X corresponde a um conjunto de colunas, um DataFrame,  
+e Y corresponde a uma única coluna, uma Series. Lembra da diferença entre  
+sim_2022[["idade_obito"]] e sim_2022["idade_obito"], discutida na aula 2  
+do módulo 2? Ela reaparece aqui: por convenção, X é um DataFrame e y é uma Series.
+Figura 2 - A função f: X g Y representada sobre uma tabela de dados.:
+Pergunta
+X (preditoras)
+Y (alvo)
+Tarefa
+Quanto tempo deve 
+durar esta internação? 
+(SIH)
+Idade, sexo, diagnóstico  
+principal (CID-10),  
+procedimento, tipo de  
+estabelecimento.
+Dias de permanência.
+Regressão.
+Esta internação  
+tem risco elevado  
+de óbito? (SIH)
+Idade, diagnóstico principal, 
+procedimento, município  
+de residência.
+Óbito hospitalar  
+(sim/não).
+Classificação.
+Qual taxa de  
+mortalidade esperar 
+no próximo ano?  
+(SIM + IBGE)
+Taxas dos anos anteriores,  
+indicadores socioeconômicos.
+Taxa por 100 mil  
+habitantes.
+Regressão.
+Este recém-nascido 
+tem risco de baixo 
+peso? (SINASC)
+Idade e escolaridade da mãe, 
+número de consultas de  
+pré-natal, tipo de gravidez.
+Peso ao nascer  
+abaixo de 2.500 g 
+(sim/não).
+Classificação.
+Fonte: Elaborada pelos autores (2026).
+
+===== PAGE 5 =====
+IMPORTANTE!
+Duas condições práticas devem ser verificadas ao definir X e Y. Primeiro, Y precisa 
+estar disponível nos dados de treinamento, ou seja, é preciso conhecer o desfecho 
+dos exemplos passados. Segundo, as variáveis de X precisam estar disponíveis no 
+momento em que a previsão será usada. Um modelo que usa, como preditora, 
+uma informação registrada somente depois do desfecho pode parecer excelente 
+no computador, mas é inútil na prática. Voltaremos a esse problema, chamado de 
+vazamento de dados, mais adiante nesta aula.
+IMPORTANTE!
+Grandes paradigmas de aprendizado  
+de máquina
+A escolha de uma abordagem de ML não é arbitrária: ela depende da pergunta de pesquisa e 
+dos dados disponíveis nos sistemas de informação em saúde, em especial, de existir ou não 
+uma variável alvo Y conhecida. A literatura organiza as abordagens em quatro grandes  
+paradigmas. Dentro de cada paradigma, realizamos diferentes tarefas, como mostra a Figura 3.
+Figura 3 - Paradigmas de aprendizado de máquina e suas principais tarefas.
+Um modelo de regressão treinado com dados municipais pode estimar a taxa  
+de mortalidade infantil a partir de indicadores de cobertura de pré-natal, saneamento 
+e renda. Além da previsão, a análise das variáveis mais relevantes para o modelo pode 
+sugerir onde investimentos teriam maior potencial de impacto, desde que essas pistas 
+sejam confrontadas com o conhecimento epidemiológico, pois associação preditiva  
+não é o mesmo que causalidade.
+Aprendizado não supervisionado
+É aplicado quando não há uma variável alvo Y. O objetivo não é prever, mas descobrir  
+estruturas presentes nos próprios dados, o que a aula 3 do módulo 1 chamou de objetivo  
+de descoberta. As tarefas mais comuns são:
+	
+Clusterização (agrupamento): reunir observações semelhantes entre si. Por exemplo,  
+	
+agrupar municípios com perfis parecidos de mortalidade, oferta de serviços e condições  
+	
+socioeconômicas para desenhar políticas territoriais. Um dos grupos encontrados pode,  
+	
+por exemplo, reunir municípios com alta demanda e baixa capacidade instalada, sinalizan		
+	
+do possíveis vazios assistenciais.
+	
+Redução de dimensionalidade: resumir muitas variáveis correlacionadas em um número  
+	
+menor de novas variáveis, preservando a maior parte da informação (variabilidade)  
+	
+original. A técnica mais conhecida é a Análise de Componentes Principais (Principal  
+	
+Component Analysis – PCA), já mencionada na aula 3 do módulo 1 como parte da etapa 	 	
+	
+de transformação do KDD. Ela é útil, por exemplo, para condensar dezenas de indicadores  
+	
+socioeconômicos em poucos componentes, que podem servir de base a um índice  
+	
+de vulnerabilidade.
+Fonte: Elaborada pelos autores (2026).
+Aprendizado supervisionado
+Ocorre quando os dados de treinamento são rotulados, isto é, o desfecho Y é conhecido para 
+cada exemplo. É o paradigma descrito até aqui e o mais utilizado em saúde. Suas duas tarefas 
+principais são:
+	
+Regressão: previsão de valores numéricos contínuos, como o custo de uma internação,  
+	
+o número de dias de permanência ou a taxa de mortalidade de um município.
+	
+Classificação: previsão de categorias, como positivo ou negativo para um agravo, óbito  
+	
+ou não óbito, risco baixo, médio ou alto.
+Um mesmo fenômeno pode ser formulado das duas maneiras. A taxa de mortalidade  
+infantil de um município pode ser prevista como um valor (regressão) ou como uma faixa  
+baixa, média ou alta (classificação). Transformar um valor contínuo em faixas facilita a  
+comunicação com a gestão, mas descarta informação; por isso, a escolha deve ser justificada 
+pela pergunta que se quer responder.
+
+===== PAGE 6 =====
+Observe a diferença: a clusterização agrupa linhas (observações), enquanto a redução de  
+dimensionalidade condensa colunas (atributos). Nos dois casos, como não há um Y para  
+comparar, a interpretação dos resultados depende fortemente do conhecimento de quem 
+analisa: são os especialistas que dizem se os grupos encontrados fazem sentido para  
+a Saúde Pública.
+Aprendizado semissupervisionado
+Em muitos problemas do SUS, o desfecho já vem registrado nos próprios sistemas:  
+a Autorização de Internação Hospitalar (AIH) informa se o paciente recebeu alta ou foi a óbito, 
+e o SINASC registra o peso ao nascer. Em outros, porém, obter o rótulo exige trabalho  
+especializado. Lembre-se das causas mal definidas de óbito (garbage codes), discutidas na 
+aula 1 do módulo 1: atribuir a causa correta a uma declaração de óbito pode exigir  
+investigação e revisão por especialistas, o que é caro e demorado.
+Nesses casos, é comum dispor de uma pequena parte dos dados rotulada e de um grande  
+volume sem rótulo. O aprendizado semissupervisionado combina as duas partes: usa os  
+poucos exemplos rotulados para orientar o aprendizado e aproveita a estrutura dos muitos 
+exemplos não rotulados para aprimorá-lo.
+Aprendizado por reforço
+No aprendizado por reforço, um agente aprende a tomar uma sequência de decisões  
+interagindo com um ambiente: a cada ação, recebe uma recompensa ou uma penalidade e, 
+por tentativa e erro, aprende a estratégia que maximiza o resultado ao longo do tempo.  
+Em saúde, pode ser aplicado a problemas como a definição de rotas e da ordem de  
+reabastecimento na distribuição de vacinas, ou a estratégias de alocação de recursos que  
+se ajustam à evolução de uma epidemia.
+Esse paradigma ainda é pouco utilizado na Saúde Pública, e há uma razão importante  
+para isso: não é aceitável aprender "por tentativa e erro" com a população real. Por isso,  
+o aprendizado por reforço costuma depender de ambientes de simulação, e suas  
+recomendações precisam ser validadas por especialistas antes de qualquer uso.
+Tabela 3 – Síntese dos paradigmas de aprendizado de máquina.
+Fonte: Elaborada pelos autores (2026).
+Como saber se um modelo aprendeu?  
+Treino, teste e sobreajuste
+Até agora, dissemos que um algoritmo de ML "aprende" a partir de exemplos. Porém,  
+como verificar se ele aprendeu de fato ou se apenas decorou os exemplos que recebeu?  
+Essa pergunta é central em qualquer aplicação de ML e se torna ainda mais importante  
+em saúde, pois um modelo que erra pode influenciar decisões sobre pessoas.
+Decorar não é aprender
+Pense em um estudante que se prepara para uma prova resolvendo sempre a mesma lista  
+de exercícios, até memorizar todas as respostas. Se a prova repetir a lista, ele tira nota  
+máxima. Se a prova trouxer questões novas sobre o mesmo conteúdo, ele pode ir muito  
+mal, porque memorizou respostas em vez de compreender a matéria.
+Com os modelos de ML acontece o mesmo. O objetivo não é acertar os casos que o modelo 
+já viu, mas generalizar, isto é, fazer boas previsões para casos novos. Um modelo que prevê 
+bem a taxa de mortalidade dos municípios usados no treinamento, mas falha em outros  
+municípios, não tem utilidade prática para a gestão.
+Separando os dados: conjunto de treino e  
+conjunto de teste
+Para avaliar a generalização, dividimos os dados em duas partes:
+	
+Conjunto de treino: os exemplos que o modelo usa para aprender a relação entre X e Y.
+	
+Conjunto de teste: exemplos guardados à parte, que o modelo não vê durante o  
+	
+treinamento. Eles funcionam como a "prova com questões novas".
+A comparação entre o desempenho no treino e no teste é o que nos diz se o modelo  
+aprendeu um padrão ou se apenas memorizou os dados.
+Figura 4 - Divisão dos dados em conjuntos de treino e de teste.
+Paradigma
+Pergunta típica
+Exemplo em saúde
+Supervisionado
+Qual será o desfecho  
+deste caso?
+Prever o tempo de permanência  
+de uma internação ou o risco  
+de óbito hospitalar.
+Não supervisionado
+Que estruturas existem  
+nos dados?
+Agrupar municípios por perfil  
+epidemiológico; resumir  
+indicadores com PCA.
+Semissupervisionado
+Como aproveitar poucos  
+rótulos e muitos dados  
+sem rótulo?
+Apoiar a qualificação de causas  
+mal definidas a partir de uma  
+amostra revisada.
+Por reforço
+Qual sequência de decisões 
+produz o melhor resultado?
+Simular estratégias de distribuição  
+de vacinas.
+Fonte: Elaborada pelos autores (2026).
+
+===== PAGE 7 =====
+Mão na massa: prevendo a taxa de mortalidade de 2022
+Vamos voltar à pergunta do gestor apresentada no início da aula: é possível estimar a taxa de 
+mortalidade de 2022 de um município a partir das taxas de 2019, 2020 e 2021? Em termos da 
+formalização f: X g Y:
+    • X 	(variáveis preditoras): as taxas de mortalidade de 2019, 2020 e 2021.
+    • Y (variável alvo): a taxa de mortalidade de 2022.
+Como Y é um valor numérico contínuo, trata-se de uma tarefa de regressão. Primeiro,  
+reorganizamos a tabela da aula 2 do módulo 2 para que cada linha seja um município e cada 
+coluna, a taxa de um ano:
+	
+import pandas as pd
+ 
+	
+obitos_muni_ano = pd.read_csv("obitos_muni_ano.csv")
+ 
+	
+# Uma linha por município, uma coluna por ano
+	
+tabela = (
+    		
+obitos_muni_ano
+    		
+.pivot(index="codigo_municipio",
+           	 	
+columns="ano_obito",
+           	 	
+values="taxa_mortalidade")
+    		
+# remove municípios sem informação em algum dos anos
+    		
+.dropna()
+	
+)
+	
+tabela.columns = [f"taxa_{ano}" for ano in tabela.columns]
+	
+tabela.head(3)
+O método pivot() faz o caminho inverso do formato "longo" que obtivemos com groupby() 
+na aula 2 do módulo 2: transforma os valores de uma coluna (ano_obito) em novas colunas. 
+Em seguida, separamos X e y e dividimos os dados em treino e teste com a função train_
+test_split(), da biblioteca scikit-learn:
+	
+from sklearn.model_selection import train_test_split
+ 
+	
+X = tabela[["taxa_2019", "taxa_2020", "taxa_2021"]]  # DataFrame
+	
+y = tabela["taxa_2022"]                              # Series
+ 
+	
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    		
+X, y,
+    		
+test_size=0.3,   # 30% dos municípios reservados para teste
+    		
+random_state=42  # mesma divisão a cada execução
+	
+)
+	
+print("Municípios no treino:", len(X_treino))
+	
+print("Municípios no teste:", len(X_teste))
+Temos os dados de cerca de 90 municípios do estado do Rio de Janeiro.  
+Podemos usar 70% deles para treinar o modelo e reservar os 30% restantes para  
+o teste. O modelo nunca "enxerga" os municípios do teste durante o aprendizado.  
+Assim, o erro medido nesses municípios é uma estimativa mais honesta de como  
+ele se sairia com dados novos.
+O parâmetro random_state fixa o sorteio que separa treino e teste.  
+Sem ele, cada execução produziria uma divisão diferente e resultados ligeiramente 
+diferentes. Fixar esse valor é uma prática de pesquisa reprodutível, conceito que  
+discutimos na aula 3: qualquer pessoa que executar o seu notebook obterá os  
+mesmos números.
+Para o modelo, usaremos uma árvore de decisão. De forma simplificada, ela aprende uma  
+sequência de perguntas do tipo "SE a taxa de 2021 for maior do que tal valor, ENTÃO...".  
+Repare na ligação com o início da aula: em vez de escrevermos essas regras manualmente, 
+como fizemos com o if da aula 1 do módulo 2, o algoritmo as descobre a partir dos dados.  
+Estudaremos esse e outros algoritmos com mais detalhes nas próximas aulas.
+A árvore tem um parâmetro chamado max_depth, que limita quantas perguntas ela pode  
+encadear. Quanto maior a profundidade, mais detalhadas as regras que ela consegue aprender. 
+Vamos treinar árvores com profundidades diferentes e medir o erro em cada conjunto:
+	
+from sklearn.tree import DecisionTreeRegressor
+	
+from sklearn.metrics import mean_absolute_error
+ 
+	
+# None = árvore sem limite de profundidade
+	
+for profundidade in [1, 2, 3, 5, None]:
+    	modelo = DecisionTreeRegressor(max_depth=profundidade,
+                                   		
+random_state=42)
+    	# o modelo aprende apenas com o conjunto de treino
+    	modelo.fit(X_treino, y_treino)
+ 
+    	erro_treino = mean_absolute_error(y_treino,
+                                    	 modelo.predict(X_treino))
+    	erro_teste = mean_absolute_error(y_teste,
+                                     	modelo.predict(X_teste))
+ 
+    	print(f"Profundidade {profundidade}: "
+          	 f"erro no treino = {erro_treino:.1f} | "
+           f"erro no teste = {erro_teste:.1f}")
+
+===== PAGE 8 =====
+Os métodos fit() e predict() seguem um padrão que se repete em praticamente todos  
+os modelos do scikit-learn: fit() treina o modelo com X e y, e predict() aplica as regras 
+aprendidas a novos valores de X.
+O erro absoluto médio (mean_absolute_error) é a média das diferenças, em valor absoluto, 
+entre a taxa prevista e a taxa real. Ele é expresso na mesma unidade da variável alvo: óbitos 
+por 100 mil habitantes. Um erro de 30, por exemplo, significa que, em média, o modelo errou 
+a taxa do município em 30 óbitos por 100 mil habitantes, para mais ou para menos.
+Ao executar o código, observe dois comportamentos. Primeiro, à medida que a profundidade 
+aumenta, o erro no treino diminui, sem limite de profundidade, ele chega a zero, porque a ár-
+vore consegue criar uma regra específica para cada município do treino. Segundo, o erro no 
+teste não acompanha essa queda. Em geral, ele melhora nas primeiras profundidades e de-
+pois para de melhorar ou volta a piorar. Com poucos municípios, os números podem oscilar, 
+mas a distância entre os dois erros é o que nos interessa.
+Sobreajuste e subajuste
+A árvore sem limite de profundidade é o nosso estudante que decorou a lista de exercícios. 
+Esse fenômeno se chama sobreajuste (overfitting): o modelo se ajusta tanto aos dados de 
+treino que passa a reproduzir também suas particularidades e ruídos, como flutuações aleató-
+rias de municípios pequenos, e perde a capacidade de generalizar.
+O problema oposto é o subajuste (underfitting): o modelo é simples demais para capturar o 
+padrão existente. Uma árvore com uma única pergunta, por exemplo, divide os municípios em 
+apenas dois grupos e atribui a mesma previsão a todos os municípios de cada grupo. A Figura 
+5 ilustra as três situações com dados simulados.
+Figura 5 - Subajuste, bom ajuste e sobreajuste (dados simulados).
+Fonte: Elaborada pelos autores (2026).
+Tabela 4 – Como interpretar a comparação entre o erro no treino e o erro no teste.
+Cuidados na avaliação de modelos com dados de saúde
+A divisão em treino e teste é o primeiro passo de uma boa avaliação, mas alguns cuidados 
+adicionais são importantes.
+O conjunto de teste deve ser usado apenas no final. No exemplo anterior, escolhemos a  
+profundidade olhando o erro no teste (dados de 2022). Isso é aceitável para fins didáticos, 
+mas, na prática, contamina a avaliação: o teste deixa de ser uma "prova com questões novas". 
+Em projetos reais, os ajustes do modelo são feitos com uma terceira parte dos dados,  
+o conjunto de validação, ou com uma técnica chamada validação cruzada, que veremos  
+mais adiante no módulo.
+Cuidado com o vazamento de dados (data leakage). Ele ocorre quando alguma informação 
+sobre o desfecho entra nas variáveis preditoras. Por exemplo, usar a data do óbito, ou o  
+motivo de saída registrado ao final da internação, para prever se uma internação terminará 
+em óbito. O modelo parecerá excelente, mas é inútil na prática, pois essa informação  
+não estará disponível no momento da decisão.
+Situação
+Erro no treino
+Erro no teste
+O que indica
+Subajuste
+Alto.
+Alto.
+O modelo é simples demais  
+e não capturou o padrão.
+Bom ajuste
+Baixo.
+Baixo e próximo  
+ao do treino.
+O modelo aprendeu um  
+padrão que se generaliza.
+Sobreajuste
+Muito baixo  
+(às vezes zero).
+Bem maior do  
+que o do treino.
+O modelo memorizou  
+os dados de treino.
+Fonte: Elaborada pelos autores (2026).
+Um erro muito baixo no treino não é sinal de um bom modelo. Desconfie  
+sempre de resultados "bons demais" e avalie o desempenho em dados que o  
+modelo não viu. Em saúde, apresentar a um gestor um modelo sobreajustado, 
+com desempenho aparentemente excelente, pode levar a decisões equivocadas 
+sobre alocação de recursos.
+ATENÇÃO
+Compare sempre o seu modelo com uma previsão ingênua, isto é, uma  
+regra simples que não exige ML; por exemplo, suponha que "a taxa de 2022  
+será igual à de 2021". O erro dessa regra pode ser calculado com mean_absolute_ 
+error(y_teste, X_teste["taxa_2021"]). Se o modelo não superar uma previsão 
+ingênua razoável, ele não está agregando valor à decisão. Neste exemplo, lembre-se 
+de que 2021 foi um ano atípico por causa da pandemia; experimente também usar a 
+taxa de 2019 como previsão ingênua e compare os resultados.
+
+===== PAGE 9 =====
+O tempo importa. Os anos de 2020 e 2021 foram marcados pela pandemia de covid-19,  
+que alterou fortemente a mortalidade. Um modelo treinado nesse período pode não  
+representar bem os anos seguintes. Quando o objetivo é prever o futuro, o mais adequado 
+costuma ser treinar com os anos mais antigos e testar com os mais recentes, em vez de  
+sortear os registros.
+Aplicações, ética e governança na saúde 
+pública
+Aplicações baseadas em Machine Learning não são neutras: elas carregam as premissas de 
+quem as desenvolve e as características — inclusive as distorções — dos dados com que  
+foram treinadas. Por isso, em Saúde Pública, governança e ética são inseparáveis da técnica.
+Onde o aprendizado de máquina pode apoiar o SUS
+As aplicações são variadas. Na vigilância, modelos podem antecipar o aumento de casos  
+de um agravo a partir de dados de notificação, clima ou buscas na internet, como discutimos 
+na aula 3 do módulo 1. Na gestão, podem estimar a demanda por leitos e o tempo de  
+permanência das internações, apoiando o planejamento da rede. No cuidado, podem  
+identificar precocemente gestantes, recém-nascidos ou pacientes crônicos com maior risco, 
+orientando a busca ativa pelas equipes de saúde. No planejamento territorial, a clusterização 
+pode revelar grupos de municípios com necessidades semelhantes.
+Um modelo preditivo de risco de internação foi treinado com dados de uma  
+região com boa cobertura de serviços de saúde e apresentou baixo erro no conjunto 
+de teste. Ele terá o mesmo desempenho se for aplicado em outra região do país, com 
+perfil socioeconômico e cobertura diferentes? O que isso nos diz sobre os limites da 
+generalização e sobre a equidade, tema da próxima seção?
+Qualidade dos dados e infraestrutura
+Um modelo aprende com os dados que recebe, inclusive com seus problemas. Sub-registro, 
+causas mal definidas e diferenças regionais de cobertura dos sistemas de informação,  
+discutidos no módulo 1, afetam diretamente o que o modelo aprende. Se os óbitos de uma  
+região são pouco registrados, o modelo "aprenderá" que ali se morre menos.
+Além disso, trabalhar com bases como o SIH ou o SIM completos pode exigir infraestrutura 
+computacional de alto desempenho. Como exemplo, a Plataforma de Ciência de Dados  
+aplicada à Saúde (PCDaS), do Icict/Fiocruz, em parceria com o Laboratório Nacional de  
+Computação Científica (LNCC), opera como uma PaaS (Platform as a Service): oferece poder 
+computacional para processar grandes volumes de dados de forma remota e segura.  
+A plataforma também adota um procedimento de validação que compara os microdados  
+processados com as tabelas de referência do TabNet/DATASUS e decodifica as variáveis  
+originais em nomes significativos, cuidados que aumentam a confiabilidade dos dados usados 
+para treinar modelos. 
+Equidade e vieses algorítmicos
+Modelos treinados com dados históricos tendem a reproduzir os padrões desses dados,  
+inclusive as desigualdades. Pense em um modelo para priorizar pacientes em uma fila  
+de regulação, treinado com o histórico de quem foi atendido. Se determinados grupos  
+tiveram, historicamente, menos acesso aos serviços, eles aparecerão menos nos dados,  
+e o modelo pode aprender a atribuir-lhes menor prioridade, perpetuando iniquidades  
+socioeconômicas e raciais.
+Retirar do modelo variáveis sensíveis, como raça/cor, não resolve o problema por  
+completo: outras variáveis, como o território de residência ou a escolaridade, podem funcionar 
+como substitutas e carregar a mesma informação. Por isso, a equidade algorítmica precisa  
+ser monitorada ativamente, avaliando o desempenho do modelo em diferentes grupos  
+populacionais. Esse tema será aprofundado na aula 3 do módulo 3.
+Transparência e auditabilidade
+Alguns modelos, como a árvore de decisão com poucos níveis que usamos nesta aula, são  
+interpretáveis: é possível ler as regras que eles aprenderam. Outros, mais complexos,  
+funcionam como uma caixa-preta (black-box): produzem previsões precisas, mas sem  
+explicitar a lógica por trás delas. Existe todo um campo, chamado de IA explicável  
+(Explainable AI – XAI), dedicado a desenvolver métodos para interpretar esses modelos.
+Na gestão pública, a transparência não é apenas uma questão técnica. Quando uma  
+decisão que afeta pessoas é apoiada por um modelo, é preciso ser capaz de explicá-la,  
+identificar eventuais vieses e prestar contas. A Lei Geral de Proteção de Dados Pessoais 
+(LGPD) garante ao titular o direito de solicitar a revisão de decisões tomadas unicamente  
+com base em tratamento automatizado de dados pessoais que afetem seus interesses  
+(art. 20). Em qualquer caso, a responsabilidade pela decisão continua sendo do gestor,  
+e não do algoritmo.
+Iniciativas brasileiras como o MonitoraCovid-19, da Fiocruz, apresentado na  
+aula 3 do módulo 1, e o Observatório Obstétrico Brasileiro (OOBr), que reúne e  
+analisa dados sobre saúde materna, mostram como a integração e a disponibilização 
+transparente de dados de saúde geram evidências para a tomada de decisão.  
+Esse tipo de infraestrutura de dados é o ponto de partida para qualquer modelo  
+preditivo confiável: não há bom modelo sem bons dados.
+
+===== PAGE 10 =====
+Como garantir a auditabilidade de um modelo "caixa-preta" quando ele  
+fundamenta uma decisão de gestão passível de judicialização na saúde?  
+Um ganho pequeno de precisão justifica abrir mão da possibilidade de explicar  
+a decisão ao cidadão?
+Proteção de dados e ética em pesquisa
+Dados de saúde são classificados pela LGPD como dados pessoais sensíveis e exigem  
+proteção reforçada. O consentimento individual não é a única base legal para seu uso:  
+a lei também prevê, entre outras hipóteses, a execução de políticas públicas e a realização  
+de estudos por órgão de pesquisa. Para estudos em Saúde Pública, a LGPD determina  
+que os dados sejam tratados em ambiente controlado e seguro e, sempre que possível,  
+anonimizados ou pseudonimizados.
+Vale lembrar que a anonimização reduz, mas não elimina, o risco de reidentificação,  
+especialmente quando diferentes bases são cruzadas, como no linkage discutido  
+no módulo 1. Modelos de ML, que combinam muitas variáveis, tornam esse cuidado  
+ainda mais importante.
+O acesso a microdados identificados em projetos específicos da PCDaS  
+segue a LGPD e protocolos de anonimização. O uso dos dados exige a  
+assinatura do Termo de Compromisso de Utilização de Dados (TCUD), no qual o  
+pesquisador assume formalmente a responsabilidade pelo sigilo e pelo uso adequado 
+das informações. Projetos de pesquisa também devem ser aprovados pelo sistema  
+de Comitês de Ética em Pesquisa (CEP/CONEP).
+Consulte a lei na íntegra: Lei nº 13.709, de 14 de agosto de 2018 (LGPD).
+Exercícios de fixação
+Antes de seguir, pratique os conceitos desta aula com a tabela obitos_muni_ano construída 
+na aula 2 do módulo 2:
+Tabela 5 – Exercícios de fixação.
+Desafio
+Habilidade praticada
+Escolha um sistema de informação que você conhece  
+(SIM, SINASC, SIH ou outro) e formule uma pergunta como  
+f: X g Y. Indique o paradigma e a tarefa.
+Formalização do problema, 
+paradigmas e tarefas.
+Altere test_size para 0.2 e 0.4 e observe como os erros  
+no treino e no teste mudam.
+train_test_split( )
+Mude o random_state para outros valores e compare  
+os resultados. O que isso revela sobre avaliar modelos  
+com poucos municípios?
+Reprodutibilidade,  
+variabilidade da avaliação.
+Calcule o erro das previsões ingênuas "taxa de 2022 =  
+taxa de 2021" e "taxa de 2022 = taxa de 2019" e compare-os 
+com o da melhor árvore.
+mean_absolute_error( ),  
+previsão de referência.
+Treine o modelo usando apenas 2019 e 2020 como  
+preditores e compare com o modelo original.
+Seleção de variáveis  
+preditoras.
+Quadro de referência rápida
+Tabela 6 – Referência rápida dos comandos apresentados nesta aula.
+Ação desejada
+Sintaxe em Python
+Transformar valores de uma  
+coluna em novas colunas
+df.pivot(index="id", columns="ano", values="taxa")
+Dividir os dados em treino  
+e teste
+train_test_split(X, y, test_size=0.3, random_ 
+state=42)
+Criar uma árvore de decisão  
+para regressão
+DecisionTreeRegressor(max_depth=3, random_ 
+state=42)
+Treinar o modelo
+modelo.fit(X_treino, y_treino)
+Gerar previsões
+modelo.predict(X_teste)
+Calcular o erro absoluto médio
+mean_absolute_error(y_real, y_previsto)
+Recursos complementares recomendados
+KAGGLE. Competitions. [S. l.]: Kaggle, [20--]. Competições de ciência de dados com  
+problemas reais, úteis para praticar e construir portfólio. Disponível em: https://www.kaggle.
+com/competitions. Acesso em: 21 set. 2026.
+KAGGLE. Intro to Machine Learning. [S. l.]: Kaggle, [20--]. Curso on-line gratuito. Disponível em: 
+https://www.kaggle.com/learn/intro-to-machine-learning. Acesso em: 21 set. 2026.
+LABORATÓRIO DE BIG DATA E ANÁLISE PREDITIVA EM SAÚDE (LABDAPS). Faculdade de 
+Saúde Pública da Universidade de São Paulo. Publicações. Disponível em: https://labdaps.fsp.
+usp.br/artigos. Acesso em: 21 set. 2026.
+PLATAFORMA DE CIÊNCIA DE DADOS APLICADA À SAÚDE (PCDaS). Icict/Fiocruz.  
+Publicações. Disponível em: https://pcdas.icict.fiocruz.br/publicacoes. Acesso em: 21 set. 
+2026.
+
+===== PAGE 11 =====
+SCIKIT-LEARN. User Guide. [S. l.]: scikit-learn developers, [20--]. Disponível em:  
+https://scikit-learn.org/stable/user_guide.html. Acesso em: 21 set. 2026.
+Conclusão da aula
+Nesta aula demos o primeiro passo na etapa de mineração do KDD-PH. Vimos que o  
+aprendizado de máquina inverte a lógica da programação tradicional, aprendendo regras a 
+partir de exemplos, e que essa abordagem complementa, e não substitui, a estatística e 
+ a epidemiologia. Formalizamos o aprendizado supervisionado como a busca por uma função 
+f: X g Y, conhecemos os quatro grandes paradigmas de ML e suas tarefas e, com o nosso  
+primeiro modelo em Python, vimos por que um modelo deve ser avaliado em dados que não 
+viu durante o treinamento.
+Também discutimos que um bom modelo não é apenas aquele que acerta, pois ele precisa 
+ser treinado com dados de qualidade, avaliado com rigor, monitorado quanto a vieses e usado 
+de forma transparente e em conformidade com a LGPD. O Machine Learning deve ser  
+compreendido como um suporte à decisão humana, nunca como seu substituto.
+Preparando-se para a próxima aula
+Na próxima aula aprofundaremos o aprendizado supervisionado: conheceremos os principais 
+algoritmos de regressão e classificação e as métricas usadas para avaliar cada tipo de  
+modelo. Os conceitos de treino, teste, generalização e sobreajuste vistos hoje serão a base 
+para compararmos esses algoritmos de forma justa.
+Referências
+BRASIL. Presidência da República. Secretaria-Geral. Subchefia para Assuntos Jurídicos.  
+Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). 
+Brasília, DF: Pres. da República, 2018. Disponível em: https://www.planalto.gov.br/ccivil_03/_
+ato2015-2018/2018/lei/l13709.htm. Acesso em: 21 set. 2026.
+BREIMAN, L. Statistical modeling: the two cultures. Statistical Science, v. 16, n. 3, p. 199-
+231, 2001.
+FAYYAD, U.; PIATETSKY-SHAPIRO, G.; SMYTH, P. From data mining to knowledge discovery 
+in databases. AI Magazine, v. 17, n. 3, p. 37-54, 1996.
+JAMES, G.; WITTEN, D.; HASTIE, T.; TIBSHIRANI, R. An introduction to statistical learning: 
+with applications in R. 2. ed. New York: Springer, 2021. Disponível em:  
+https://www.statlearning.com. Acesso em: 21 set. 2026.
+MORETTIN, P. A.; SINGER, J. M. Estatística e ciência de dados. Rio de Janeiro: LTC, 2022.
+OSTERNE, V. Pipeline e fundamentos de machine learning: do pré-processamento ao mo-
+delo final, passando por regressão, árvores, SVM, KNN, Naive Bayes, clustering e reforço. Re-
+curso on-line (264 p.). Disponível em: https://www.osterne.com. Acesso em: 13 maio 2026.
+PEDREGOSA, F. et al. Scikit-learn: machine learning in Python. Journal of Machine Learning 
+Research, v. 12, p. 2825-2830, 2011.
+PEDROSO, M. et al. Data science platform applied to health in contribution to the Brazilian 
+Unified Health System. Joint Workshops at 49th International Conference on Very Large 
+Data Bases (VLDBW’23). Vancouver: CEUR Workshop Proceedings, 2023.
+SALDANHA, R. F.; BARCELLOS, C.; PEDROSO, M. M. Ciência de dados e big data: o que isso 
+significa para estudos populacionais e da saúde? Cadernos Saúde Coletiva, Rio de Janeiro, v. 
+29, n. esp., p. 51-58, 2021.
+"Ciência de dados é um campo interdisciplinar que pode auxiliar a 
+descoberta de conhecimento a partir de bases complexas e guiar 
+a tomada de decisão orientada por dados."  
+SALDANHA, BARCELLOS E PEDROSO (2021).

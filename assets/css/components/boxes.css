@@ -118,6 +118,16 @@
 	color: var(--fio-sys-color-neutral-white);
 }
 
+.box[data-box='Atenção'] .card .card-body code {
+	display: inline-block;
+	background-color: #fff;
+	color: #d63384;
+	padding: 0.35rem 0.6rem;
+	border-radius: var(--fio-sys-size-radius-sm);
+	font-size: 0.95em;
+	word-break: break-word;
+}
+
 .box[data-box='Atenção'] .card .card-body .custom-shape-divider-top-1720289331 svg {
     position: relative;
     display: block;

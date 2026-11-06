@@ -1,0 +1,634 @@
+
+===== PAGE 1 =====
+y= 717.4 sz=65.0 fl=4 | EDA e visualização da informação:
+y= 795.4 sz=65.0 fl=4 | dando vida aos dados
+y= 947.1 sz=53.0 fl=4 | Sobre esta aula
+y=1076.0 sz=26.0 fl=4 | Seja bem-vindo e bem-vinda à aula "EDA e visualização da informação: dando vida
+y=1114.0 sz=26.0 fl=4 | aos dados". A seguir, veja algumas informações importantes sobre esta aula.
+y=1185.8 sz=40.0 fl=4 | Objetivos de aprendizagem
+y=1276.0 sz=26.0 fl=4 | Ao final desta aula esperamos que você seja capaz de:
+y=1352.0 sz=26.0 fl=4 | Compreender o que é a Análise Exploratória de Dados (EDA) e qual o seu papel antes
+y=1390.0 sz=26.0 fl=4 | de qualquer modelagem ou comunicação de resultados.
+y=1466.0 sz=26.0 fl=4 | Escolher o tipo de gráfico adequado a cada tipo de pergunta: categórica, numérica,
+y=1504.0 sz=26.0 fl=4 | temporal ou geográfica.
+y=1580.0 sz=26.0 fl=4 | Gerar gráficos rápidos de inspeção diretamente de um DataFrame com o método .plot()
+y=1618.0 sz=26.0 fl=4 | do Pandas e gráficos interativos utilizando o Plotly.
+y=1694.0 sz=26.0 fl=4 | Explorar distribuições de variáveis numéricas com histogramas e boxplots utilizando
+y=1732.0 sz=26.0 fl=4 | o Seaborn.
+y=1808.0 sz=26.0 fl=4 | Relacionar esses conceitos às atividades de análise de dados em saúde que serão
+y=1846.1 sz=26.0 fl=4 | desenvolvidas nas próximas aulas.
+y=1922.1 sz=26.0 fl=4 | Planejar e executar uma EDA completa sobre um recorte de dado de saúde à sua
+y=1960.1 sz=26.0 fl=4 | escolha, como projeto final do módulo.
+y=2059.9 sz=53.0 fl=4 | Autoria
+y=2163.2 sz=26.0 fl=4 | Jefferson Lima
+y=2201.2 sz=26.0 fl=4 | Doutor em Informação e Comunicação em Saúde (PPGICS/Fiocruz), mestre em Modelagem
+y=2239.2 sz=26.0 fl=4 | Matemática da Informação (EMAP/FGV), especialista em Sistemas de Informação (NCE/UFRJ)
+y=2277.2 sz=26.0 fl=4 | e graduação em Matemática (UERJ). Atualmente é Tecnologista em Saúde Pública do
+y=2315.2 sz=26.0 fl=4 | Instituto de Comunicação e Informação Científica e Tecnológica em Saúde da Fundação
+y=2353.3 sz=26.0 fl=4 | Oswaldo Cruz (Icict/Fiocruz) e Coordenador Adjunto da Plataforma de Ciência de Dados
+y=2391.3 sz=26.0 fl=4 | aplicada à Saúde (PCDaS) do Icict.
+y=2465.5 sz=53.0 fl=4 | Introdução
+y=2568.8 sz=26.0 fl=4 | Na aula anterior você viu como transformar arquivos brutos do SIM em tabelas limpas,
+y=2606.8 sz=26.0 fl=4 | integradas e agregadas. Até o momento você aprendeu a:
+y=2682.8 sz=26.0 fl=4 | Importar.
+y=2758.8 sz=26.0 fl=4 | Inspecionar.
+y=2834.8 sz=26.0 fl=4 | Filtrar.
+y=2910.8 sz=26.0 fl=4 | Tratar inconsistências.
+y=2986.8 sz=26.0 fl=4 | Empilhar bases anuais com concat().
+y=3062.8 sz=26.0 fl=4 | Cruzar dados com merge().
+y=3138.8 sz=26.0 fl=4 | Calcular indicadores com groupby().
+y=3214.8 sz=26.0 fl=4 | Assim, você chegou a uma tabela final consolidada, com o total de óbitos e a taxa de
+y=3252.8 sz=26.0 fl=4 | mortalidade por 100 mil habitantes em cada município.
+y=3328.8 sz=26.0 fl=4 | Como já mencionado neste módulo, uma tabela, à medida que o número de linhas e
+y=3366.8 sz=26.0 fl=4 | colunas cresce, torna-se complexa para realizar uma interpretação rápida. Nesta aula você
+y=3404.8 sz=26.0 fl=4 | verá como  transformar essas tabelas em gráficos que agilizem a descoberta de padrões a
+y= 267.5 sz=78.0 fl=4 | PYTHON PARA ANÁLISE
+y= 361.1 sz=78.0 fl=4 | DE DADOS EM SAÚDE
+y= 207.8 sz=34.0 fl=4 | MÓDULO 2 | AULA 3
+IMAGES: 14
+
+===== PAGE 2 =====
+y=1609.1 sz=53.0 fl=4 | O que é e para que serve a EDA?
+y=1738.0 sz=26.0 fl=4 | A Análise Exploratória de Dados (EDA, do inglês Exploratory Data Analysis) é a etapa
+y=1776.0 sz=26.0 fl=4 | em que olhamos para os dados de forma sistemática antes de tirar conclusões ou construir
+y=1814.0 sz=26.0 fl=4 | modelos estatísticos. Seu objetivo não é confirmar uma hipótese, mas descobrir padrões,
+y=1852.0 sz=26.0 fl=4 | identificar valores discrepantes e formular boas perguntas.
+y=1928.0 sz=26.0 fl=4 | Já praticamos uma parte da EDA na aula anterior, quando usamos .head(), .info(), .describe(),
+y=1966.0 sz=26.0 fl=4 | .unique() e .value_counts() para inspecionar um subconjunto dos dados do Sistema de
+y=2004.1 sz=26.0 fl=4 | Informação sobre Mortalidade (SIM). A visualização gráfica é a continuação natural desse
+y=2042.1 sz=26.0 fl=4 | processo: um histograma revela em segundos uma assimetria que uma tabela de médias
+y=2080.1 sz=26.0 fl=4 | esconderia, e um mapa evidencia desigualdades territoriais que uma lista de municípios não
+y=2118.1 sz=26.0 fl=4 | comunica. Veja algumas das principais contribuições da visualização gráfica para a EDA:
+y=2194.1 sz=26.0 fl=4 | Detectar problemas: valores fora do intervalo esperado, categorias mal padronizadas,
+y=2232.1 sz=26.0 fl=4 | concentrações inesperadas de dados faltantes.
+y=2308.1 sz=26.0 fl=4 | Descrever o comportamento dos dados: forma da distribuição, presença de assimetria,
+y=2346.1 sz=26.0 fl=4 | dispersão entre grupos.
+y=2422.1 sz=26.0 fl=4 | Gerar hipóteses: identificar padrões que merecem investigação mais aprofundada,
+y=2460.1 sz=26.0 fl=4 | com testes estatísticos ou modelos.
+y=2536.1 sz=26.0 fl=4 | Comunicar resultados: um gráfico bem escolhido é, com frequência, o produto final que
+y=2574.1 sz=26.0 fl=4 | chega à gestão em saúde.
+y=2648.3 sz=53.0 fl=4 | Gráficos rápidos com .plot() do Pandas
+y=2771.6 sz=26.0 fl=4 | O Pandas incorpora a biblioteca Matplotlib e disponibiliza o método .plot() diretamente
+y=2809.6 sz=26.0 fl=4 | sobre DataFrames e Series. É a forma mais rápida de visualizar um dado durante a própria
+y=2847.6 sz=26.0 fl=4 | inspeção, sem sair do fluxo de trabalho de limpeza e agregação.
+y=  36.0 sz=26.0 fl=4 | partir de três formas de gerar visualizações em Python: o método .plot() do próprio Pandas,
+y=  74.0 sz=26.0 fl=4 | as bibliotecas Seaborn para explorar distribuições e a biblioteca Plotly para gráficos
+y= 112.1 sz=26.0 fl=4 | interativos. Você também vai aprender a escolher o gráfico mais adequado para cada tipo
+y= 150.1 sz=26.0 fl=4 | de pergunta.
+y= 226.1 sz=26.0 fl=4 | Além disso, vamos encerrar este módulo com uma reflexão sobre o uso de assistentes de
+y= 264.1 sz=26.0 fl=4 | Inteligência Artificial (IA) como apoio à programação, e com um projeto final em que você
+y= 302.1 sz=26.0 fl=4 | conduzirá uma EDA completa sobre um recorte de dado de saúde à sua escolha.
+y= 445.3 sz=28.0 fl=4 | Antes de seguir para o próximo tópico, é importante que os arquivos
+y= 483.3 sz=28.0 fl=4 | obitos_muni_ano.csv e sim_consolidado.csv, produzidos na aula anterior,
+y= 521.3 sz=28.0 fl=4 | já estejam disponíveis no seu notebook.
+y= 597.3 sz=28.0 fl=4 | Se necessário, refaça rapidamente os passos de importação e as
+y= 635.3 sz=28.0 fl=4 | operações concat() e merge(), que você já viu na aula anterior, antes de
+y= 673.3 sz=28.0 fl=4 | prosseguir. No notebook disponibilizado para esta aula, os dados serão
+y= 711.3 sz=28.0 fl=4 | carregados automaticamente.
+y=1137.8 sz=26.0 fl=4 | SAIBA MAIS!
+y=1247.8 sz=26.0 fl=4 | Clique aqui para acessar o material complementar contendo:
+y=1319.8 sz=26.0 fl=4 | • Tutorial rápido para o Colab.
+y=1391.8 sz=26.0 fl=4 | • Links para abrir os notebooks das aulas diretamente no Colab ou para download.
+y=1463.8 sz=26.0 fl=4 | • Bases de dados para download.
+y= 942.2 sz=26.0 fl=4 | SAIBA MAIS!
+y=3063.1 sz=26.0 fl=4 | Use .plot() enquanto ainda está explorando e limpando os dados, dentro
+y=3101.2 sz=26.0 fl=4 | do próprio notebook de análise. Reserve o Seaborn e o Plotly, bibliotecas que
+y=3139.2 sz=26.0 fl=4 | serão apresentadas ainda nesta aula, para os gráficos que efetivamente irão compor
+y=3177.2 sz=26.0 fl=4 | o relatório ou a apresentação final, pois eles oferecem mais controle sobre estética
+y=3215.2 sz=26.0 fl=4 | e interatividade.
+y=3287.2 sz=26.0 fl=4 | O parâmetro kind define o tipo de gráfico ('hist', 'bar', 'barh', 'line', 'box', 'pie',
+y=3325.2 sz=26.0 fl=4 | entre outros), o que torna o .plot() versátil para uma primeira inspeção visual.
+y=3363.2 sz=26.0 fl=4 | Mais informações podem ser consultadas aqui.
+IMAGES: 11
+
+===== PAGE 3 =====
+y=1946.6 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y=2014.9 sz=53.0 fl=4 | Seaborn: explorando distribuições
+y=2143.7 sz=26.0 fl=4 | O Seaborn é construído sobre o Matplotlib e oferece gráficos estatísticos prontos, com boa
+y=2181.8 sz=26.0 fl=4 | estética por padrão e integração direta com DataFrames do Pandas. É a ferramenta ideal
+y=2219.8 sz=26.0 fl=4 | para investigar como uma variável numérica se distribui e como ela se compara entre grupos
+y=2257.8 sz=26.0 fl=4 | categóricos.
+y=2329.6 sz=40.0 fl=4 | Histograma: a forma da distribuição
+y=2429.7 sz=26.0 fl=4 | Veja como criar no Seaborn um gráfico similar ao anterior, feito com o Matblotlib. Repare que
+y=2467.8 sz=26.0 fl=4 | agora temos um melhor acabamento estético e, em geral, a sintaxe é mais simples e clara.
+y=2543.8 sz=26.0 fl=4 | import seaborn as sns
+y=2622.8 sz=26.0 fl=8 | # Histograma com curva de densidade (KDE) da idade dos óbitos
+y=2656.8 sz=26.0 fl=8 | sns.histplot(data=sim_consolidado, x="idade", bins=20, kde=True)
+y=2690.8 sz=26.0 fl=8 | plt.title("Distribuição da idade dos óbitos no SIM")
+y=2724.8 sz=26.0 fl=8 | plt.show()
+y=2793.8 sz=26.0 fl=4 | Histograma de idade de óbito (Seaborn).
+y=  36.1 sz=26.0 fl=4 | Para um primeiro exemplo, agruparemos as idades em um histograma. Por padrão, o
+y=  74.1 sz=26.0 fl=4 | método .plot(kind="hist) divide os dados em 10 intervalos (bins) de igual largura. Veja:
+y= 157.1 sz=26.0 fl=8 | import matplotlib.pyplot as plt
+y= 229.1 sz=26.0 fl=8 | # Histograma rápido da idade dos óbitos
+y= 263.1 sz=26.0 fl=8 | sim_consolidado["idade_obito"].plot(kind="hist)
+y= 297.1 sz=26.0 fl=8 | plt.show()
+y= 366.1 sz=26.0 fl=4 | Histograma de idade de óbito (Pandas + Matplotlib).
+y= 775.9 sz=16.5 fl=0 | 0
+y= 694.2 sz=16.5 fl=0 | 20000
+y= 613.6 sz=16.5 fl=0 | 40000
+y= 532.4 sz=16.5 fl=0 | 60000
+y= 451.9 sz=16.5 fl=0 | 80000
+y= 792.3 sz=16.5 fl=0 | 0
+y= 792.3 sz=16.5 fl=0 | 20
+y= 792.3 sz=16.5 fl=0 | 40
+y= 792.3 sz=16.5 fl=0 | 60
+y= 792.3 sz=16.5 fl=0 | 80
+y= 792.3 sz=16.5 fl=0 | 100
+y= 792.3 sz=16.5 fl=0 | 120
+y= 545.5 sz=17.6 fl=0 | Frequency
+y=1379.3 sz=23.8 fl=0 | Distribuição da idade dos óbitos
+y=1865.3 sz=18.7 fl=0 | 0
+y=1773.8 sz=18.7 fl=0 | 10000
+y=1682.3 sz=18.7 fl=0 | 20000
+y=1590.8 sz=18.7 fl=0 | 30000
+y=1499.9 sz=18.7 fl=0 | 40000
+y=1409.1 sz=18.7 fl=0 | 50000
+y=1886.5 sz=18.7 fl=0 | 0
+y=1886.5 sz=18.7 fl=0 | 20
+y=1886.5 sz=18.7 fl=0 | 40
+y=1886.5 sz=18.7 fl=0 | 60
+y=1886.5 sz=18.7 fl=0 | 80
+y=1886.5 sz=18.7 fl=0 | 100
+y=1886.5 sz=18.7 fl=0 | 120
+y=1596.6 sz=20.0 fl=0 | Frequency
+y=1919.5 sz=20.0 fl=0 | Idade
+y= 829.8 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y= 899.7 sz=26.0 fl=4 | Avançando um pouco, definimos que os dados devem ser agrupados em 20 intervalos
+y= 937.7 sz=26.0 fl=4 | (bins) e que o gráfico deve apresentar um título (title), assim como um rótulo para o
+y= 975.7 sz=26.0 fl=4 | eixo X (plt.xlabel).
+y=1058.7 sz=26.0 fl=8 | import matplotlib.pyplot as plt
+y=1096.7 sz=26.0 fl=8 | # Histograma com dados agrupados em 20 intervalos e com títulos
+y=1134.7 sz=26.0 fl=8 | sim_consolidado["idade"].plot(kind="hist", bins=20, title=
+y=1172.8 sz=26.0 fl=8 | "Distribuição da idade dos óbitos")
+y=1210.8 sz=26.0 fl=8 | plt.xlabel("Idade")
+y=1248.8 sz=26.0 fl=8 | plt.show()
+y=1317.8 sz=26.0 fl=4 | Histograma de idade de óbito com títulos e 20 bins (Pandas + Matplotlib).
+y=3435.1 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y=3388.1 sz=14.8 fl=4 | 0
+y=3388.1 sz=14.8 fl=4 | 20
+y=3388.1 sz=14.8 fl=4 | 40
+y=3388.1 sz=14.8 fl=4 | 60
+y=3388.1 sz=14.8 fl=4 | 80
+y=3388.1 sz=14.8 fl=4 | 100
+y=3388.1 sz=14.8 fl=4 | 120
+y=3410.1 sz=16.5 fl=4 | idade_obito
+y=3369.8 sz=14.8 fl=4 | 0
+y=3271.1 sz=14.8 fl=4 | 10000
+y=3172.4 sz=14.8 fl=4 | 20000
+y=3073.8 sz=14.8 fl=4 | 30000
+y=2975.1 sz=14.8 fl=4 | 40000
+y=2876.4 sz=14.8 fl=4 | 50000
+y=3100.7 sz=16.5 fl=4 | Count
+y=2846.8 sz=19.8 fl=4 | Distribuição da idade dos óbitos no SIM
+IMAGES: 0
+
+===== PAGE 4 =====
+y=  36.0 sz=40.0 fl=4 | Boxplot: comparando grupos
+y= 136.2 sz=26.0 fl=4 | O boxplot resume a distribuição em cinco números, são eles:
+y= 212.2 sz=26.0 fl=4 | Mínimo.
+y= 288.1 sz=26.0 fl=4 | Primeiro quartil.
+y= 364.1 sz=26.0 fl=4 | Mediana.
+y= 440.1 sz=26.0 fl=4 | Terceiro quartil.
+y= 516.1 sz=26.0 fl=4 | Máximo.
+y= 592.1 sz=26.0 fl=4 | Ele também destaca pontos fora desse intervalo como possíveis outliers, tornando-se
+y= 630.2 sz=26.0 fl=4 | especialmente útil para comparar rapidamente vários municípios ou faixas etárias lado
+y= 668.2 sz=26.0 fl=4 | a lado. Veja o exemplo a seguir:
+y= 747.1 sz=26.0 fl=8 | # Boxplot da idade dos óbitos, comparando sexo feminino e masculino
+y= 781.1 sz=26.0 fl=8 | sns.boxplot(data=sim_consolidado, x="sexo", y="idade")
+y= 815.2 sz=26.0 fl=8 | plt.title("Idade dos óbitos por sexo")
+y= 853.2 sz=26.0 fl=8 | plt.show()
+y= 960.2 sz=26.0 fl=4 | Boxplot de idade de óbito agregada por sexo (Seaborn).
+y=1587.0 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y=2110.0 sz=53.0 fl=4 | Plotly: gráficos interativos
+y=2238.9 sz=26.0 fl=4 | Enquanto Matplotlib e Seaborn são utilizados principalmente para criar gráficos estáticos,
+y=2276.9 sz=26.0 fl=4 | o Plotly Express (px) permite gerar gráficos interativos, com recursos como zoom, tooltips
+y=2314.9 sz=26.0 fl=4 | e filtros de legenda. Esses recursos podem ser valiosos para explorar os dados de forma
+y=2352.9 sz=26.0 fl=4 | interativa.
+y=2424.7 sz=40.0 fl=4 | Série temporal
+y=2524.9 sz=26.0 fl=4 | Neste exemplo você criará um gráfico de linhas. O eixo X conterá os anos e o eixo o total
+y=2562.9 sz=26.0 fl=4 | de óbitos. Os dados serão divididos em 3 séries em função dos valores de sexo.
+y=2600.9 sz=26.0 fl=4 | Neste primeiro momento, crie o conjunto de dados que servirá de base para o gráfico.
+y=2683.9 sz=26.0 fl=8 | import plotly.express as px
+y=2759.9 sz=26.0 fl=8 | obitos_ano_sexo = (
+y=2797.9 sz=26.0 fl=8 | sim_consolidado
+y=2835.9 sz=26.0 fl=8 | .groupby(["ano_obito", "sexo"])
+y=2873.9 sz=26.0 fl=8 | .size()
+y=2911.9 sz=26.0 fl=8 | .reset_index(name="total_obitos")
+y=2950.0 sz=26.0 fl=8 | )
+y=2988.0 sz=26.0 fl=8 | obitos_ano_sexo.head(3)
+y=3064.0 sz=26.0 fl=24 | Resultado:
+y=1832.2 sz=26.0 fl=4 | Um outlier em um boxplot de dados de saúde nem sempre é um erro de
+y=1870.2 sz=26.0 fl=4 | digitação, pode ser um óbito real em uma idade incomum. Antes de descartar
+y=1908.2 sz=26.0 fl=4 | um valor extremo, volte à base original e investigue o registro. A EDA serve
+y=1946.2 sz=26.0 fl=4 | para levantar a suspeita, não para decidir sozinha o que é ruído e o que é sinal.
+y=1693.7 sz=33.0 fl=4 | ATENÇÃO
+y=1555.3 sz=16.4 fl=4 | Masculino
+y=1555.3 sz=16.4 fl=4 | Feminino
+y=1555.3 sz=16.4 fl=4 | Ignorado
+y=1578.2 sz=18.3 fl=4 | sexo
+y=1513.1 sz=16.4 fl=4 | 0
+y=1435.8 sz=16.4 fl=4 | 20
+y=1358.6 sz=16.4 fl=4 | 40
+y=1281.3 sz=16.4 fl=4 | 60
+y=1204.0 sz=16.4 fl=4 | 80
+y=1126.8 sz=16.4 fl=4 | 100
+y=1049.5 sz=16.4 fl=4 | 120
+y=1245.0 sz=18.3 fl=4 | idade_obito
+y=1023.2 sz=21.9 fl=4 | Idade dos óbitos por sexo
+y=2374.0 sz=26.0 fl=6 | Tooltips são informações
+y=2412.0 sz=26.0 fl=4 | exibidas ao passar o mouse
+y=2450.0 sz=26.0 fl=4 | sobre os elementos do gráfico.
+y=2178.0 sz=26.0 fl=4 | Clicando na palavra
+y=2216.0 sz=26.0 fl=6 | tooltips abre um
+y=2254.0 sz=26.0 fl=4 | popover com a
+y=2292.1 sz=26.0 fl=4 | informação abaixo.
+IMAGES: 7
+
+===== PAGE 5 =====
+y=  36.0 sz=26.0 fl=4 | Agora, crie um gráfico de linhas com o Plotly.
+y= 115.0 sz=26.0 fl=8 | # Ano como texto [...].astype(str) deixa o eixo X discreto (categórico):
+y= 149.0 sz=26.0 fl=8 | só 2019, 2020, 2021 e 2022
+y= 183.0 sz=26.0 fl=8 | obitos_ano_sexo["ano_obito"] = obitos_ano_sexo["ano_obito"].astype(str)
+y= 251.0 sz=26.0 fl=0 | fig = px.line(
+y= 285.0 sz=26.0 fl=8 | data_frame = obitos_ano_sexo,
+y= 319.0 sz=26.0 fl=8 | x="ano_obito",
+y= 353.0 sz=26.0 fl=8 | y="total_obitos",
+y= 387.0 sz=26.0 fl=8 | color="sexo",
+y= 421.0 sz=26.0 fl=8 | title="Evolução dos óbitos por ano e sexo",
+y= 455.0 sz=26.0 fl=8 | markers=True,
+y= 489.0 sz=26.0 fl=8 | )
+y= 557.0 sz=26.0 fl=0 | # Exibe o gráfico
+y= 595.0 sz=26.0 fl=8 | f	 ig.show()
+y= 702.1 sz=26.0 fl=4 | Gráfico de linhas com total de óbitos por sexo ao longo dos anos (Plotly).
+y=1263.2 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y=1328.9 sz=40.0 fl=4 | Comparando capítulos da CID-10 ao longo dos anos
+y=1376.9 sz=40.0 fl=4 | com Plotly
+y=1477.1 sz=26.0 fl=4 | Além de acompanhar a evolução dos óbitos por sexo, também podemos comparar diferentes
+y=1515.1 sz=26.0 fl=4 | grupos de causas ao longo dos anos. Neste exemplo, vamos utilizar os capítulos da CID-10
+y=1553.1 sz=26.0 fl=4 | para verificar como o número de óbitos varia entre os anos de 2019-2022.
+y=1629.1 sz=26.0 fl=4 | Assim como no exemplo anterior, primeiro precisamos criar uma tabela resumida que será
+y=1667.1 sz=26.0 fl=4 | utilizada para construir o gráfico. Para isso, agrupamos os registros por ano do óbito e
+y=1705.1 sz=26.0 fl=4 | capítulo da CID-10 e contamos o número de registros em cada combinação:
+y=1784.1 sz=26.0 fl=8 | import plotly.express as px
+y=1852.1 sz=26.0 fl=8 | obitos_ano_capitulo = (
+y=1886.1 sz=26.0 fl=8 | sim_consolidado
+y=1920.1 sz=26.0 fl=8 | .groupby(["ano_obito", "causabas_capitulo"])
+y=1954.1 sz=26.0 fl=8 | .size()
+y=1988.1 sz=26.0 fl=8 | .reset_index(name="total_obitos")
+y=2022.1 sz=26.0 fl=8 | )
+y=2094.1 sz=26.0 fl=8 | obitos_ano_capitulo.head()
+y=2163.2 sz=26.0 fl=4 | O método groupby() agrupa os registros de acordo com a combinação das colunas ano_obito
+y=2201.2 sz=26.0 fl=4 | e causabas_capitulo. Em seguida, size() conta quantos registros existem em cada grupo.
+y=2239.2 sz=26.0 fl=4 | Por fim, reset_index(name="total_obitos") transforma o resultado em um novo DataFrame
+y=2277.2 sz=26.0 fl=4 | e atribui o nome total_obitos à coluna com as contagens. Esse é o mesmo procedimento
+y=2315.2 sz=26.0 fl=4 | utilizado anteriormente para preparar os dados do gráfico de linhas por ano e sexo.
+y=2391.2 sz=26.0 fl=4 | Como o ano será apresentado como uma categoria no eixo horizontal, podemos convertê-lo
+y=2429.2 sz=26.0 fl=4 | para texto:
+y=2508.2 sz=26.0 fl=8 | obitos_ano_capitulo["ano_obito"] = (
+y=2542.2 sz=26.0 fl=8 | obitos_ano_capitulo["ano_obito"].astype(str)
+y=2580.2 sz=26.0 fl=8 | )
+y=2649.2 sz=26.0 fl=4 | Agora, você já pode criar o gráfico de barras:
+y=2728.2 sz=26.0 fl=0 | fig = px.bar(
+y=2762.2 sz=26.0 fl=8 | obitos_ano_capitulo,
+y=2796.2 sz=26.0 fl=8 | x="ano_obito",
+y=2830.2 sz=26.0 fl=8 | y="total_obitos",
+y=2864.2 sz=26.0 fl=8 | color="causabas_capitulo",
+y=2898.2 sz=26.0 fl=8 | barmode="group",
+y=2932.2 sz=26.0 fl=8 | title="Óbitos por capítulo CID-10 e ano",
+y=2966.3 sz=26.0 fl=8 | labels={
+y=3000.3 sz=26.0 fl=8 | "ano_obito": "Ano",
+y=3034.3 sz=26.0 fl=8 | "total_obitos": "Óbitos",
+y=3068.3 sz=26.0 fl=8 | "causabas_capitulo": "Capítulo CID-10",
+y=3102.3 sz=26.0 fl=8 | },
+y=3136.3 sz=26.0 fl=8 | )
+y=3204.3 sz=26.0 fl=0 | fig.show()
+y=1186.2 sz=14.7 fl=4 | 2019
+y=1186.2 sz=14.7 fl=4 | 2020
+y=1186.2 sz=14.7 fl=4 | 2021
+y=1186.2 sz=14.7 fl=4 | 2022
+y=1213.7 sz=17.7 fl=4 | ano_obito
+y=1146.1 sz=14.7 fl=4 | 0
+y=1084.3 sz=14.7 fl=4 | 10k
+y=1022.5 sz=14.7 fl=4 | 20k
+y= 960.7 sz=14.7 fl=4 | 30k
+y= 898.9 sz=14.7 fl=4 | 40k
+y= 837.1 sz=14.7 fl=4 | 50k
+y= 943.3 sz=17.7 fl=4 | total_obitos
+y= 905.9 sz=13.2 fl=4 | sexo=Feminino
+y= 920.3 sz=13.2 fl=4 | ano_obito=2019
+y= 935.0 sz=13.2 fl=4 | total_obitos=35.845k
+y= 768.0 sz=20.6 fl=4 | Evolução dos óbitos por ano e sexo
+y= 818.0 sz=16.2 fl=4 | sexo
+y= 840.5 sz=14.7 fl=4 | Feminino
+y= 861.4 sz=14.7 fl=4 | Ignorado
+y= 882.3 sz=14.7 fl=4 | Masculino
+IMAGES: 0
+
+===== PAGE 6 =====
+y=2258.5 sz=28.0 fl=4 | O objetivo do gráfico é ajudar a perceber rapidamente um padrão,
+y=2296.5 sz=28.0 fl=4 | uma diferença, uma tendência ou uma relação presente nos dados.
+y=2334.5 sz=28.0 fl=4 | Logo, o tipo de visualização não deve ser escolhido apenas porque
+y=2372.5 sz=28.0 fl=4 | você conhece determinado modelo de gráfico ou porque uma
+y=2410.5 sz=28.0 fl=4 | biblioteca oferece uma função específica. A escolha deve partir da
+y=2448.5 sz=28.0 fl=4 | pergunta que você deseja responder.
+y=2633.4 sz=26.0 fl=4 | Diferentes perguntas exigem formas de representação distintas. Se queremos comparar
+y=2671.4 sz=26.0 fl=4 | grupos, podemos utilizar um gráfico de barras; se queremos compreender como os valores
+y=2709.4 sz=26.0 fl=4 | estão distribuídos, histogramas e boxplots podem ser mais adequados; quando o interesse
+y=2747.4 sz=26.0 fl=4 | está em acompanhar uma evolução ao longo do tempo, gráficos de linhas são
+y=2785.4 sz=26.0 fl=4 | frequentemente utilizados. Quando os dados possuem uma dimensão espacial, como
+y=2823.4 sz=26.0 fl=4 | municípios ou estados, mapas temáticos podem ajudar a identificar padrões geográficos.
+y=2899.4 sz=26.0 fl=4 | O quadro a seguir apresenta algumas situações comuns e serve como um guia inicial para
+y=2937.4 sz=26.0 fl=4 | relacionar a pergunta de análise ao tipo de visualização:
+y=  36.1 sz=26.0 fl=4 | Nesse gráfico, x="ano_obito" define os anos no eixo horizontal, enquanto y="total_obitos"
+y=  74.1 sz=26.0 fl=4 | representa a quantidade de óbitos. O parâmetro color="causabas_capitulo" utiliza uma cor
+y= 112.1 sz=26.0 fl=4 | diferente para cada capítulo da CID-10.
+y= 188.1 sz=26.0 fl=4 | A opção barmode="group" organiza as barras lado a lado, permitindo comparar os
+y= 226.1 sz=26.0 fl=4 | diferentes capítulos dentro de cada ano. Dessa forma, você pode observar tanto as
+y= 264.1 sz=26.0 fl=4 | diferenças entre os grupos de causas quanto suas variações ao longo do período analisado.
+y= 340.1 sz=26.0 fl=4 | Por fim, fig.show() exibe o gráfico interativo. Ao passar o cursor sobre uma barra, é possível
+y= 378.1 sz=26.0 fl=4 | consultar os valores correspondentes, aproveitando um dos principais recursos do Plotly: a
+y= 416.1 sz=26.0 fl=4 | exploração interativa dos dados.
+y= 492.1 sz=26.0 fl=4 | Esse exemplo mostra como as operações de agrupamento aprendidas com o Pandas podem
+y= 530.2 sz=26.0 fl=4 | ser combinadas com o Plotly para construir visualizações mais detalhadas. Primeiro você
+y= 568.2 sz=26.0 fl=4 | organiza e resume os dados e, em seguida, utiliza o gráfico para facilitar a comparação entre
+y= 606.2 sz=26.0 fl=4 | os capítulos da CID-10 e os diferentes anos.
+y= 720.2 sz=26.0 fl=4 | Número de óbitos por capítulo CID-10 e ano (Plotly).
+y=1879.4 sz=53.0 fl=4 | Escolhendo o tipo de gráfico
+y=2008.3 sz=26.0 fl=4 | Antes de escolher uma biblioteca ou começar a construir um gráfico, vale pensar: qual
+y=2046.3 sz=26.0 fl=4 | pergunta você quer responder com esses dados? Você quer identificar um padrão, comparar
+y=2084.4 sz=26.0 fl=4 | valores, observar uma tendência ou entender a relação entre variáveis?
+y=1229.8 sz=20.0 fl=4 | Fonte: Elaborado pelo autor (2026).
+y=1491.8 sz=26.0 fl=4 | O gráfico mostra que o número de óbitos varia entre os anos e entre os
+y=1529.8 sz=26.0 fl=4 | diferentes capítulos da CID-10. Algumas causas apresentam aumento ou redução
+y=1567.8 sz=26.0 fl=4 | ao longo do período, enquanto outras permanecem relativamente estáveis.
+y=1643.8 sz=26.0 fl=4 | O que pode explicar essas mudanças? Elas refletem alterações reais na situação
+y=1681.8 sz=26.0 fl=4 | de saúde da população ou eventos específicos ocorridos no período?
+y=1142.9 sz=12.9 fl=4 | 2019
+y=1142.9 sz=12.9 fl=4 | 2020
+y=1142.9 sz=12.9 fl=4 | 2021
+y=1142.9 sz=12.9 fl=4 | 2022
+y=1169.5 sz=14.4 fl=4 | Ano
+y=1127.9 sz=12.9 fl=4 | 0
+y=1086.9 sz=12.9 fl=4 | 5000
+y=1045.9 sz=12.9 fl=4 | 10000
+y=1004.9 sz=12.9 fl=4 | 15000
+y= 963.8 sz=12.9 fl=4 | 20000
+y= 922.8 sz=12.9 fl=4 | 25000
+y= 881.8 sz=12.9 fl=4 | 30000
+y= 840.8 sz=12.9 fl=4 | 35000
+y= 956.0 sz=14.4 fl=4 | Óbitos
+y= 831.9 sz=12.9 fl=4 | Capítulo CID-10
+y= 850.9 sz=11.5 fl=4 | I. Algumas doenças infecciosas e parasitárias
+y= 867.7 sz=11.5 fl=4 | II. Neoplasias (tumores)
+y= 885.1 sz=11.5 fl=4 | IX. Doenças do aparelho circulatório
+y= 902.4 sz=11.5 fl=4 | X. Doenças do aparelho respiratório
+y= 919.2 sz=11.5 fl=4 | XX. Causas externas de morbidade e mortalidade
+IMAGES: 2
+
+===== PAGE 7 =====
+y=  36.0 sz=26.0 fl=4 | Guia rápido para escolher o gráfico conforme o tipo de pergunta.
+y= 128.0 sz=24.0 fl=4 | Tipo de pergunta
+y= 128.0 sz=24.0 fl=4 | Exemplo epidemiológico
+y= 128.0 sz=24.0 fl=4 | Exemplos de gráficos
+y= 182.3 sz=24.0 fl=4 | Categórico
+y= 210.3 sz=24.0 fl=4 | (comparar grupos)
+y= 182.3 sz=24.0 fl=4 | Quantos óbitos ocorreram em cada
+y= 210.3 sz=24.0 fl=4 | sexo ou capítulo da CID-10?
+y= 182.3 sz=24.0 fl=4 | Gráfico de barras — df.plot
+y= 210.3 sz=24.0 fl=4 | (kind="bar") ou sns.barplot()
+y= 278.5 sz=24.0 fl=4 | Numérica
+y= 306.5 sz=24.0 fl=4 | (distribuição)
+y= 264.5 sz=24.0 fl=4 | Como se distribui a idade dos
+y= 292.5 sz=24.0 fl=4 | óbitos? Existem valores muito
+y= 320.6 sz=24.0 fl=4 | diferentes dos demais?
+y= 278.6 sz=24.0 fl=4 | Histograma ou boxplot — sns.
+y= 306.6 sz=24.0 fl=4 | histplot() / sns.boxplot()
+y= 388.8 sz=24.0 fl=4 | Temporal
+y= 416.8 sz=24.0 fl=4 | (evolução)
+y= 374.8 sz=24.0 fl=4 | Como o número de óbitos ou a
+y= 402.8 sz=24.0 fl=4 | taxa de mortalidade evoluiu entre
+y= 430.9 sz=24.0 fl=4 | 2019 e 2022?
+y= 388.9 sz=24.0 fl=4 | Gráfico de linhas — df.plot
+y= 416.9 sz=24.0 fl=4 | (kind="line") ou px.line()
+y= 485.1 sz=24.0 fl=4 | Geográfica
+y= 513.9 sz=24.0 fl=4 | (distribuição espacial)
+y= 485.5 sz=24.0 fl=4 | Quais municípios apresentam as
+y= 513.5 sz=24.0 fl=4 | maiores taxas de mortalidade?
+y= 485.5 sz=24.0 fl=4 | Mapa coroplético —
+y= 513.5 sz=24.0 fl=4 | px.choropleth()
+y= 581.8 sz=24.0 fl=4 | Relação entre
+y= 610.6 sz=24.0 fl=4 | variáveis
+y= 568.2 sz=24.0 fl=4 | Existe alguma relação entre
+y= 596.2 sz=24.0 fl=4 | população e número de óbitos
+y= 624.2 sz=24.0 fl=4 | entre os municípios?
+y= 582.2 sz=24.0 fl=4 | Gráfico de dispersão — sns.
+y= 610.2 sz=24.0 fl=4 | scatterplot() ou px.scatter()
+y= 692.1 sz=24.0 fl=4 | Composição
+y= 720.9 sz=24.0 fl=4 | (partes de um total)
+y= 678.5 sz=24.0 fl=4 | Como os óbitos se distribuem
+y= 706.5 sz=24.0 fl=4 | proporcionalmente entre
+y= 734.5 sz=24.0 fl=4 | diferentes grupos de causas?
+y= 678.5 sz=24.0 fl=4 | Barras empilhadas ou outras
+y= 706.5 sz=24.0 fl=4 | formas de composição,
+y= 734.5 sz=24.0 fl=4 | conforme o objetivo.
+y= 822.0 sz=26.0 fl=4 | Essa classificação não é uma regra rígida ou exaustiva. O mesmo conjunto de dados pode
+y= 860.0 sz=26.0 fl=4 | ser representado de diferentes formas, dependendo da pergunta que queremos responder
+y= 898.0 sz=26.0 fl=4 | e do que queremos destacar. Por exemplo: um gráfico de barras pode comparar municípios,
+y= 936.0 sz=26.0 fl=4 | uma série temporal mostrar sua evolução e um mapa revelar sua distribuição espacial.
+y=1010.3 sz=53.0 fl=4 | Erros comuns em visualização de dados
+y=1073.9 sz=53.0 fl=4 | de saúde
+y=1202.8 sz=26.0 fl=4 | Um gráfico pode estar tecnicamente correto e, ainda assim, dificultar ou distorcer a
+y=1240.8 sz=26.0 fl=4 | interpretação dos dados. Em Saúde Pública isso pode ocorrer tanto pela escolha inadequada
+y=1278.8 sz=26.0 fl=4 | do indicador quanto pela forma como ele é apresentado. Escalas, cores, quantidade de
+y=1316.8 sz=26.0 fl=4 | categorias e informações como título, unidades e fonte também influenciam a compreensão
+y=1354.8 sz=26.0 fl=4 | do gráfico. Algumas situações comuns merecem atenção. Vamos conhecê-las e ver
+y=1392.9 sz=26.0 fl=4 | algumas dicas?
+y=1692.4 sz=24.0 fl=4 | Comparar municípios pelo total absoluto de óbitos
+y=1748.4 sz=24.0 fl=4 | Municípios mais populosos tendem a apresentar mais óbitos
+y=1776.4 sz=24.0 fl=4 | simplesmente porque possuem mais habitantes.
+y=1832.4 sz=24.0 fl=4 | Dica: Para comparar populações de tamanhos diferentes,
+y=1860.4 sz=24.0 fl=4 | utilize taxas ou outros indicadores relativos.
+y=3107.2 sz=24.0 fl=4 | Utilizar escalas de cores inadequadas em mapas
+y=3163.2 sz=24.0 fl=4 | A escolha das cores pode dificultar a percepção das diferenças entre os valores.
+y=3219.2 sz=24.0 fl=4 | Dica: Para indicadores que variam de baixo a alto, escalas de cores
+y=3247.2 sz=24.0 fl=4 | sequenciais são geralmente mais adequadas.
+y=2180.2 sz=24.0 fl=4 | Utilizar um eixo de valores que não começa em zero em gráficos de barras
+y=2236.2 sz=24.0 fl=4 | Essa escolha pode fazer pequenas diferenças parecerem
+y=2264.2 sz=24.0 fl=4 | maiores do que realmente são.
+y=2320.2 sz=24.0 fl=4 | Dica: Em gráficos de barras, mantenha o eixo de valores começando em zero.
+y=2638.2 sz=24.0 fl=4 | Utilizar gráficos de pizza com muitas categorias
+y=2694.2 sz=24.0 fl=4 | Quando há muitas categorias, torna-se difícil comparar o tamanho das fatias.
+y=2750.2 sz=24.0 fl=4 | Dica: Utilize um gráfico de barras, porque esse tipo de visualização
+y=2780.2 sz=24.0 fl=4 | costuma facilitar a comparação e a ordenação dos valores.
+IMAGES: 4
+
+===== PAGE 8 =====
+y=2565.5 sz=28.0 fl=4 | Os LLMs são ferramentas úteis para aprender, gerar e depurar código,
+y=2603.5 sz=28.0 fl=4 | mas seu uso exige atenção, especialmente na análise de dados de saúde.
+y=2641.5 sz=28.0 fl=4 | Erros na manipulação, análise ou interpretação dos dados podem
+y=2679.5 sz=28.0 fl=4 | comprometer os resultados e, em contextos de saúde, afetar decisões
+y=2717.5 sz=28.0 fl=4 | e produzir impactos negativos sobre as pessoas. Por isso, o código
+y=2755.5 sz=28.0 fl=4 | e os resultados gerados com apoio de LLMs devem sempre ser
+y=2793.5 sz=28.0 fl=4 | compreendidos e validados pelo analista.
+y= 602.0 sz=26.0 fl=4 | Esses exemplos são apenas uma introdução aos princípios de visualização de dados.
+y= 640.0 sz=26.0 fl=4 | Existem outros aspectos importantes, como percepção visual, escolha de escalas, uso de
+y= 678.0 sz=26.0 fl=4 | cores e características do público. Nesta aula o nosso objetivo é desenvolver uma noção
+y= 716.0 sz=26.0 fl=4 | inicial sobre como escolher e produzir gráficos que apresentem os dados de saúde de forma
+y= 754.0 sz=26.0 fl=4 | clara e evitem interpretações equivocadas.
+y= 828.3 sz=53.0 fl=4 | LLMs como apoio ao aprendizado de
+y= 891.9 sz=53.0 fl=4 | programação e análise de dados
+y=1020.8 sz=26.0 fl=4 | Os Large Language Models (LLMs) são modelos de IA capazes de gerar e interpretar textos
+y=1058.8 sz=26.0 fl=4 | e códigos a partir de instruções em linguagem natural. Ferramentas como ChatGPT, Microsoft
+y=1096.8 sz=26.0 fl=4 | Copilot, Google Gemini e Claude podem ser utilizadas como apoio ao aprendizado e à
+y=1134.8 sz=26.0 fl=4 | realização de tarefas de programação e análise de dados.
+y=1210.8 sz=26.0 fl=4 | No aprendizado de Python e Pandas, por exemplo, um LLM pode explicar o funcionamento
+y=1248.8 sz=26.0 fl=4 | de um comando, sugerir formas de selecionar e filtrar dados, ajudar a interpretar uma
+y=1286.9 sz=26.0 fl=4 | mensagem de erro ou mostrar diferentes maneiras de realizar uma mesma tarefa.
+y=1324.9 sz=26.0 fl=4 | Na análise de dados, pode sugerir operações de agrupamento, indicar formas de explorar
+y=1362.9 sz=26.0 fl=4 | uma base e explicar um código. Na visualização da informação, pode sugerir tipos de
+y=1400.9 sz=26.0 fl=4 | gráficos adequados para determinada pergunta e auxiliar na criação de código usando
+y=1438.9 sz=26.0 fl=4 | bibliotecas como Seaborn e Plotly.
+y=1514.9 sz=26.0 fl=4 | Por exemplo, em vez de procurar isoladamente como utilizar groupby(), o aluno pode
+y=1552.9 sz=26.0 fl=4 | perguntar ao LLM: "Tenho um DataFrame chamado sim_2022 e quero calcular a idade
+y=1590.9 sz=26.0 fl=6 | média dos óbitos por sexo. Como posso fazer isso usando Pandas? Explique o código."
+y=1666.9 sz=26.0 fl=4 | Assim, o LLM pode apresentar uma solução e explicar cada etapa, permitindo que o
+y=1704.9 sz=26.0 fl=4 | estudante aprenda enquanto resolve o problema. Ele deve ser utilizado como apoio ao
+y=1742.9 sz=26.0 fl=4 | aprendizado e não como substituto da compreensão e da validação dos resultados.
+y=1781.0 sz=26.0 fl=4 | A responsabilidade por verificar o código e os resultados é de quem analisa os dados.
+y=1819.0 sz=26.0 fl=4 | Veja algumas dicas:
+y=1895.0 sz=26.0 fl=4 | Leia o código antes de executá-lo: procure entender o que cada linha faz, especialmente
+y=1933.0 sz=26.0 fl=4 | filtros, agrupamentos e cálculos.
+y=2009.0 sz=26.0 fl=4 | Confira os resultados: verifique se os valores e categorias apresentados são compatíveis
+y=2047.0 sz=26.0 fl=4 | com a base. Atributos e métodos como shape, unique() e value_counts() podem ajudar
+y=2085.0 sz=26.0 fl=4 | nessa verificação.
+y=2161.0 sz=26.0 fl=4 | Não presuma que os resultados são reais: quando o LLM não tem acesso à sua base,
+y=2199.0 sz=26.0 fl=4 | ele não conhece os valores dos seus dados. Execute o código e confira os resultados
+y=2237.0 sz=26.0 fl=4 | diretamente no DataFrame.
+y=2313.0 sz=26.0 fl=4 | Use o LLM para depurar erros: apresente a mensagem de erro e peça uma explicação,
+y=2351.0 sz=26.0 fl=4 | mas teste e compreenda a correção sugerida antes de utilizá-la.
+y= 204.0 sz=24.0 fl=4 | Omitir informações necessárias para interpretar o gráfico
+y= 260.0 sz=24.0 fl=4 | Um gráfico sem título, unidades, rótulos dos eixos, legenda ou fonte pode
+y= 288.0 sz=24.0 fl=4 | perder seu significado quando apresentado fora do contexto original.
+y= 344.0 sz=24.0 fl=4 | Dica: Inclua essas informações sempre que forem necessárias
+y= 372.0 sz=24.0 fl=4 | para compreender os dados.
+IMAGES: 6
+
+===== PAGE 9 =====
+y=  36.0 sz=53.0 fl=4 | Quadro de referência rápida de visualização
+y= 164.9 sz=26.0 fl=4 | Referência rápida dos comandos apresentados nesta aula.
+y= 261.9 sz=24.0 fl=4 | Ação desejada
+y= 261.9 sz=24.0 fl=4 | Sintaxe em Python
+y= 328.1 sz=24.0 fl=4 | Histograma rápido a partir do Pandas
+y= 328.1 sz=24.0 fl=4 | df['coluna'].plot(kind='hist', bins=20)
+y= 394.2 sz=24.0 fl=4 | Gráfico de barras a partir do Pandas
+y= 394.2 sz=24.0 fl=4 | df['coluna'].value_counts().plot(kind='bar')
+y= 460.4 sz=24.0 fl=4 | Histograma com curva de densidade (Seaborn)
+y= 460.4 sz=24.0 fl=4 | sns.histplot(data=df, x='coluna', kde=True)
+y= 526.5 sz=24.0 fl=4 | Boxplot comparando grupos (Seaborn)
+y= 526.5 sz=24.0 fl=4 | sns.boxplot(data=df, x='grupo', y='valor')
+y= 592.7 sz=24.0 fl=4 | Série temporal interativa (Plotly)
+y= 592.7 sz=24.0 fl=4 | px.line(df, x='ano', y='total', color='grupo')
+y= 658.8 sz=24.0 fl=4 | Exibir um gráfico Matplotlib/Seaborn
+y= 658.8 sz=24.0 fl=4 | plt.show()
+y= 748.0 sz=53.0 fl=4 | Recursos complementares recomendados
+y= 876.9 sz=26.0 fl=4 | Veja mais informações acessando os sites indicados.
+y= 952.9 sz=26.0 fl=4 | FROM DATA TO VIZ. [S. l.: s. n.], [20--]
+y=1028.9 sz=26.0 fl=4 | PLOTLY. Plotly Express. [S. l.] - Plotly Technologies.
+y=1104.9 sz=26.0 fl=4 | SEABORN. [S. l.] - Michael Waskom.
+y=1179.2 sz=53.0 fl=4 | Atividade
+y=1282.5 sz=26.0 fl=6 | Qual é o principal objetivo da Análise Exploratória de Dados (EDA) apresentado na aula?
+y=1358.5 sz=26.0 fl=4 | a) 	Confirmar automaticamente uma hipótese de pesquisa.
+y=1396.5 sz=26.0 fl=4 | b) 	Descobrir padrões, identificar valores discrepantes e formular perguntas.
+y=1434.5 sz=26.0 fl=4 | c) 	Substituir completamente os modelos estatísticos.
+y=1472.5 sz=26.0 fl=4 | d) 	Produzir somente gráficos para apresentação final.
+y=1510.5 sz=26.0 fl=4 | e) 	Eliminar automaticamente todos os valores extremos.
+y=1586.5 sz=26.0 fl=6 | Feedback específico por alternativa:
+y=1662.5 sz=26.0 fl=4 | a) 	Incorreta. A EDA não tem como objetivo principal confirmar uma hipótese.
+y=1700.6 sz=26.0 fl=4 | A aula define EDA como a etapa de olhar sistematicamente para os dados antes
+y=1738.6 sz=26.0 fl=4 | de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+y=1776.6 sz=26.0 fl=4 | b) 	Correta. Essa é a função central apresentada para a EDA.
+y=1814.6 sz=26.0 fl=4 | c) 	Incorreta. A EDA ocorre antes de conclusões ou modelagem e não substitui outras
+y=1852.6 sz=26.0 fl=4 | etapas analíticas.
+y=1890.6 sz=26.0 fl=4 | A aula define EDA como a etapa de olhar sistematicamente para os dados antes
+y=1928.6 sz=26.0 fl=4 | de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+y=1966.6 sz=26.0 fl=4 | d) 	Incorreta. A EDA também serve para detectar problemas e explorar os dados.
+y=2004.6 sz=26.0 fl=4 | A aula define EDA como a etapa de olhar sistematicamente para os dados antes
+y=2042.7 sz=26.0 fl=4 | de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+y=2080.7 sz=26.0 fl=4 | e) 	Incorreta. Um valor extremo precisa ser investigado antes de ser considerado erro.
+y=2118.7 sz=26.0 fl=4 | A aula define EDA como a etapa de olhar sistematicamente para os dados antes
+y=2156.7 sz=26.0 fl=4 | de conclusões ou modelos, buscando padrões, discrepâncias e novas perguntas.
+y=2268.8 sz=53.0 fl=4 | Atividade Prática
+y=2397.7 sz=26.0 fl=4 | Antes de partir para o projeto final, pratique os três recursos apresentados nesta aula com a
+y=2435.7 sz=26.0 fl=4 | base sim_consolidado e a tabela obitos_muni_ano construídas na aula anterior.
+y=2516.0 sz=24.0 fl=4 | Desafio
+y=2516.0 sz=24.0 fl=4 | Habilidade praticada
+y=2570.3 sz=24.0 fl=4 | Gere um histograma da idade dos óbitos usando
+y=2599.1 sz=24.0 fl=4 | .plot(kind='hist') e depois com sns.histplot().
+y=2584.7 sz=24.0 fl=4 | .plot(), sns.histplot()
+y=2653.3 sz=24.0 fl=4 | Construa um boxplot da idade por causa básica de óbito
+y=2682.1 sz=24.0 fl=4 | (limite às 5 causas mais frequentes).
+y=2667.7 sz=24.0 fl=4 | sns.boxplot(), value_counts()
+y=2736.4 sz=24.0 fl=4 | Crie uma série temporal interativa dos óbitos por mês,
+y=2765.2 sz=24.0 fl=4 | caso a base tenha uma coluna de data.
+y=2750.8 sz=24.0 fl=4 | px.line()
+y=2887.6 sz=53.0 fl=4 | Projeto final do módulo: uma EDA
+y=2951.2 sz=53.0 fl=4 | completa
+y=3080.1 sz=26.0 fl=4 | Para encerrar o módulo 2 com uma atividade para fixar e desenvolver novas habilidades,
+y=3118.1 sz=26.0 fl=4 | você vai conduzir uma EDA completa sobre um recorte de dado de saúde à sua escolha.
+y=3156.2 sz=26.0 fl=4 | Pode ser uma continuação do estudo de caso do SIM, um outro recorte do próprio SIM
+y=3194.2 sz=26.0 fl=4 | (por exemplo, óbitos por causas externas) ou uma base de outro sistema de informação
+y=3232.2 sz=26.0 fl=4 | em saúde com a qual você já tenha contato profissional. Veja um exemplo: um estudante
+y=3270.2 sz=26.0 fl=4 | que escolher continuar com o SIM pode apresentar uma análise contendo a distribuição
+y=3308.2 sz=26.0 fl=4 | da idade dos óbitos (histograma), a comparação da idade entre os sexos (boxplot), a evolução
+y=3346.2 sz=26.0 fl=4 | mensal dos óbitos (série temporal) e a distribuição das principais causas de óbito segundo
+y=3384.2 sz=26.0 fl=4 | os capítulos da CID-10 (gráfico de barras).
+IMAGES: 3
+
+===== PAGE 10 =====
+y=  36.0 sz=26.0 fl=4 | Agora, que você já viu um exemplo, vamos conhecer os requisitos?
+y= 150.0 sz=26.0 fl=4 | Seu projeto deve conter, no mínimo:
+y= 250.0 sz=24.0 fl=4 | Etapa
+y= 250.0 sz=24.0 fl=4 | O que deve conter
+y= 328.3 sz=24.0 fl=4 | Importação e inspeção
+y= 314.3 sz=24.0 fl=4 | Carregamento do arquivo, shape, info(), visualização de
+y= 342.3 sz=24.0 fl=4 | alguns registros e verificação de valores nulos.
+y= 434.5 sz=24.0 fl=4 | Limpeza
+y= 406.5 sz=24.0 fl=4 | Tratamento de pelo menos uma inconsistência real
+y= 434.5 sz=24.0 fl=4 | (nulos, tipos ou categorias), com uma breve justificativa
+y= 462.5 sz=24.0 fl=4 | da decisão adotada.
+y= 540.8 sz=24.0 fl=4 | Distribuição numérica
+y= 526.8 sz=24.0 fl=4 | Um histograma ou boxplot de uma variável numérica,
+y= 554.8 sz=24.0 fl=4 | acompanhado de uma interpretação dos resultados.
+y= 633.1 sz=24.0 fl=4 | Comparação categórica
+y= 619.1 sz=24.0 fl=4 | Um gráfico de barras comparando grupos, como sexo
+y= 647.1 sz=24.0 fl=4 | ou causa básica de óbito.
+y= 739.4 sz=24.0 fl=4 | Tempo ou geografia (desafio!)
+y= 711.4 sz=24.0 fl=4 | Uma série temporal (data_obito, por exemplo) ou uma
+y= 739.4 sz=24.0 fl=4 | visualização geográfica (municípios em um mapa
+y= 767.4 sz=24.0 fl=4 | cloroplético). Os LLMs podem ajudar bastante nesta tarefa.
+y= 845.6 sz=24.0 fl=4 | Conclusão
+y= 831.6 sz=24.0 fl=4 | Um parágrafo com os principais achados e as perguntas
+y= 859.6 sz=24.0 fl=4 | que ficaram em aberto.
+y= 966.6 sz=53.0 fl=4 | Resumo da aula e do módulo
+y=1095.4 sz=26.0 fl=4 | Ao longo deste módulo você passou da manipulação manual de valores para a análise
+y=1133.5 sz=26.0 fl=4 | estruturada de bases de dados de Saúde Pública. Iniciou seu aprendizado em Python,
+y=1171.5 sz=26.0 fl=4 | aprendeu a organizar e a limpar dados com o Pandas, integrar diferentes fontes e utilizar
+y=1209.5 sz=26.0 fl=4 | gráficos para explorar e comunicar os resultados. Esse percurso — importar, inspecionar,
+y=1247.5 sz=26.0 fl=4 | limpar, integrar, agregar e visualizar — constitui uma base comum a muitos processos
+y=1285.5 sz=26.0 fl=4 | analíticos de dados em saúde, desde análises de rotina até projetos de pesquisa.
+y=1361.5 sz=26.0 fl=4 | A partir daqui você pode ampliar gradualmente seus conhecimentos. Os mesmos dados
+y=1399.5 sz=26.0 fl=4 | que exploramos neste módulo podem ser utilizados em análises mais avançadas, como
+y=1437.5 sz=26.0 fl=4 | testes de hipótese, modelos de regressão, séries temporais e painéis interativos.
+y=1475.5 sz=26.0 fl=4 | As ferramentas que você conheceu, como Pandas, Seaborn e Plotly, continuarão sendo
+y=1513.6 sz=26.0 fl=4 | úteis nesse caminho.
+y=1789.2 sz=26.0 fl=4 | Os notebooks deste módulo são modelos reutilizáveis de EDA que você
+y=1827.2 sz=26.0 fl=4 | pode adaptar para qualquer nova base de dados que chegar até você no trabalho
+y=1865.2 sz=26.0 fl=4 | ou na pesquisa.
+y=1941.2 sz=26.0 fl=4 | Além disso, pratique com bases que você já conheça. Explorar dados de temas
+y=1979.2 sz=26.0 fl=4 | familiares ajuda a consolidar o aprendizado, a desenvolver autonomia e
+y=2017.2 sz=26.0 fl=4 | a descobrir novas possibilidades de uso do Python e do Pandas.
+y=2293.0 sz=53.0 fl=4 | Referências
+y=2587.1 sz=26.0 fl=4 | Você concluiu esta aula, continue se empenhando nos seus estudos.
+y=2625.1 sz=26.0 fl=4 | Siga para o próximo módulo!
+IMAGES: 2

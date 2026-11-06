@@ -1,0 +1,743 @@
+
+===== PAGE 1 =====
+y= 717.4 sz=65.0 fl=4 | Introdução ao Machine Learning
+y= 869.1 sz=53.0 fl=4 | Sobre esta aula
+y= 972.4 sz=26.0 fl=4 | Seja bem-vindo e bem-vinda ao módulo 3!
+y=1048.4 sz=26.0 fl=4 | Antes de começar, vale olhar o caminho que você percorreu até aqui. No módulo 1 vimos
+y=1086.4 sz=26.0 fl=4 | que a Ciência de Dados aplicada à Saúde se organiza em processos como o KDD-PH, que
+y=1124.4 sz=26.0 fl=4 | vai da definição de um problema de Saúde Pública até a geração de conhecimento para a
+y=1162.4 sz=26.0 fl=4 | ação. Na aula 3 do módulo 1, conhecemos as principais tarefas de mineração de dados:
+y=1200.4 sz=26.0 fl=4 | classificação, regressão, clusterização e sumarização, e combinamos que essas tarefas
+y=1238.4 sz=26.0 fl=4 | seriam aprofundadas neste módulo.
+y=1314.4 sz=26.0 fl=4 | No módulo 2 passamos da teoria à prática. Aprendemos os fundamentos do Python e
+y=1352.5 sz=26.0 fl=4 | usamos o Pandas para importar, limpar, integrar e agregar microdados do Sistema de
+y=1390.5 sz=26.0 fl=4 | Informação sobre Mortalidade (SIM). Ao final, construímos a tabela obitos_muni_ano, com
+y=1428.5 sz=26.0 fl=4 | a taxa de mortalidade por 100 mil habitantes de cada município. Na aula 3 do módulo
+y=1466.5 sz=26.0 fl=4 | fizemos a Análise Exploratória de Dados (EDA), que, como vimos, é a etapa que antecede
+y=1504.5 sz=26.0 fl=4 | qualquer modelagem.
+y=1580.5 sz=26.0 fl=4 | Em termos do KDD-PH, você já percorreu a seleção, o pré-processamento e a transformação
+y=1618.5 sz=26.0 fl=4 | dos dados. Chegamos agora à etapa de mineração, quando aplicamos algoritmos capazes
+y=1656.5 sz=26.0 fl=4 | de aprender padrões a partir dos dados. É aqui que entra o Machine Learning (ML), ou
+y=1694.5 sz=26.0 fl=4 | aprendizado de máquina.
+y=1770.5 sz=26.0 fl=4 | Tabela 1 – O percurso do curso nas etapas do KDD-PH.
+y= 267.5 sz=78.0 fl=4 | MACHINE LEARNING
+y= 361.1 sz=78.0 fl=4 | APLICADO À SAÚDE
+y= 207.8 sz=34.0 fl=4 | MÓDULO 3 | AULA 1
+y=2293.0 sz=26.0 fl=4 | Até aqui, nossas análises responderam à pergunta "o que aconteceu?". Descrevemos a
+y=2331.0 sz=26.0 fl=4 | distribuição da idade dos óbitos, comparamos causas e acompanhamos a evolução das taxas
+y=2369.0 sz=26.0 fl=4 | ao longo do tempo. Com o ML, podemos também perguntar "o que é provável que aconteça?"
+y=2407.0 sz=26.0 fl=4 | ou "quais grupos se parecem entre si?" Isso ajuda a antecipar demandas, identificar
+y=2445.0 sz=26.0 fl=4 | precocemente grupos de risco e apoiar a alocação de recursos no SUS.
+y=2521.0 sz=26.0 fl=4 | Nesta aula veremos o que significa uma máquina "aprender", como formalizar um problema
+y=2559.1 sz=26.0 fl=4 | de aprendizado, quais são os grandes paradigmas de ML e, ponto essencial, como verificar
+y=2597.1 sz=26.0 fl=4 | se um modelo aprendeu de fato. Faremos isso com um primeiro exemplo prático em Python,
+y=2635.1 sz=26.0 fl=4 | usando a mesma tabela construída no módulo 2. Por fim, discutiremos os cuidados éticos e
+y=2673.1 sz=26.0 fl=4 | legais que acompanham o uso de modelos preditivos na Saúde Pública.
+y=1837.1 sz=24.0 fl=4 | Etapa do KDD-PH
+y=1837.1 sz=24.0 fl=4 | Onde trabalhamos no curso
+y=1907.6 sz=24.0 fl=4 | Seleção
+y=1893.6 sz=24.0 fl=4 | Aula 2 do módulo 1 (sistemas de informação em saúde) e
+y=1921.6 sz=24.0 fl=4 | aula 2 do módulo 2 (importação dos arquivos do SIM).
+y=1989.9 sz=24.0 fl=4 | Pré-processamento
+y=1975.9 sz=24.0 fl=4 | Aula 2 do módulo 2 (valores ausentes, tipos de dados,
+y=2003.9 sz=24.0 fl=4 | categorias inconsistentes).
+y=2072.2 sz=24.0 fl=4 | Transformação
+y=2058.2 sz=24.0 fl=4 | Aula 2 do módulo 2  (concat( ), merge( ), groupby( )
+y=2086.2 sz=24.0 fl=4 | e cálculo de taxas).
+y=2142.7 sz=24.0 fl=4 | Mineração e ML
+y=2142.7 sz=24.0 fl=4 | Módulo 3 – a partir desta aula
+y=2201.6 sz=24.0 fl=4 | Interpretação/avaliação
+y=2201.6 sz=24.0 fl=4 | Aula 3 do módulo 2 (EDA) e módulo 3 (avaliação de modelos).
+y=3138.5 sz=26.0 fl=4 | O Machine Learning não substitui a epidemiologia nem a estatística. Como
+y=3176.5 sz=26.0 fl=4 | discutimos nas aulas 1 e 3 do módulo 1, a Ciência de Dados em Saúde funciona
+y=3214.5 sz=26.0 fl=4 | melhor como um procedimento híbrido: a abordagem orientada por dados
+y=3252.5 sz=26.0 fl=4 | (data-driven) amplia a capacidade de descoberta, e o conhecimento teórico
+y=3290.5 sz=26.0 fl=4 | e epidemiológico (theory-driven) orienta as perguntas e valida se os padrões
+y=3328.5 sz=26.0 fl=4 | encontrados fazem sentido. Um modelo que acerta muito, mas cujo resultado
+y=3366.5 sz=26.0 fl=4 | não tem plausibilidade epidemiológica, deve ser visto com desconfiança.
+y=3026.8 sz=26.0 fl=4 | IMPORTANTE!
+y=2835.0 sz=26.0 fl=4 | IMPORTANTE!
+IMAGES: 7
+
+===== PAGE 2 =====
+y=2464.0 sz=26.0 fl=4 | O notebook e as bases estão disponíveis em https://git.icict.fiocruz.br/cdas/modulo-3-
+y=2502.0 sz=26.0 fl=4 | machine-learning-aplicado-a-saude, com links para abrir no Colab ou para download.
+y=2576.3 sz=53.0 fl=4 | Da programação de regras ao aprendizado
+y=2639.9 sz=53.0 fl=4 | a partir de exemplos
+y=2768.8 sz=26.0 fl=4 | Na aula 1 do módulo 2, escrevemos nosso primeiro programa de classificação, mesmo
+y=2806.8 sz=26.0 fl=4 | sem usar esse nome. Para decidir se uma pessoa era idosa, bastou uma regra explícita:
+y=2882.8 sz=26.0 fl=4 | idade = 67
+y=2920.8 sz=26.0 fl=4 | if idade >= 60:
+y=2958.8 sz=26.0 fl=4 | print("Pessoa idosa")
+y=2996.8 sz=26.0 fl=4 | else:
+y=3034.9 sz=26.0 fl=4 | print("Pessoa não idosa")
+y=3110.9 sz=26.0 fl=4 | Nesse caso, a regra é conhecida e simples: quem a escreve é o analista e o computador
+y=3148.9 sz=26.0 fl=4 | apenas a executa. Essa é a lógica da programação tradicional: fornecemos regras e dados,
+y=3186.9 sz=26.0 fl=4 | e o programa produz respostas.
+y=3262.9 sz=26.0 fl=4 | Agora pense em uma pergunta como: "quais características de uma internação indicam maior
+y=3300.9 sz=26.0 fl=4 | risco de óbito hospitalar?" A resposta depende de dezenas de fatores: idade, diagnóstico
+y=3338.9 sz=26.0 fl=4 | principal, procedimento realizado, tipo de estabelecimento, município de residência, que se
+y=3376.9 sz=26.0 fl=4 | combinam de maneiras que ninguém conseguiria listar à mão em comandos if. Ainda assim,
+y=3414.9 sz=26.0 fl=4 | o SIH/SUS registra milhões de internações para as quais já sabemos o desfecho.
+y=3490.9 sz=26.0 fl=4 | O aprendizado de máquina inverte a lógica: em vez de escrever as regras, fornecemos
+y=3528.9 sz=26.0 fl=4 | exemplos com as respostas conhecidas, e um algoritmo infere, a partir deles, as regras que
+y=3566.9 sz=26.0 fl=4 | melhor relacionam os dados às respostas. O resultado desse processo é chamado de modelo,
+y=3605.0 sz=26.0 fl=4 | e a etapa em que o algoritmo aprende com os exemplos é chamada de treinamento.
+y=  47.2 sz=40.0 fl=4 | Objetivos de aprendizagem
+y= 137.3 sz=26.0 fl=4 | Ao final desta aula você será capaz de:
+y= 213.3 sz=26.0 fl=4 | Situar o Machine Learning na etapa de mineração do KDD-PH e reconhecer sua
+y= 251.4 sz=26.0 fl=4 | relação de complementaridade com a estatística e a epidemiologia.
+y= 327.4 sz=26.0 fl=4 | Compreender a diferença entre programar regras explicitamente e aprender regras
+y= 365.4 sz=26.0 fl=4 | a partir de exemplos.
+y= 441.4 sz=26.0 fl=4 | •		 Representar um problema de aprendizado supervisionado como uma função f: X gY,
+y= 479.4 sz=26.0 fl=4 | identificando variáveis preditoras (X) e variável alvo (Y) em bases do SUS.
+y= 555.4 sz=26.0 fl=4 | Diferenciar os paradigmas supervisionado, não supervisionado, semissupervisionado
+y= 593.4 sz=26.0 fl=4 | e por reforço, bem como as tarefas de regressão, classificação, clusterização e
+y= 631.4 sz=26.0 fl=4 | redução de dimensionalidade.
+y= 707.4 sz=26.0 fl=4 | Explicar por que um modelo deve ser avaliado em dados que não viu durante o
+y= 745.4 sz=26.0 fl=4 | treinamento, reconhecendo os problemas de sobreajuste e subajuste.
+y= 821.4 sz=26.0 fl=4 | Refletir sobre os desafios éticos, a auditabilidade algorítmica e a conformidade com
+y= 859.4 sz=26.0 fl=4 | a LGPD no uso de modelos preditivos em saúde.
+y= 933.6 sz=53.0 fl=4 | Autoria
+y=1036.9 sz=26.0 fl=4 | Marcel Pedroso
+y=1074.9 sz=26.0 fl=4 | Doutor em Administração Pública pela Universidade de Brasília, mestre em Economia pela
+y=1113.0 sz=26.0 fl=4 | Pontifícia Universidade Católica de São Paulo e bacharel em História pela Universidade
+y=1151.0 sz=26.0 fl=4 | de São Paulo. Atualmente é Pesquisador em Saúde Pública do Instituto de Comunicação
+y=1189.0 sz=26.0 fl=4 | e Informação Científica e Tecnológica em Saúde da Fundação Oswaldo Cruz (Icict/Fiocruz),
+y=1227.0 sz=26.0 fl=4 | Chefe do Laboratório de Informação em Saúde, Coordenador da Plataforma de Ciência de
+y=1265.0 sz=26.0 fl=4 | Dados aplicada à Saúde (PCDaS) do Icict, Jovem Cientista do Nosso Estado (JCNE/FAPERJ),
+y=1303.0 sz=26.0 fl=4 | docente permanente do Programa de Pós-Graduação Stricto Sensu em Informação e
+y=1341.0 sz=26.0 fl=4 | Comunicação em Saúde (PPGICS/Icict) e pesquisador visitante do Laboratório Nacional de
+y=1379.0 sz=26.0 fl=4 | Computação Científica (LNCC).
+y=1455.0 sz=26.0 fl=4 | Jefferson Lima
+y=1493.1 sz=26.0 fl=4 | Doutor em Informação e Comunicação em Saúde (PPGICS/Fiocruz), mestre em Modelagem
+y=1531.1 sz=26.0 fl=4 | Matemática da Informação (EMAP/FGV), especialista em Sistemas de Informação (NCE/UFRJ)
+y=1569.1 sz=26.0 fl=4 | e graduação em Matemática (UERJ). Atualmente, é Tecnologista em Saúde Pública do
+y=1607.1 sz=26.0 fl=4 | Instituto de Comunicação e Informação Científica e Tecnológica em Saúde da Fundação
+y=1645.1 sz=26.0 fl=4 | Oswaldo Cruz (Icict/Fiocruz) e Coordenador Adjunto da Plataforma de Ciência de Dados
+y=1683.1 sz=26.0 fl=4 | aplicada à Saúde (PCDaS) do Icict.
+y=2159.7 sz=26.0 fl=4 | Nesta aula retomaremos a tabela obitos_muni_ano.csv, produzida na aula 2
+y=2197.7 sz=26.0 fl=4 | do módulo 2. No notebook disponibilizado para esta aula, os dados serão
+y=2235.8 sz=26.0 fl=4 | carregados automaticamente. A biblioteca scikit-learn, que utilizaremos para
+y=2273.8 sz=26.0 fl=4 | os primeiros modelos, já vem instalada no Google Colab, a mesma plataforma
+y=2311.8 sz=26.0 fl=4 | apresentada na aula 1 do módulo 2.
+y=2048.1 sz=26.0 fl=4 | IMPORTANTE!
+y=1856.3 sz=26.0 fl=4 | IMPORTANTE!
+IMAGES: 12
+
+===== PAGE 3 =====
+y=1312.0 sz=26.0 fl=4 | Confira
+y=1011.2 sz=60.0 fl=4 | Aprendizado
+y=1083.2 sz=60.0 fl=4 | de máquina
+y=1312.0 sz=26.0 fl=4 | Confira
+y=1009.2 sz=60.0 fl=4 | Programação
+y=1081.2 sz=60.0 fl=4 | tradicional
+y=1513.0 sz=53.0 fl=4 | Programação
+y=1568.0 sz=53.0 fl=4 | tradicional
+y=1653.3 sz=26.0 fl=4 | O analista escreve explicitamente
+y=1689.3 sz=26.0 fl=4 | as regras que processam
+y=1725.3 sz=26.0 fl=4 | os dados para produzir respostas
+y=1761.3 sz=26.0 fl=4 | (Regras + Dados g Respostas).
+y=1513.0 sz=53.0 fl=4 | Aprendizado
+y=1568.0 sz=53.0 fl=4 | de máquina
+y=1653.3 sz=26.0 fl=4 | O algoritmo recebe dados
+y=1689.3 sz=26.0 fl=4 | e respostas conhecidas e infere
+y=1725.3 sz=26.0 fl=4 | as regras que os relacionam
+y=1761.3 sz=26.0 fl=4 | (Dados + Respostas g Regras).
+y=  47.2 sz=26.0 fl=4 | Figura 1 - Programação tradicional e aprendizado de máquina supervisionado.
+y= 672.4 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=2742.0 sz=26.0 fl=4 | Confira
+y=2453.3 sz=60.0 fl=4 | Treinamento
+y=2742.0 sz=26.0 fl=4 | Confira
+y=2451.3 sz=60.0 fl=4 | Modelo
+y=2938.0 sz=53.0 fl=4 | Modelo
+y=3023.3 sz=26.0 fl=4 | O conjunto de regras aprendidas,
+y=3059.3 sz=26.0 fl=4 | que pode ser aplicado a
+y=3095.3 sz=26.0 fl=4 | casos novos para gerar previsões.
+y=2938.0 sz=53.0 fl=4 | Treinamento
+y=3029.3 sz=26.0 fl=4 | A etapa em que o algoritmo
+y=3065.3 sz=26.0 fl=4 | ajusta o modelo a partir
+y=3101.3 sz=26.0 fl=4 | de exemplos.
+IMAGES: 9
+
+===== PAGE 4 =====
+y=2704.0 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=2773.9 sz=26.0 fl=4 | A Tabela 2 mostra como diferentes perguntas de Saúde Pública podem ser formuladas nes-
+y=2811.9 sz=26.0 fl=4 | ses termos. Repare que o mesmo sistema de informação pode dar origem a problemas bem
+y=2850.0 sz=26.0 fl=4 | diferentes, dependendo da escolha de X e de Y.
+y=2926.0 sz=26.0 fl=4 | Tabela 2 – Perguntas de Saúde Pública formuladas como f: X g Y.
+y= 923.6 sz=26.0 fl=4 | SAIBA MAIS!
+y=1033.6 sz=26.0 fl=4 | O estatístico Leo Breiman descreveu essa diferença de ênfase como "duas
+y=1071.6 sz=26.0 fl=4 | culturas" da modelagem estatística: uma voltada a explicar o mecanismo que
+y=1109.6 sz=26.0 fl=4 | gerou os dados e outra voltada à precisão preditiva. O artigo é uma leitura
+y=1147.6 sz=26.0 fl=4 | clássica para quem quer entender a relação entre estatística e aprendizado
+y=1185.6 sz=26.0 fl=4 | de máquina: BREIMAN, L. Statistical modeling: the two cultures.
+y=1223.6 sz=26.0 fl=4 | Statistical Science, v. 16, n. 3, p. 199-231, 2001.
+y= 728.0 sz=26.0 fl=4 | SAIBA MAIS!
+y=  36.0 sz=40.0 fl=4 | E a estatística?
+y= 136.2 sz=26.0 fl=4 | Uma dúvida comum é se o ML seria uma alternativa à estatística. Não é. Muitos métodos
+y= 174.2 sz=26.0 fl=4 | usados em ML, como regressão linear, cujos fundamentos remontam ao século XIX,
+y= 212.2 sz=26.0 fl=4 | nasceram na estatística, e ambos os campos aprendem parâmetros a partir de dados.
+y= 250.2 sz=26.0 fl=4 | A diferença está mais na ênfase do que no método. A estatística clássica costuma priorizar
+y= 288.2 sz=26.0 fl=4 | a inferência: estimar efeitos, medir incertezas e explicar relações entre variáveis. O ML
+y= 326.2 sz=26.0 fl=4 | costuma priorizar a predição: acertar o desfecho de casos que ainda não foram observados.
+y= 402.2 sz=26.0 fl=4 | Na Saúde Pública, as duas perguntas importam. Saber que a escolaridade materna está
+y= 440.2 sz=26.0 fl=4 | associada a baixo peso ao nascer (inferência) orienta políticas; estimar quais gestantes de
+y= 478.2 sz=26.0 fl=4 | um território têm maior risco (predição) orienta a organização do cuidado. É exatamente a
+y= 516.2 sz=26.0 fl=4 | complementaridade defendida desde a aula 1: a Ciência de Dados não substitui a estatística,
+y= 554.3 sz=26.0 fl=4 | ela a expande.
+y=1420.0 sz=53.0 fl=4 | Formalizando o problema:
+y=1483.6 sz=53.0 fl=4 | a função f: X gY
+y=1612.5 sz=26.0 fl=4 | No aprendizado supervisionado, o tipo mais comum de ML e aquele representado na
+y=1650.5 sz=26.0 fl=4 | Figura 1, o objetivo é encontrar uma função f capaz de mapear entradas em saídas:
+y=1688.5 sz=26.0 fl=4 | f: X g Y
+y=1726.5 sz=26.0 fl=4 | X (variáveis preditoras ou atributos): as informações de entrada, como características
+y=1764.5 sz=26.0 fl=4 | demográficas, clínicas, socioeconômicas, geográficas ou ambientais.
+y=1840.5 sz=26.0 fl=4 | Y (variável alvo ou desfecho): aquilo que se deseja prever, como a ocorrência de óbito,
+y=1878.6 sz=26.0 fl=4 | o diagnóstico ou o tempo de internação.
+y=1954.6 sz=26.0 fl=4 | Essa notação conversa diretamente com o que você aprendeu no Pandas. Em uma tabela
+y=1992.6 sz=26.0 fl=4 | de dados, cada linha é uma observação (um paciente, uma internação, um município)
+y=2030.6 sz=26.0 fl=4 | e cada coluna é um atributo. X corresponde a um conjunto de colunas, um DataFrame,
+y=2068.6 sz=26.0 fl=4 | e Y corresponde a uma única coluna, uma Series. Lembra da diferença entre
+y=2106.6 sz=26.0 fl=8 | sim_2022[["idade_obito"]] e sim_2022["idade_obito"], discutida na aula 2
+y=2144.6 sz=26.0 fl=4 | do módulo 2? Ela reaparece aqui: por convenção, X é um DataFrame e y é uma Series.
+y=2220.6 sz=26.0 fl=4 | Figura 2 - A função f: X g Y representada sobre uma tabela de dados.:
+y=3024.0 sz=24.0 fl=4 | Pergunta
+y=3024.0 sz=24.0 fl=4 | X (preditoras)
+y=3024.0 sz=24.0 fl=4 | Y (alvo)
+y=3024.0 sz=24.0 fl=4 | Tarefa
+y=3079.0 sz=24.0 fl=4 | Quanto tempo deve
+y=3107.8 sz=24.0 fl=4 | durar esta internação?
+y=3136.6 sz=24.0 fl=4 | (SIH)
+y=3079.0 sz=24.0 fl=4 | Idade, sexo, diagnóstico
+y=3107.8 sz=24.0 fl=4 | principal (CID-10),
+y=3136.6 sz=24.0 fl=4 | procedimento, tipo de
+y=3165.4 sz=24.0 fl=4 | estabelecimento.
+y=3079.0 sz=24.0 fl=4 | Dias de permanência.
+y=3079.0 sz=24.0 fl=4 | Regressão.
+y=3219.7 sz=24.0 fl=4 | Esta internação
+y=3248.5 sz=24.0 fl=4 | tem risco elevado
+y=3277.3 sz=24.0 fl=4 | de óbito? (SIH)
+y=3219.7 sz=24.0 fl=4 | Idade, diagnóstico principal,
+y=3248.5 sz=24.0 fl=4 | procedimento, município
+y=3277.3 sz=24.0 fl=4 | de residência.
+y=3219.7 sz=24.0 fl=4 | Óbito hospitalar
+y=3248.5 sz=24.0 fl=4 | (sim/não).
+y=3219.7 sz=24.0 fl=4 | Classificação.
+y=3331.5 sz=24.0 fl=4 | Qual taxa de
+y=3360.3 sz=24.0 fl=4 | mortalidade esperar
+y=3389.1 sz=24.0 fl=4 | no próximo ano?
+y=3417.9 sz=24.0 fl=4 | (SIM + IBGE)
+y=3331.5 sz=24.0 fl=4 | Taxas dos anos anteriores,
+y=3360.3 sz=24.0 fl=4 | indicadores socioeconômicos.
+y=3331.5 sz=24.0 fl=4 | Taxa por 100 mil
+y=3360.3 sz=24.0 fl=4 | habitantes.
+y=3331.5 sz=24.0 fl=4 | Regressão.
+y=3472.2 sz=24.0 fl=4 | Este recém-nascido
+y=3501.0 sz=24.0 fl=4 | tem risco de baixo
+y=3529.8 sz=24.0 fl=4 | peso? (SINASC)
+y=3472.2 sz=24.0 fl=4 | Idade e escolaridade da mãe,
+y=3501.0 sz=24.0 fl=4 | número de consultas de
+y=3529.8 sz=24.0 fl=4 | pré-natal, tipo de gravidez.
+y=3472.2 sz=24.0 fl=4 | Peso ao nascer
+y=3501.0 sz=24.0 fl=4 | abaixo de 2.500 g
+y=3529.8 sz=24.0 fl=4 | (sim/não).
+y=3472.2 sz=24.0 fl=4 | Classificação.
+y=3574.0 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+IMAGES: 7
+
+===== PAGE 5 =====
+y= 298.1 sz=26.0 fl=4 | IMPORTANTE!
+y= 409.8 sz=26.0 fl=4 | Duas condições práticas devem ser verificadas ao definir X e Y. Primeiro, Y precisa
+y= 447.8 sz=26.0 fl=4 | estar disponível nos dados de treinamento, ou seja, é preciso conhecer o desfecho
+y= 485.8 sz=26.0 fl=4 | dos exemplos passados. Segundo, as variáveis de X precisam estar disponíveis no
+y= 523.8 sz=26.0 fl=4 | momento em que a previsão será usada. Um modelo que usa, como preditora,
+y= 561.8 sz=26.0 fl=4 | uma informação registrada somente depois do desfecho pode parecer excelente
+y= 599.9 sz=26.0 fl=4 | no computador, mas é inútil na prática. Voltaremos a esse problema, chamado de
+y= 637.9 sz=26.0 fl=4 | vazamento de dados, mais adiante nesta aula.
+y= 106.4 sz=26.0 fl=4 | IMPORTANTE!
+y= 784.6 sz=53.0 fl=4 | Grandes paradigmas de aprendizado
+y= 848.2 sz=53.0 fl=4 | de máquina
+y= 951.5 sz=26.0 fl=4 | A escolha de uma abordagem de ML não é arbitrária: ela depende da pergunta de pesquisa e
+y= 989.5 sz=26.0 fl=4 | dos dados disponíveis nos sistemas de informação em saúde, em especial, de existir ou não
+y=1027.5 sz=26.0 fl=4 | uma variável alvo Y conhecida. A literatura organiza as abordagens em quatro grandes
+y=1065.5 sz=26.0 fl=4 | paradigmas. Dentro de cada paradigma, realizamos diferentes tarefas, como mostra a Figura 3.
+y=1141.5 sz=26.0 fl=4 | Figura 3 - Paradigmas de aprendizado de máquina e suas principais tarefas.
+y=2745.0 sz=26.0 fl=4 | Um modelo de regressão treinado com dados municipais pode estimar a taxa
+y=2783.0 sz=26.0 fl=4 | de mortalidade infantil a partir de indicadores de cobertura de pré-natal, saneamento
+y=2821.1 sz=26.0 fl=4 | e renda. Além da previsão, a análise das variáveis mais relevantes para o modelo pode
+y=2859.1 sz=26.0 fl=4 | sugerir onde investimentos teriam maior potencial de impacto, desde que essas pistas
+y=2897.1 sz=26.0 fl=4 | sejam confrontadas com o conhecimento epidemiológico, pois associação preditiva
+y=2935.1 sz=26.0 fl=4 | não é o mesmo que causalidade.
+y=3099.0 sz=40.0 fl=4 | Aprendizado não supervisionado
+y=3199.2 sz=26.0 fl=4 | É aplicado quando não há uma variável alvo Y. O objetivo não é prever, mas descobrir
+y=3237.2 sz=26.0 fl=4 | estruturas presentes nos próprios dados, o que a aula 3 do módulo 1 chamou de objetivo
+y=3275.2 sz=26.0 fl=4 | de descoberta. As tarefas mais comuns são:
+y=3351.2 sz=26.0 fl=4 | Clusterização (agrupamento): reunir observações semelhantes entre si. Por exemplo,
+y=3389.2 sz=26.0 fl=4 | agrupar municípios com perfis parecidos de mortalidade, oferta de serviços e condições
+y=3427.2 sz=26.0 fl=4 | socioeconômicas para desenhar políticas territoriais. Um dos grupos encontrados pode,
+y=3465.2 sz=26.0 fl=4 | por exemplo, reunir municípios com alta demanda e baixa capacidade instalada, sinalizan
+y=3503.2 sz=26.0 fl=4 | do possíveis vazios assistenciais.
+y=3579.2 sz=26.0 fl=4 | Redução de dimensionalidade: resumir muitas variáveis correlacionadas em um número
+y=3617.2 sz=26.0 fl=4 | menor de novas variáveis, preservando a maior parte da informação (variabilidade)
+y=3655.2 sz=26.0 fl=4 | original. A técnica mais conhecida é a Análise de Componentes Principais (Principal
+y=3693.3 sz=26.0 fl=6 | Component Analysis – PCA), já mencionada na aula 3 do módulo 1 como parte da etapa
+y=3731.3 sz=26.0 fl=4 | de transformação do KDD. Ela é útil, por exemplo, para condensar dezenas de indicadores
+y=3769.3 sz=26.0 fl=4 | socioeconômicos em poucos componentes, que podem servir de base a um índice
+y=3807.3 sz=26.0 fl=4 | de vulnerabilidade.
+y=1742.4 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=1808.1 sz=40.0 fl=4 | Aprendizado supervisionado
+y=1908.3 sz=26.0 fl=4 | Ocorre quando os dados de treinamento são rotulados, isto é, o desfecho Y é conhecido para
+y=1946.3 sz=26.0 fl=4 | cada exemplo. É o paradigma descrito até aqui e o mais utilizado em saúde. Suas duas tarefas
+y=1984.3 sz=26.0 fl=4 | principais são:
+y=2060.3 sz=26.0 fl=4 | Regressão: previsão de valores numéricos contínuos, como o custo de uma internação,
+y=2098.3 sz=26.0 fl=4 | o número de dias de permanência ou a taxa de mortalidade de um município.
+y=2174.3 sz=26.0 fl=4 | Classificação: previsão de categorias, como positivo ou negativo para um agravo, óbito
+y=2212.3 sz=26.0 fl=4 | ou não óbito, risco baixo, médio ou alto.
+y=2288.3 sz=26.0 fl=4 | Um mesmo fenômeno pode ser formulado das duas maneiras. A taxa de mortalidade
+y=2326.4 sz=26.0 fl=4 | infantil de um município pode ser prevista como um valor (regressão) ou como uma faixa
+y=2364.4 sz=26.0 fl=4 | baixa, média ou alta (classificação). Transformar um valor contínuo em faixas facilita a
+y=2402.4 sz=26.0 fl=4 | comunicação com a gestão, mas descarta informação; por isso, a escolha deve ser justificada
+y=2440.4 sz=26.0 fl=4 | pela pergunta que se quer responder.
+IMAGES: 12
+
+===== PAGE 6 =====
+y=  36.0 sz=26.0 fl=4 | Observe a diferença: a clusterização agrupa linhas (observações), enquanto a redução de
+y=  74.0 sz=26.0 fl=4 | dimensionalidade condensa colunas (atributos). Nos dois casos, como não há um Y para
+y= 112.0 sz=26.0 fl=4 | comparar, a interpretação dos resultados depende fortemente do conhecimento de quem
+y= 150.0 sz=26.0 fl=4 | analisa: são os especialistas que dizem se os grupos encontrados fazem sentido para
+y= 188.0 sz=26.0 fl=4 | a Saúde Pública.
+y= 259.8 sz=40.0 fl=4 | Aprendizado semissupervisionado
+y= 360.0 sz=26.0 fl=4 | Em muitos problemas do SUS, o desfecho já vem registrado nos próprios sistemas:
+y= 398.0 sz=26.0 fl=4 | a Autorização de Internação Hospitalar (AIH) informa se o paciente recebeu alta ou foi a óbito,
+y= 436.0 sz=26.0 fl=4 | e o SINASC registra o peso ao nascer. Em outros, porém, obter o rótulo exige trabalho
+y= 474.0 sz=26.0 fl=4 | especializado. Lembre-se das causas mal definidas de óbito (garbage codes), discutidas na
+y= 512.0 sz=26.0 fl=4 | aula 1 do módulo 1: atribuir a causa correta a uma declaração de óbito pode exigir
+y= 550.1 sz=26.0 fl=4 | investigação e revisão por especialistas, o que é caro e demorado.
+y= 626.1 sz=26.0 fl=4 | Nesses casos, é comum dispor de uma pequena parte dos dados rotulada e de um grande
+y= 664.1 sz=26.0 fl=4 | volume sem rótulo. O aprendizado semissupervisionado combina as duas partes: usa os
+y= 702.1 sz=26.0 fl=4 | poucos exemplos rotulados para orientar o aprendizado e aproveita a estrutura dos muitos
+y= 740.1 sz=26.0 fl=4 | exemplos não rotulados para aprimorá-lo.
+y= 811.8 sz=40.0 fl=4 | Aprendizado por reforço
+y= 912.0 sz=26.0 fl=4 | No aprendizado por reforço, um agente aprende a tomar uma sequência de decisões
+y= 950.0 sz=26.0 fl=4 | interagindo com um ambiente: a cada ação, recebe uma recompensa ou uma penalidade e,
+y= 988.0 sz=26.0 fl=4 | por tentativa e erro, aprende a estratégia que maximiza o resultado ao longo do tempo.
+y=1026.0 sz=26.0 fl=4 | Em saúde, pode ser aplicado a problemas como a definição de rotas e da ordem de
+y=1064.0 sz=26.0 fl=4 | reabastecimento na distribuição de vacinas, ou a estratégias de alocação de recursos que
+y=1102.1 sz=26.0 fl=4 | se ajustam à evolução de uma epidemia.
+y=1178.1 sz=26.0 fl=4 | Esse paradigma ainda é pouco utilizado na Saúde Pública, e há uma razão importante
+y=1216.1 sz=26.0 fl=4 | para isso: não é aceitável aprender "por tentativa e erro" com a população real. Por isso,
+y=1254.1 sz=26.0 fl=4 | o aprendizado por reforço costuma depender de ambientes de simulação, e suas
+y=1292.1 sz=26.0 fl=4 | recomendações precisam ser validadas por especialistas antes de qualquer uso.
+y=1368.1 sz=26.0 fl=4 | Tabela 3 – Síntese dos paradigmas de aprendizado de máquina.
+y=1904.2 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=1972.4 sz=53.0 fl=4 | Como saber se um modelo aprendeu?
+y=2036.0 sz=53.0 fl=4 | Treino, teste e sobreajuste
+y=2164.9 sz=26.0 fl=4 | Até agora, dissemos que um algoritmo de ML "aprende" a partir de exemplos. Porém,
+y=2202.9 sz=26.0 fl=4 | como verificar se ele aprendeu de fato ou se apenas decorou os exemplos que recebeu?
+y=2240.9 sz=26.0 fl=4 | Essa pergunta é central em qualquer aplicação de ML e se torna ainda mais importante
+y=2279.0 sz=26.0 fl=4 | em saúde, pois um modelo que erra pode influenciar decisões sobre pessoas.
+y=2350.8 sz=40.0 fl=4 | Decorar não é aprender
+y=2450.9 sz=26.0 fl=4 | Pense em um estudante que se prepara para uma prova resolvendo sempre a mesma lista
+y=2488.9 sz=26.0 fl=4 | de exercícios, até memorizar todas as respostas. Se a prova repetir a lista, ele tira nota
+y=2526.9 sz=26.0 fl=4 | máxima. Se a prova trouxer questões novas sobre o mesmo conteúdo, ele pode ir muito
+y=2565.0 sz=26.0 fl=4 | mal, porque memorizou respostas em vez de compreender a matéria.
+y=2641.0 sz=26.0 fl=4 | Com os modelos de ML acontece o mesmo. O objetivo não é acertar os casos que o modelo
+y=2679.0 sz=26.0 fl=4 | já viu, mas generalizar, isto é, fazer boas previsões para casos novos. Um modelo que prevê
+y=2717.0 sz=26.0 fl=4 | bem a taxa de mortalidade dos municípios usados no treinamento, mas falha em outros
+y=2755.0 sz=26.0 fl=4 | municípios, não tem utilidade prática para a gestão.
+y=2826.8 sz=40.0 fl=4 | Separando os dados: conjunto de treino e
+y=2874.8 sz=40.0 fl=4 | conjunto de teste
+y=2974.9 sz=26.0 fl=4 | Para avaliar a generalização, dividimos os dados em duas partes:
+y=3050.9 sz=26.0 fl=4 | Conjunto de treino: os exemplos que o modelo usa para aprender a relação entre X e Y.
+y=3126.9 sz=26.0 fl=4 | Conjunto de teste: exemplos guardados à parte, que o modelo não vê durante o
+y=3164.9 sz=26.0 fl=4 | treinamento. Eles funcionam como a "prova com questões novas".
+y=3240.9 sz=26.0 fl=4 | A comparação entre o desempenho no treino e no teste é o que nos diz se o modelo
+y=3278.9 sz=26.0 fl=4 | aprendeu um padrão ou se apenas memorizou os dados.
+y=3354.9 sz=26.0 fl=4 | Figura 4 - Divisão dos dados em conjuntos de treino e de teste.
+y=1448.0 sz=24.0 fl=4 | Paradigma
+y=1448.0 sz=24.0 fl=4 | Pergunta típica
+y=1448.0 sz=24.0 fl=4 | Exemplo em saúde
+y=1503.8 sz=24.0 fl=4 | Supervisionado
+y=1503.8 sz=24.0 fl=4 | Qual será o desfecho
+y=1531.8 sz=24.0 fl=4 | deste caso?
+y=1503.8 sz=24.0 fl=4 | Prever o tempo de permanência
+y=1531.8 sz=24.0 fl=4 | de uma internação ou o risco
+y=1559.8 sz=24.0 fl=4 | de óbito hospitalar.
+y=1614.1 sz=24.0 fl=4 | Não supervisionado
+y=1614.1 sz=24.0 fl=4 | Que estruturas existem
+y=1642.1 sz=24.0 fl=4 | nos dados?
+y=1614.1 sz=24.0 fl=4 | Agrupar municípios por perfil
+y=1642.1 sz=24.0 fl=4 | epidemiológico; resumir
+y=1670.1 sz=24.0 fl=4 | indicadores com PCA.
+y=1724.4 sz=24.0 fl=4 | Semissupervisionado
+y=1724.4 sz=24.0 fl=4 | Como aproveitar poucos
+y=1752.4 sz=24.0 fl=4 | rótulos e muitos dados
+y=1780.4 sz=24.0 fl=4 | sem rótulo?
+y=1724.4 sz=24.0 fl=4 | Apoiar a qualificação de causas
+y=1752.4 sz=24.0 fl=4 | mal definidas a partir de uma
+y=1780.4 sz=24.0 fl=4 | amostra revisada.
+y=1834.7 sz=24.0 fl=4 | Por reforço
+y=1834.7 sz=24.0 fl=4 | Qual sequência de decisões
+y=1862.7 sz=24.0 fl=4 | produz o melhor resultado?
+y=1834.7 sz=24.0 fl=4 | Simular estratégias de distribuição
+y=1862.7 sz=24.0 fl=4 | de vacinas.
+y=3725.1 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+IMAGES: 3
+
+===== PAGE 7 =====
+y= 599.0 sz=40.0 fl=4 | Mão na massa: prevendo a taxa de mortalidade de 2022
+y= 699.2 sz=26.0 fl=4 | Vamos voltar à pergunta do gestor apresentada no início da aula: é possível estimar a taxa de
+y= 737.2 sz=26.0 fl=4 | mortalidade de 2022 de um município a partir das taxas de 2019, 2020 e 2021? Em termos da
+y= 775.2 sz=26.0 fl=4 | formalização f: X g Y:
+y= 851.2 sz=26.0 fl=4 | • X 	(variáveis preditoras): as taxas de mortalidade de 2019, 2020 e 2021.
+y= 927.2 sz=26.0 fl=4 | • Y (variável alvo): a taxa de mortalidade de 2022.
+y=1003.2 sz=26.0 fl=4 | Como Y é um valor numérico contínuo, trata-se de uma tarefa de regressão. Primeiro,
+y=1041.2 sz=26.0 fl=4 | reorganizamos a tabela da aula 2 do módulo 2 para que cada linha seja um município e cada
+y=1079.2 sz=26.0 fl=4 | coluna, a taxa de um ano:
+y=1158.2 sz=26.0 fl=8 | import pandas as pd
+y=1226.2 sz=26.0 fl=8 | obitos_muni_ano = pd.read_csv("obitos_muni_ano.csv")
+y=1294.2 sz=26.0 fl=8 | # Uma linha por município, uma coluna por ano
+y=1328.2 sz=26.0 fl=8 | tabela = (
+y=1362.2 sz=26.0 fl=8 | obitos_muni_ano
+y=1396.2 sz=26.0 fl=8 | .pivot(index="codigo_municipio",
+y=1430.2 sz=26.0 fl=8 | columns="ano_obito",
+y=1464.2 sz=26.0 fl=8 | values="taxa_mortalidade")
+y=1498.2 sz=26.0 fl=8 | # remove municípios sem informação em algum dos anos
+y=1532.3 sz=26.0 fl=8 | .dropna()
+y=1566.3 sz=26.0 fl=8 | )
+y=1600.3 sz=26.0 fl=8 | tabela.columns = [f"taxa_{ano}" for ano in tabela.columns]
+y=1638.3 sz=26.0 fl=8 | tabela.head(3)
+y=1707.3 sz=26.0 fl=4 | O método pivot() faz o caminho inverso do formato "longo" que obtivemos com groupby()
+y=1745.3 sz=26.0 fl=4 | na aula 2 do módulo 2: transforma os valores de uma coluna (ano_obito) em novas colunas.
+y=1783.3 sz=26.0 fl=4 | Em seguida, separamos X e y e dividimos os dados em treino e teste com a função train_
+y=1821.3 sz=26.0 fl=8 | test_split(), da biblioteca scikit-learn:
+y=1900.3 sz=26.0 fl=8 | from sklearn.model_selection import train_test_split
+y=1968.3 sz=26.0 fl=8 | X = tabela[["taxa_2019", "taxa_2020", "taxa_2021"]]  # DataFrame
+y=2002.3 sz=26.0 fl=8 | y = tabela["taxa_2022"]                              # Series
+y=2070.4 sz=26.0 fl=8 | X_treino, X_teste, y_treino, y_teste = train_test_split(
+y=2104.4 sz=26.0 fl=8 | X, y,
+y=2138.4 sz=26.0 fl=8 | test_size=0.3,   # 30% dos municípios reservados para teste
+y=2172.4 sz=26.0 fl=8 | random_state=42  # mesma divisão a cada execução
+y=2206.4 sz=26.0 fl=8 | )
+y=2240.4 sz=26.0 fl=8 | print("Municípios no treino:", len(X_treino))
+y=2278.4 sz=26.0 fl=8 | print("Municípios no teste:", len(X_teste))
+y= 224.0 sz=26.0 fl=4 | Temos os dados de cerca de 90 municípios do estado do Rio de Janeiro.
+y= 262.0 sz=26.0 fl=4 | Podemos usar 70% deles para treinar o modelo e reservar os 30% restantes para
+y= 300.0 sz=26.0 fl=4 | o teste. O modelo nunca "enxerga" os municípios do teste durante o aprendizado.
+y= 338.0 sz=26.0 fl=4 | Assim, o erro medido nesses municípios é uma estimativa mais honesta de como
+y= 376.1 sz=26.0 fl=4 | ele se sairia com dados novos.
+y=2577.8 sz=26.0 fl=4 | O parâmetro random_state fixa o sorteio que separa treino e teste.
+y=2615.9 sz=26.0 fl=4 | Sem ele, cada execução produziria uma divisão diferente e resultados ligeiramente
+y=2653.9 sz=26.0 fl=4 | diferentes. Fixar esse valor é uma prática de pesquisa reprodutível, conceito que
+y=2691.9 sz=26.0 fl=4 | discutimos na aula 3: qualquer pessoa que executar o seu notebook obterá os
+y=2729.9 sz=26.0 fl=4 | mesmos números.
+y=2923.4 sz=26.0 fl=4 | Para o modelo, usaremos uma árvore de decisão. De forma simplificada, ela aprende uma
+y=2961.4 sz=26.0 fl=4 | sequência de perguntas do tipo "SE a taxa de 2021 for maior do que tal valor, ENTÃO...".
+y=2999.4 sz=26.0 fl=4 | Repare na ligação com o início da aula: em vez de escrevermos essas regras manualmente,
+y=3037.4 sz=26.0 fl=4 | como fizemos com o if da aula 1 do módulo 2, o algoritmo as descobre a partir dos dados.
+y=3075.4 sz=26.0 fl=4 | Estudaremos esse e outros algoritmos com mais detalhes nas próximas aulas.
+y=3151.4 sz=26.0 fl=4 | A árvore tem um parâmetro chamado max_depth, que limita quantas perguntas ela pode
+y=3189.4 sz=26.0 fl=4 | encadear. Quanto maior a profundidade, mais detalhadas as regras que ela consegue aprender.
+y=3227.4 sz=26.0 fl=4 | Vamos treinar árvores com profundidades diferentes e medir o erro em cada conjunto:
+y=3306.4 sz=26.0 fl=8 | from sklearn.tree import DecisionTreeRegressor
+y=3340.4 sz=26.0 fl=8 | from sklearn.metrics import mean_absolute_error
+y=3408.4 sz=26.0 fl=8 | # None = árvore sem limite de profundidade
+y=3442.4 sz=26.0 fl=8 | for profundidade in [1, 2, 3, 5, None]:
+y=3476.4 sz=26.0 fl=8 | modelo = DecisionTreeRegressor(max_depth=profundidade,
+y=3510.5 sz=26.0 fl=8 | random_state=42)
+y=3544.5 sz=26.0 fl=8 | # o modelo aprende apenas com o conjunto de treino
+y=3578.5 sz=26.0 fl=0 | modelo.fit(X_treino, y_treino)
+y=3646.5 sz=26.0 fl=8 | erro_treino = mean_absolute_error(y_treino,
+y=3680.5 sz=26.0 fl=8 | modelo.predict(X_treino))
+y=3714.5 sz=26.0 fl=8 | erro_teste = mean_absolute_error(y_teste,
+y=3748.5 sz=26.0 fl=8 | modelo.predict(X_teste))
+y=3816.5 sz=26.0 fl=8 | print(f"Profundidade {profundidade}: "
+y=3850.5 sz=26.0 fl=8 | f"erro no treino = {erro_treino:.1f} | "
+y=3884.5 sz=26.0 fl=8 | f"erro no teste = {erro_teste:.1f}")
+IMAGES: 2
+
+===== PAGE 8 =====
+y=  36.0 sz=26.0 fl=4 | Os métodos fit() e predict() seguem um padrão que se repete em praticamente todos
+y=  74.0 sz=26.0 fl=4 | os modelos do scikit-learn: fit() treina o modelo com X e y, e predict() aplica as regras
+y= 112.0 sz=26.0 fl=4 | aprendidas a novos valores de X.
+y= 188.0 sz=26.0 fl=4 | O erro absoluto médio (mean_absolute_error) é a média das diferenças, em valor absoluto,
+y= 226.0 sz=26.0 fl=4 | entre a taxa prevista e a taxa real. Ele é expresso na mesma unidade da variável alvo: óbitos
+y= 264.0 sz=26.0 fl=4 | por 100 mil habitantes. Um erro de 30, por exemplo, significa que, em média, o modelo errou
+y= 302.1 sz=26.0 fl=4 | a taxa do município em 30 óbitos por 100 mil habitantes, para mais ou para menos.
+y= 378.1 sz=26.0 fl=4 | Ao executar o código, observe dois comportamentos. Primeiro, à medida que a profundidade
+y= 416.1 sz=26.0 fl=4 | aumenta, o erro no treino diminui, sem limite de profundidade, ele chega a zero, porque a ár-
+y= 454.1 sz=26.0 fl=4 | vore consegue criar uma regra específica para cada município do treino. Segundo, o erro no
+y= 492.1 sz=26.0 fl=4 | teste não acompanha essa queda. Em geral, ele melhora nas primeiras profundidades e de-
+y= 530.1 sz=26.0 fl=4 | pois para de melhorar ou volta a piorar. Com poucos municípios, os números podem oscilar,
+y= 568.1 sz=26.0 fl=4 | mas a distância entre os dois erros é o que nos interessa.
+y= 639.8 sz=40.0 fl=4 | Sobreajuste e subajuste
+y= 740.0 sz=26.0 fl=4 | A árvore sem limite de profundidade é o nosso estudante que decorou a lista de exercícios.
+y= 778.0 sz=26.0 fl=4 | Esse fenômeno se chama sobreajuste (overfitting): o modelo se ajusta tanto aos dados de
+y= 816.0 sz=26.0 fl=4 | treino que passa a reproduzir também suas particularidades e ruídos, como flutuações aleató-
+y= 854.0 sz=26.0 fl=4 | rias de municípios pequenos, e perde a capacidade de generalizar.
+y= 930.0 sz=26.0 fl=4 | O problema oposto é o subajuste (underfitting): o modelo é simples demais para capturar o
+y= 968.0 sz=26.0 fl=4 | padrão existente. Uma árvore com uma única pergunta, por exemplo, divide os municípios em
+y=1006.1 sz=26.0 fl=4 | apenas dois grupos e atribui a mesma previsão a todos os municípios de cada grupo. A Figura
+y=1044.1 sz=26.0 fl=4 | 5 ilustra as três situações com dados simulados.
+y=1120.1 sz=26.0 fl=4 | Figura 5 - Subajuste, bom ajuste e sobreajuste (dados simulados).
+y=1522.0 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=1591.9 sz=26.0 fl=4 | Tabela 4 – Como interpretar a comparação entre o erro no treino e o erro no teste.
+y=3130.0 sz=40.0 fl=4 | Cuidados na avaliação de modelos com dados de saúde
+y=3230.2 sz=26.0 fl=4 | A divisão em treino e teste é o primeiro passo de uma boa avaliação, mas alguns cuidados
+y=3268.2 sz=26.0 fl=4 | adicionais são importantes.
+y=3344.2 sz=26.0 fl=4 | O conjunto de teste deve ser usado apenas no final. No exemplo anterior, escolhemos a
+y=3382.2 sz=26.0 fl=4 | profundidade olhando o erro no teste (dados de 2022). Isso é aceitável para fins didáticos,
+y=3420.2 sz=26.0 fl=4 | mas, na prática, contamina a avaliação: o teste deixa de ser uma "prova com questões novas".
+y=3458.2 sz=26.0 fl=4 | Em projetos reais, os ajustes do modelo são feitos com uma terceira parte dos dados,
+y=3496.2 sz=26.0 fl=4 | o conjunto de validação, ou com uma técnica chamada validação cruzada, que veremos
+y=3534.2 sz=26.0 fl=4 | mais adiante no módulo.
+y=3610.2 sz=26.0 fl=4 | Cuidado com o vazamento de dados (data leakage). Ele ocorre quando alguma informação
+y=3648.2 sz=26.0 fl=4 | sobre o desfecho entra nas variáveis preditoras. Por exemplo, usar a data do óbito, ou o
+y=3686.2 sz=26.0 fl=4 | motivo de saída registrado ao final da internação, para prever se uma internação terminará
+y=3724.3 sz=26.0 fl=4 | em óbito. O modelo parecerá excelente, mas é inútil na prática, pois essa informação
+y=3762.3 sz=26.0 fl=4 | não estará disponível no momento da decisão.
+y=1688.0 sz=24.0 fl=4 | Situação
+y=1688.0 sz=24.0 fl=4 | Erro no treino
+y=1688.0 sz=24.0 fl=4 | Erro no teste
+y=1688.0 sz=24.0 fl=4 | O que indica
+y=1750.8 sz=24.0 fl=4 | Subajuste
+y=1750.8 sz=24.0 fl=4 | Alto.
+y=1750.8 sz=24.0 fl=4 | Alto.
+y=1750.8 sz=24.0 fl=4 | O modelo é simples demais
+y=1778.8 sz=24.0 fl=4 | e não capturou o padrão.
+y=1833.0 sz=24.0 fl=4 | Bom ajuste
+y=1833.0 sz=24.0 fl=4 | Baixo.
+y=1833.0 sz=24.0 fl=4 | Baixo e próximo
+y=1861.0 sz=24.0 fl=4 | ao do treino.
+y=1833.0 sz=24.0 fl=4 | O modelo aprendeu um
+y=1861.0 sz=24.0 fl=4 | padrão que se generaliza.
+y=1915.3 sz=24.0 fl=4 | Sobreajuste
+y=1915.3 sz=24.0 fl=4 | Muito baixo
+y=1943.3 sz=24.0 fl=4 | (às vezes zero).
+y=1915.3 sz=24.0 fl=4 | Bem maior do
+y=1943.3 sz=24.0 fl=4 | que o do treino.
+y=1915.3 sz=24.0 fl=4 | O modelo memorizou
+y=1943.3 sz=24.0 fl=4 | os dados de treino.
+y=1986.0 sz=20.0 fl=4 | Fonte: Elaborada pelos autores (2026).
+y=2248.7 sz=26.0 fl=4 | Um erro muito baixo no treino não é sinal de um bom modelo. Desconfie
+y=2286.7 sz=26.0 fl=4 | sempre de resultados "bons demais" e avalie o desempenho em dados que o
+y=2324.7 sz=26.0 fl=4 | modelo não viu. Em saúde, apresentar a um gestor um modelo sobreajustado,
+y=2362.7 sz=26.0 fl=4 | com desempenho aparentemente excelente, pode levar a decisões equivocadas
+y=2400.7 sz=26.0 fl=4 | sobre alocação de recursos.
+y=2101.7 sz=33.0 fl=4 | ATENÇÃO
+y=2704.3 sz=26.0 fl=4 | Compare sempre o seu modelo com uma previsão ingênua, isto é, uma
+y=2742.3 sz=26.0 fl=4 | regra simples que não exige ML; por exemplo, suponha que "a taxa de 2022
+y=2780.3 sz=26.0 fl=4 | será igual à de 2021". O erro dessa regra pode ser calculado com mean_absolute_
+y=2818.4 sz=26.0 fl=8 | error(y_teste, X_teste["taxa_2021"]). Se o modelo não superar uma previsão
+y=2856.4 sz=26.0 fl=4 | ingênua razoável, ele não está agregando valor à decisão. Neste exemplo, lembre-se
+y=2894.4 sz=26.0 fl=4 | de que 2021 foi um ano atípico por causa da pandemia; experimente também usar a
+y=2932.4 sz=26.0 fl=4 | taxa de 2019 como previsão ingênua e compare os resultados.
+IMAGES: 4
+
+===== PAGE 9 =====
+y=  36.0 sz=26.0 fl=4 | O tempo importa. Os anos de 2020 e 2021 foram marcados pela pandemia de covid-19,
+y=  74.0 sz=26.0 fl=4 | que alterou fortemente a mortalidade. Um modelo treinado nesse período pode não
+y= 112.0 sz=26.0 fl=4 | representar bem os anos seguintes. Quando o objetivo é prever o futuro, o mais adequado
+y= 150.0 sz=26.0 fl=4 | costuma ser treinar com os anos mais antigos e testar com os mais recentes, em vez de
+y= 188.0 sz=26.0 fl=4 | sortear os registros.
+y= 780.9 sz=53.0 fl=4 | Aplicações, ética e governança na saúde
+y= 844.5 sz=53.0 fl=4 | pública
+y= 973.4 sz=26.0 fl=4 | Aplicações baseadas em Machine Learning não são neutras: elas carregam as premissas de
+y=1011.5 sz=26.0 fl=4 | quem as desenvolve e as características — inclusive as distorções — dos dados com que
+y=1049.5 sz=26.0 fl=4 | foram treinadas. Por isso, em Saúde Pública, governança e ética são inseparáveis da técnica.
+y=1121.3 sz=40.0 fl=4 | Onde o aprendizado de máquina pode apoiar o SUS
+y=1221.4 sz=26.0 fl=4 | As aplicações são variadas. Na vigilância, modelos podem antecipar o aumento de casos
+y=1259.5 sz=26.0 fl=4 | de um agravo a partir de dados de notificação, clima ou buscas na internet, como discutimos
+y=1297.5 sz=26.0 fl=4 | na aula 3 do módulo 1. Na gestão, podem estimar a demanda por leitos e o tempo de
+y=1335.5 sz=26.0 fl=4 | permanência das internações, apoiando o planejamento da rede. No cuidado, podem
+y=1373.5 sz=26.0 fl=4 | identificar precocemente gestantes, recém-nascidos ou pacientes crônicos com maior risco,
+y=1411.5 sz=26.0 fl=4 | orientando a busca ativa pelas equipes de saúde. No planejamento territorial, a clusterização
+y=1449.5 sz=26.0 fl=4 | pode revelar grupos de municípios com necessidades semelhantes.
+y= 441.8 sz=26.0 fl=4 | Um modelo preditivo de risco de internação foi treinado com dados de uma
+y= 479.8 sz=26.0 fl=4 | região com boa cobertura de serviços de saúde e apresentou baixo erro no conjunto
+y= 517.8 sz=26.0 fl=4 | de teste. Ele terá o mesmo desempenho se for aplicado em outra região do país, com
+y= 555.8 sz=26.0 fl=4 | perfil socioeconômico e cobertura diferentes? O que isso nos diz sobre os limites da
+y= 593.8 sz=26.0 fl=4 | generalização e sobre a equidade, tema da próxima seção?
+y=2100.9 sz=40.0 fl=4 | Qualidade dos dados e infraestrutura
+y=2201.1 sz=26.0 fl=4 | Um modelo aprende com os dados que recebe, inclusive com seus problemas. Sub-registro,
+y=2239.1 sz=26.0 fl=4 | causas mal definidas e diferenças regionais de cobertura dos sistemas de informação,
+y=2277.1 sz=26.0 fl=4 | discutidos no módulo 1, afetam diretamente o que o modelo aprende. Se os óbitos de uma
+y=2315.1 sz=26.0 fl=4 | região são pouco registrados, o modelo "aprenderá" que ali se morre menos.
+y=2391.1 sz=26.0 fl=4 | Além disso, trabalhar com bases como o SIH ou o SIM completos pode exigir infraestrutura
+y=2429.1 sz=26.0 fl=4 | computacional de alto desempenho. Como exemplo, a Plataforma de Ciência de Dados
+y=2467.2 sz=26.0 fl=4 | aplicada à Saúde (PCDaS), do Icict/Fiocruz, em parceria com o Laboratório Nacional de
+y=2505.2 sz=26.0 fl=4 | Computação Científica (LNCC), opera como uma PaaS (Platform as a Service): oferece poder
+y=2543.2 sz=26.0 fl=4 | computacional para processar grandes volumes de dados de forma remota e segura.
+y=2581.2 sz=26.0 fl=4 | A plataforma também adota um procedimento de validação que compara os microdados
+y=2619.2 sz=26.0 fl=4 | processados com as tabelas de referência do TabNet/DATASUS e decodifica as variáveis
+y=2657.2 sz=26.0 fl=4 | originais em nomes significativos, cuidados que aumentam a confiabilidade dos dados usados
+y=2695.2 sz=26.0 fl=4 | para treinar modelos.
+y=2766.9 sz=40.0 fl=4 | Equidade e vieses algorítmicos
+y=2867.1 sz=26.0 fl=4 | Modelos treinados com dados históricos tendem a reproduzir os padrões desses dados,
+y=2905.1 sz=26.0 fl=4 | inclusive as desigualdades. Pense em um modelo para priorizar pacientes em uma fila
+y=2943.1 sz=26.0 fl=4 | de regulação, treinado com o histórico de quem foi atendido. Se determinados grupos
+y=2981.1 sz=26.0 fl=4 | tiveram, historicamente, menos acesso aos serviços, eles aparecerão menos nos dados,
+y=3019.1 sz=26.0 fl=4 | e o modelo pode aprender a atribuir-lhes menor prioridade, perpetuando iniquidades
+y=3057.2 sz=26.0 fl=4 | socioeconômicas e raciais.
+y=3133.2 sz=26.0 fl=4 | Retirar do modelo variáveis sensíveis, como raça/cor, não resolve o problema por
+y=3171.2 sz=26.0 fl=4 | completo: outras variáveis, como o território de residência ou a escolaridade, podem funcionar
+y=3209.2 sz=26.0 fl=4 | como substitutas e carregar a mesma informação. Por isso, a equidade algorítmica precisa
+y=3247.2 sz=26.0 fl=4 | ser monitorada ativamente, avaliando o desempenho do modelo em diferentes grupos
+y=3285.2 sz=26.0 fl=4 | populacionais. Esse tema será aprofundado na aula 3 do módulo 3.
+y=3356.9 sz=40.0 fl=4 | Transparência e auditabilidade
+y=3457.1 sz=26.0 fl=4 | Alguns modelos, como a árvore de decisão com poucos níveis que usamos nesta aula, são
+y=3495.1 sz=26.0 fl=4 | interpretáveis: é possível ler as regras que eles aprenderam. Outros, mais complexos,
+y=3533.1 sz=26.0 fl=4 | funcionam como uma caixa-preta (black-box): produzem previsões precisas, mas sem
+y=3571.1 sz=26.0 fl=4 | explicitar a lógica por trás delas. Existe todo um campo, chamado de IA explicável
+y=3609.1 sz=26.0 fl=4 | (Explainable AI – XAI), dedicado a desenvolver métodos para interpretar esses modelos.
+y=3685.1 sz=26.0 fl=4 | Na gestão pública, a transparência não é apenas uma questão técnica. Quando uma
+y=3723.2 sz=26.0 fl=4 | decisão que afeta pessoas é apoiada por um modelo, é preciso ser capaz de explicá-la,
+y=3761.2 sz=26.0 fl=4 | identificar eventuais vieses e prestar contas. A Lei Geral de Proteção de Dados Pessoais
+y=3799.2 sz=26.0 fl=4 | (LGPD) garante ao titular o direito de solicitar a revisão de decisões tomadas unicamente
+y=3837.2 sz=26.0 fl=4 | com base em tratamento automatizado de dados pessoais que afetem seus interesses
+y=3875.2 sz=26.0 fl=4 | (art. 20). Em qualquer caso, a responsabilidade pela decisão continua sendo do gestor,
+y=3913.2 sz=26.0 fl=4 | e não do algoritmo.
+y=1723.1 sz=26.0 fl=4 | Iniciativas brasileiras como o MonitoraCovid-19, da Fiocruz, apresentado na
+y=1761.1 sz=26.0 fl=4 | aula 3 do módulo 1, e o Observatório Obstétrico Brasileiro (OOBr), que reúne e
+y=1799.1 sz=26.0 fl=4 | analisa dados sobre saúde materna, mostram como a integração e a disponibilização
+y=1837.1 sz=26.0 fl=4 | transparente de dados de saúde geram evidências para a tomada de decisão.
+y=1875.1 sz=26.0 fl=4 | Esse tipo de infraestrutura de dados é o ponto de partida para qualquer modelo
+y=1913.1 sz=26.0 fl=4 | preditivo confiável: não há bom modelo sem bons dados.
+IMAGES: 2
+
+===== PAGE 10 =====
+y= 224.0 sz=26.0 fl=4 | Como garantir a auditabilidade de um modelo "caixa-preta" quando ele
+y= 262.0 sz=26.0 fl=4 | fundamenta uma decisão de gestão passível de judicialização na saúde?
+y= 300.0 sz=26.0 fl=4 | Um ganho pequeno de precisão justifica abrir mão da possibilidade de explicar
+y= 338.0 sz=26.0 fl=4 | a decisão ao cidadão?
+y= 572.0 sz=40.0 fl=4 | Proteção de dados e ética em pesquisa
+y= 672.2 sz=26.0 fl=4 | Dados de saúde são classificados pela LGPD como dados pessoais sensíveis e exigem
+y= 710.2 sz=26.0 fl=4 | proteção reforçada. O consentimento individual não é a única base legal para seu uso:
+y= 748.2 sz=26.0 fl=4 | a lei também prevê, entre outras hipóteses, a execução de políticas públicas e a realização
+y= 786.2 sz=26.0 fl=4 | de estudos por órgão de pesquisa. Para estudos em Saúde Pública, a LGPD determina
+y= 824.2 sz=26.0 fl=4 | que os dados sejam tratados em ambiente controlado e seguro e, sempre que possível,
+y= 862.2 sz=26.0 fl=4 | anonimizados ou pseudonimizados.
+y= 938.2 sz=26.0 fl=4 | Vale lembrar que a anonimização reduz, mas não elimina, o risco de reidentificação,
+y= 976.2 sz=26.0 fl=4 | especialmente quando diferentes bases são cruzadas, como no linkage discutido
+y=1014.2 sz=26.0 fl=4 | no módulo 1. Modelos de ML, que combinam muitas variáveis, tornam esse cuidado
+y=1052.2 sz=26.0 fl=4 | ainda mais importante.
+y=1293.3 sz=26.0 fl=4 | O acesso a microdados identificados em projetos específicos da PCDaS
+y=1331.3 sz=26.0 fl=4 | segue a LGPD e protocolos de anonimização. O uso dos dados exige a
+y=1369.3 sz=26.0 fl=4 | assinatura do Termo de Compromisso de Utilização de Dados (TCUD), no qual o
+y=1407.3 sz=26.0 fl=4 | pesquisador assume formalmente a responsabilidade pelo sigilo e pelo uso adequado
+y=1445.3 sz=26.0 fl=4 | das informações. Projetos de pesquisa também devem ser aprovados pelo sistema
+y=1483.3 sz=26.0 fl=4 | de Comitês de Ética em Pesquisa (CEP/CONEP).
+y=1521.4 sz=26.0 fl=4 | Consulte a lei na íntegra: Lei nº 13.709, de 14 de agosto de 2018 (LGPD).
+y=1672.0 sz=53.0 fl=4 | Exercícios de fixação
+y=1800.9 sz=26.0 fl=4 | Antes de seguir, pratique os conceitos desta aula com a tabela obitos_muni_ano construída
+y=1838.9 sz=26.0 fl=4 | na aula 2 do módulo 2:
+y=1914.9 sz=26.0 fl=4 | Tabela 5 – Exercícios de fixação.
+y=1988.0 sz=24.0 fl=4 | Desafio
+y=1988.0 sz=24.0 fl=4 | Habilidade praticada
+y=2042.3 sz=24.0 fl=4 | Escolha um sistema de informação que você conhece
+y=2070.3 sz=24.0 fl=4 | (SIM, SINASC, SIH ou outro) e formule uma pergunta como
+y=2098.3 sz=24.0 fl=4 | f: X g Y. Indique o paradigma e a tarefa.
+y=2042.3 sz=24.0 fl=4 | Formalização do problema,
+y=2070.3 sz=24.0 fl=4 | paradigmas e tarefas.
+y=2152.6 sz=24.0 fl=4 | Altere test_size para 0.2 e 0.4 e observe como os erros
+y=2180.6 sz=24.0 fl=4 | no treino e no teste mudam.
+y=2152.6 sz=24.0 fl=8 | train_test_split( )
+y=2234.8 sz=24.0 fl=4 | Mude o random_state para outros valores e compare
+y=2262.8 sz=24.0 fl=4 | os resultados. O que isso revela sobre avaliar modelos
+y=2290.9 sz=24.0 fl=4 | com poucos municípios?
+y=2234.9 sz=24.0 fl=4 | Reprodutibilidade,
+y=2262.9 sz=24.0 fl=4 | variabilidade da avaliação.
+y=2345.1 sz=24.0 fl=4 | Calcule o erro das previsões ingênuas "taxa de 2022 =
+y=2373.2 sz=24.0 fl=4 | taxa de 2021" e "taxa de 2022 = taxa de 2019" e compare-os
+y=2401.2 sz=24.0 fl=4 | com o da melhor árvore.
+y=2345.2 sz=24.0 fl=8 | mean_absolute_error( ),
+y=2373.2 sz=24.0 fl=4 | previsão de referência.
+y=2455.4 sz=24.0 fl=4 | Treine o modelo usando apenas 2019 e 2020 como
+y=2483.5 sz=24.0 fl=4 | preditores e compare com o modelo original.
+y=2455.4 sz=24.0 fl=4 | Seleção de variáveis
+y=2483.5 sz=24.0 fl=4 | preditoras.
+y=2585.9 sz=53.0 fl=4 | Quadro de referência rápida
+y=2714.8 sz=26.0 fl=4 | Tabela 6 – Referência rápida dos comandos apresentados nesta aula.
+y=2792.0 sz=24.0 fl=4 | Ação desejada
+y=2792.0 sz=24.0 fl=4 | Sintaxe em Python
+y=2846.3 sz=24.0 fl=4 | Transformar valores de uma
+y=2874.3 sz=24.0 fl=4 | coluna em novas colunas
+y=2846.3 sz=24.0 fl=8 | df.pivot(index="id", columns="ano", values="taxa")
+y=2928.5 sz=24.0 fl=4 | Dividir os dados em treino
+y=2956.5 sz=24.0 fl=4 | e teste
+y=2928.5 sz=24.0 fl=8 | train_test_split(X, y, test_size=0.3, random_
+y=2956.6 sz=24.0 fl=8 | state=42)
+y=3010.8 sz=24.0 fl=4 | Criar uma árvore de decisão
+y=3038.8 sz=24.0 fl=4 | para regressão
+y=3010.8 sz=24.0 fl=8 | DecisionTreeRegressor(max_depth=3, random_
+y=3038.8 sz=24.0 fl=8 | state=42)
+y=3093.1 sz=24.0 fl=4 | Treinar o modelo
+y=3093.1 sz=24.0 fl=0 | modelo.fit(X_treino, y_treino)
+y=3147.3 sz=24.0 fl=4 | Gerar previsões
+y=3147.4 sz=24.0 fl=8 | modelo.predict(X_teste)
+y=3201.6 sz=24.0 fl=4 | Calcular o erro absoluto médio
+y=3201.6 sz=24.0 fl=8 | mean_absolute_error(y_real, y_previsto)
+y=3284.0 sz=53.0 fl=4 | Recursos complementares recomendados
+y=3412.9 sz=26.0 fl=4 | KAGGLE. Competitions. [S. l.]: Kaggle, [20--]. Competições de ciência de dados com
+y=3450.9 sz=26.0 fl=4 | problemas reais, úteis para praticar e construir portfólio. Disponível em: https://www.kaggle.
+y=3488.9 sz=26.0 fl=4 | com/competitions. Acesso em: 21 set. 2026.
+y=3564.9 sz=26.0 fl=4 | KAGGLE. Intro to Machine Learning. [S. l.]: Kaggle, [20--]. Curso on-line gratuito. Disponível em:
+y=3602.9 sz=26.0 fl=4 | https://www.kaggle.com/learn/intro-to-machine-learning. Acesso em: 21 set. 2026.
+y=3678.9 sz=26.0 fl=4 | LABORATÓRIO DE BIG DATA E ANÁLISE PREDITIVA EM SAÚDE (LABDAPS). Faculdade de
+y=3716.9 sz=26.0 fl=4 | Saúde Pública da Universidade de São Paulo. Publicações. Disponível em: https://labdaps.fsp.
+y=3755.0 sz=26.0 fl=4 | usp.br/artigos. Acesso em: 21 set. 2026.
+y=3831.0 sz=26.0 fl=4 | PLATAFORMA DE CIÊNCIA DE DADOS APLICADA À SAÚDE (PCDaS). Icict/Fiocruz.
+y=3869.0 sz=26.0 fl=4 | Publicações. Disponível em: https://pcdas.icict.fiocruz.br/publicacoes. Acesso em: 21 set.
+y=3907.0 sz=26.0 fl=4 | 2026.
+IMAGES: 2
+
+===== PAGE 11 =====
+y=  36.0 sz=26.0 fl=4 | SCIKIT-LEARN. User Guide. [S. l.]: scikit-learn developers, [20--]. Disponível em:
+y=  74.0 sz=26.0 fl=4 | https://scikit-learn.org/stable/user_guide.html. Acesso em: 21 set. 2026.
+y= 148.3 sz=53.0 fl=4 | Conclusão da aula
+y= 277.2 sz=26.0 fl=4 | Nesta aula demos o primeiro passo na etapa de mineração do KDD-PH. Vimos que o
+y= 315.2 sz=26.0 fl=4 | aprendizado de máquina inverte a lógica da programação tradicional, aprendendo regras a
+y= 353.2 sz=26.0 fl=4 | partir de exemplos, e que essa abordagem complementa, e não substitui, a estatística e
+y= 391.2 sz=26.0 fl=4 | a epidemiologia. Formalizamos o aprendizado supervisionado como a busca por uma função
+y= 429.2 sz=26.0 fl=4 | f: X g Y, conhecemos os quatro grandes paradigmas de ML e suas tarefas e, com o nosso
+y= 467.3 sz=26.0 fl=4 | primeiro modelo em Python, vimos por que um modelo deve ser avaliado em dados que não
+y= 505.3 sz=26.0 fl=4 | viu durante o treinamento.
+y= 581.3 sz=26.0 fl=4 | Também discutimos que um bom modelo não é apenas aquele que acerta, pois ele precisa
+y= 619.3 sz=26.0 fl=4 | ser treinado com dados de qualidade, avaliado com rigor, monitorado quanto a vieses e usado
+y= 657.3 sz=26.0 fl=4 | de forma transparente e em conformidade com a LGPD. O Machine Learning deve ser
+y= 695.3 sz=26.0 fl=4 | compreendido como um suporte à decisão humana, nunca como seu substituto.
+y=1340.0 sz=40.0 fl=4 | Preparando-se para a próxima aula
+y=1440.2 sz=26.0 fl=4 | Na próxima aula aprofundaremos o aprendizado supervisionado: conheceremos os principais
+y=1478.2 sz=26.0 fl=4 | algoritmos de regressão e classificação e as métricas usadas para avaliar cada tipo de
+y=1516.2 sz=26.0 fl=4 | modelo. Os conceitos de treino, teste, generalização e sobreajuste vistos hoje serão a base
+y=1554.2 sz=26.0 fl=4 | para compararmos esses algoritmos de forma justa.
+y=1628.5 sz=53.0 fl=4 | Referências
+y=1757.4 sz=26.0 fl=4 | BRASIL. Presidência da República. Secretaria-Geral. Subchefia para Assuntos Jurídicos.
+y=1795.4 sz=26.0 fl=4 | Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD).
+y=1833.4 sz=26.0 fl=4 | Brasília, DF: Pres. da República, 2018. Disponível em: https://www.planalto.gov.br/ccivil_03/_
+y=1871.4 sz=26.0 fl=4 | ato2015-2018/2018/lei/l13709.htm. Acesso em: 21 set. 2026.
+y=1947.4 sz=26.0 fl=4 | BREIMAN, L. Statistical modeling: the two cultures. Statistical Science, v. 16, n. 3, p. 199-
+y=1985.4 sz=26.0 fl=4 | 231, 2001.
+y=2061.4 sz=26.0 fl=4 | FAYYAD, U.; PIATETSKY-SHAPIRO, G.; SMYTH, P. From data mining to knowledge discovery
+y=2099.4 sz=26.0 fl=4 | in databases. AI Magazine, v. 17, n. 3, p. 37-54, 1996.
+y=2175.4 sz=26.0 fl=4 | JAMES, G.; WITTEN, D.; HASTIE, T.; TIBSHIRANI, R. An introduction to statistical learning:
+y=2213.4 sz=26.0 fl=4 | with applications in R. 2. ed. New York: Springer, 2021. Disponível em:
+y=2251.4 sz=26.0 fl=4 | https://www.statlearning.com. Acesso em: 21 set. 2026.
+y=2327.4 sz=26.0 fl=4 | MORETTIN, P. A.; SINGER, J. M. Estatística e ciência de dados. Rio de Janeiro: LTC, 2022.
+y=2403.4 sz=26.0 fl=4 | OSTERNE, V. Pipeline e fundamentos de machine learning: do pré-processamento ao mo-
+y=2441.4 sz=26.0 fl=4 | delo final, passando por regressão, árvores, SVM, KNN, Naive Bayes, clustering e reforço. Re-
+y=2479.5 sz=26.0 fl=4 | curso on-line (264 p.). Disponível em: https://www.osterne.com. Acesso em: 13 maio 2026.
+y=2555.4 sz=26.0 fl=4 | PEDREGOSA, F. et al. Scikit-learn: machine learning in Python. Journal of Machine Learning
+y=2593.5 sz=26.0 fl=4 | Research, v. 12, p. 2825-2830, 2011.
+y=2669.5 sz=26.0 fl=4 | PEDROSO, M. et al. Data science platform applied to health in contribution to the Brazilian
+y=2707.5 sz=26.0 fl=4 | Unified Health System. Joint Workshops at 49th International Conference on Very Large
+y=2745.5 sz=26.0 fl=4 | Data Bases (VLDBW’23). Vancouver: CEUR Workshop Proceedings, 2023.
+y=2821.5 sz=26.0 fl=4 | SALDANHA, R. F.; BARCELLOS, C.; PEDROSO, M. M. Ciência de dados e big data: o que isso
+y=2859.5 sz=26.0 fl=4 | significa para estudos populacionais e da saúde? Cadernos Saúde Coletiva, Rio de Janeiro, v.
+y=2897.5 sz=26.0 fl=4 | 29, n. esp., p. 51-58, 2021.
+y= 969.1 sz=26.0 fl=4 | "Ciência de dados é um campo interdisciplinar que pode auxiliar a
+y=1007.2 sz=26.0 fl=4 | descoberta de conhecimento a partir de bases complexas e guiar
+y=1045.2 sz=26.0 fl=4 | a tomada de decisão orientada por dados."
+y=1121.2 sz=26.0 fl=4 | SALDANHA, BARCELLOS E PEDROSO (2021).
+IMAGES: 1

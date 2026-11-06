@@ -259,14 +259,16 @@ const modalInfos = {
 						<p class="small text-muted"><em>Assessora pedagógica</em></p>
 						<p class="mb-1">Isabela Schincariol</p>
 						<p class="small text-muted"><em>Assessora de comunicação</em></p>
-						<p class="mb-1">Fernanda Sousa</p>
-						<p class="small text-muted"><em>Designer Educacional</em></p>
 						<p class="mb-1">Igor Cruz</p>
 						<p class="small text-muted"><em>Designer Educacional</em></p>
+						<p class="mb-1">Fernanda Sousa</p>
+						<p class="small text-muted"><em>Designer Educacional</em></p>
 						<p class="mb-1">Marco Macedo</p>
-						<p class="small text-muted"><em>Designer Gráfico</em></p>
+						<p class="small text-muted"><em>Designer gráfico</em></p>
 						<p class="mb-1">Manoel Ramos</p>
-						<p class="small text-muted"><em>Desenvolvedor</em></p>
+						<p class="small text-muted"><em>Desenvolvedor web</em></p>
+						<span class="h6 mb-3 d-block mt-4">Recursos Audiovisuais</span>
+						<p class="mb-1">Teo Venerando</p>
 						<span class="h6 mb-3 d-block mt-4">Recursos Educacionais</span>
 						<p class="mb-1">Carmélia Brito</p>
 						<p class="small text-muted"><em>Bibliotecária</em></p>
@@ -274,7 +276,7 @@ const modalInfos = {
 						<p class="small text-muted"><em>Audiodescrição</em></p>
 						<p class="mb-1">Janaina Vieira</p>
 						<p class="small text-muted"><em>Revisão de Português</em></p>
-						<span class="h6 mb-3 d-block mt-4">Suporte de Tecnologia da Informação</span>
+						<span class="h6 mb-3 d-block mt-4">Suporte Técnico de Tecnologia da Informação</span>
 						<p class="mb-1">Bruno Alexandre de Oliveira</p>
 						<p class="small text-muted"><em>Desenvolvedor</em></p>
 						<p class="mb-1">Eduardo Xavier da Silva</p>
@@ -285,52 +287,36 @@ const modalInfos = {
 						<p class="small text-muted"><em>Analista de suporte</em></p>
 						<p class="mb-1">Fábio Carneiro</p>
 						<p class="small text-muted"><em>Designer gráfico e web designer</em></p>
-						<p class="mb-1">Catarina Santiago</p>
-						<p class="small text-muted"><em>Designer gráfico</em></p>
 					</div>
 					<span class="h5 mb-3 d-block">Coordenação Acadêmica</span>
 					<div class="mb-5">
-						<p class="mb-1">Cristina Maria Rabelais Duarte</p>
-						<p class="small text-muted mb-3"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="mb-1">Maritsa Carla de Bortoli</p>
-						<p class="small text-muted mb-3"><em>Núcleo de Evidências do Instituto de Saúde e Centro de Tecnologias de Saúde para o SUS-SP do Instituto de Saúde</em></p>
+						<p class="mb-1">Marcel Pedroso</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
+						<p class="small text-muted mb-3"><em>Coordenador</em></p>
+						<p class="mb-1">Jefferson Lima</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
+						<p class="small text-muted mb-3"><em>Coordenador</em></p>
 					</div>
 					<span class="h5 mb-3 d-block">Conteudistas</span>
 					<div class="mb-5">
-						<p class="creditos-modulo mb-2 mt-4">Módulo 1: Introdução à Política Informada por Evidências - PIE</p>
-						<p class="mb-1">Cristina Maria Rabelais Duarte</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
+						<p class="creditos-modulo mb-2 mt-4">Módulo 1: Introdução à Ciência de Dados aplicada à Saúde</p>
+						<p class="mb-1">Marcel Pedroso</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
 						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
-						<p class="mb-1">Daniele da Silva Garcez Novaes</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="small text-muted mb-3"><em>[Aula 1]</em></p>
-						<p class="creditos-modulo mb-2 mt-4">Módulo 2: Documentos para Políticas Informadas por Evidências</p>
-						<p class="mb-1">Letícia Aparecida Lopes Bezerra da Silva</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências do Instituto de Saúde, Núcleo de Análise e Projetos de Avaliação de Tecnologias de Saúde e Centro de Tecnologias de Saúde para o SUS-SP do Instituto de Saúde</em></p>
+						<p class="mb-1">Raphael Saldanha</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
 						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
-						<p class="mb-1">Maritsa Carla de Bortoli</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências do Instituto de Saúde e Centro de Tecnologias de Saúde para o SUS-SP do Instituto de Saúde</em></p>
+						<p class="creditos-modulo mb-2 mt-4">Módulo 2: Python para Análise de Dados em Saúde</p>
+						<p class="mb-1">Jefferson Lima</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
 						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
-						<p class="mb-1">Taís Rodrigues Tesser</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências do Instituto de Saúde, Núcleo de Fomento e Gestão de Tecnologias de Saúde e Centro de Tecnologias de Saúde para o SUS-SP do Instituto de Saúde</em></p>
-						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
-						<p class="creditos-modulo mb-2 mt-4">Módulo 3: Democratização do conhecimento</p>
-						<p class="mb-1">Mariana Gabriel</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="small text-muted mb-3"><em>[Aula 1]</em></p>
-						<p class="mb-1">Laura Boeira</p>
-						<p class="small text-muted mb-0"><em>Instituto Veredas</em></p>
-						<p class="small text-muted mb-3"><em>[Aula 2]</em></p>
-						<p class="mb-1">Dolores Maria Franco de Abreu</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="small text-muted mb-3"><em>[Aula 3]</em></p>
-						<p class="creditos-modulo mb-2 mt-4">Módulo 4: Produtos comunicacionais para tradução do conhecimento</p>
-						<p class="mb-1">Daniele da Silva Garcez Novaes</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
-						<p class="mb-1">Cristina Maria Rabelais Duarte</p>
-						<p class="small text-muted mb-0"><em>Núcleo de Evidências associado ao Núcleo de Informação, Políticas Públicas e Inclusão Social, vinculado ao Instituto de Comunicação e Informação Científica e Tecnológica em Saúde e ao Centro Universitário UNIFASE – Nev NIPPIS/Icict/Fiocruz-UNIFASE</em></p>
-						<p class="small text-muted mb-3"><em>[Aulas 1, 2 e 3]</em></p>
+						<p class="creditos-modulo mb-2 mt-4">Módulo 3: Machine Learning aplicado à Saúde</p>
+						<p class="mb-1">Jefferson Lima</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
+						<p class="small text-muted mb-3"><em>[Aulas 1, 2, 3 e 4]</em></p>
+						<p class="mb-1">Marcel Pedroso</p>
+						<p class="small text-muted mb-0"><em>Fundação Oswaldo Cruz, Fiocruz, Instituto de Comunicação e Informação Científica e Tecnológica em Saúde</em></p>
+						<p class="small text-muted mb-3"><em>[Aulas 1 e 2]</em></p>
 					</div>
 				</div>
 			</div>
@@ -911,6 +897,68 @@ function createModal(id) {
 
 	document.body.appendChild(newModal);
 }
+
+// Módulo 3 — Em breve (bloqueia navegação para modulo3)
+(function () {
+	var MODAL_ID = "modal-em-breve-modulo3";
+
+	function ensureEmBreveModal() {
+		var existing = document.getElementById(MODAL_ID);
+		if (existing) return existing;
+
+		var modal = document.createElement("div");
+		modal.className = "modal fade modal-aulas";
+		modal.id = MODAL_ID;
+		modal.setAttribute("tabindex", "-1");
+		modal.setAttribute("aria-labelledby", MODAL_ID + "-label");
+		modal.setAttribute("aria-hidden", "true");
+		modal.innerHTML =
+			'<div class="modal-dialog modal-dialog-centered">' +
+			'<div class="modal-content">' +
+			'<div class="modal-header">' +
+			'<h5 class="modal-title" id="' +
+			MODAL_ID +
+			'-label">Em breve</h5>' +
+			'<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>' +
+			"</div>" +
+			'<div class="modal-body">' +
+			"<p class=\"mb-0\">O <strong>Módulo 3 — Machine Learning aplicado à Saúde</strong> estará disponível em breve.</p>" +
+			"</div>" +
+			'<div class="modal-footer">' +
+			'<button type="button" class="fio-button fio-button-primary" data-bs-dismiss="modal">Fechar</button>' +
+			"</div>" +
+			"</div>" +
+			"</div>";
+		document.body.appendChild(modal);
+		return modal;
+	}
+
+	function openEmBreveModal() {
+		if (typeof bootstrap === "undefined") return;
+		var modalEl = ensureEmBreveModal();
+		bootstrap.Modal.getOrCreateInstance(modalEl).show();
+	}
+
+	function isModulo3Href(href) {
+		if (!href) return false;
+		return /modulo3\//i.test(href);
+	}
+
+	document.addEventListener(
+		"click",
+		function (event) {
+			var link = event.target.closest("a[href]");
+			if (!link) return;
+			if (!isModulo3Href(link.getAttribute("href"))) return;
+			event.preventDefault();
+			event.stopPropagation();
+			openEmBreveModal();
+		},
+		true
+	);
+
+	window.openEmBreveModulo3 = openEmBreveModal;
+})();
 
 //Before and after
 const container = document.querySelector(".antes-e-depois--container");

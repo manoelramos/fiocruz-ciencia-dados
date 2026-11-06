@@ -389,7 +389,8 @@ section {
 	margin-top: auto;
 	background-color: var(--fio-sys-color-accent-medium);
 }
-#course-program .card .card-footer a {
+#course-program .card .card-footer a,
+#course-program .card .card-footer button {
 	width: 100%;
 	border-radius: 0;
 	padding: 16px 20px;
