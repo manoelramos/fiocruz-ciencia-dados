@@ -898,68 +898,6 @@ function createModal(id) {
 	document.body.appendChild(newModal);
 }
 
-// Módulo 3 — Em breve (bloqueia navegação para modulo3)
-(function () {
-	var MODAL_ID = "modal-em-breve-modulo3";
-
-	function ensureEmBreveModal() {
-		var existing = document.getElementById(MODAL_ID);
-		if (existing) return existing;
-
-		var modal = document.createElement("div");
-		modal.className = "modal fade modal-aulas";
-		modal.id = MODAL_ID;
-		modal.setAttribute("tabindex", "-1");
-		modal.setAttribute("aria-labelledby", MODAL_ID + "-label");
-		modal.setAttribute("aria-hidden", "true");
-		modal.innerHTML =
-			'<div class="modal-dialog modal-dialog-centered">' +
-			'<div class="modal-content">' +
-			'<div class="modal-header">' +
-			'<h5 class="modal-title" id="' +
-			MODAL_ID +
-			'-label">Em breve</h5>' +
-			'<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>' +
-			"</div>" +
-			'<div class="modal-body">' +
-			"<p class=\"mb-0\">O <strong>Módulo 3 — Machine Learning aplicado à Saúde</strong> estará disponível em breve.</p>" +
-			"</div>" +
-			'<div class="modal-footer">' +
-			'<button type="button" class="fio-button fio-button-primary" data-bs-dismiss="modal">Fechar</button>' +
-			"</div>" +
-			"</div>" +
-			"</div>";
-		document.body.appendChild(modal);
-		return modal;
-	}
-
-	function openEmBreveModal() {
-		if (typeof bootstrap === "undefined") return;
-		var modalEl = ensureEmBreveModal();
-		bootstrap.Modal.getOrCreateInstance(modalEl).show();
-	}
-
-	function isModulo3Href(href) {
-		if (!href) return false;
-		return /modulo3\//i.test(href);
-	}
-
-	document.addEventListener(
-		"click",
-		function (event) {
-			var link = event.target.closest("a[href]");
-			if (!link) return;
-			if (!isModulo3Href(link.getAttribute("href"))) return;
-			event.preventDefault();
-			event.stopPropagation();
-			openEmBreveModal();
-		},
-		true
-	);
-
-	window.openEmBreveModulo3 = openEmBreveModal;
-})();
-
 //Before and after
 const container = document.querySelector(".antes-e-depois--container");
 document.querySelector(".antes-e-depois--slider").addEventListener("input", (e) => {

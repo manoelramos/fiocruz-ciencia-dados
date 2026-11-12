@@ -151,6 +151,11 @@
 }
 
 
+/* Exemplo */
+.box[data-box='Exemplo'] .card .card-header .icone::before {
+	content: 'push_pin';
+}
+
 /* Curiosidade */
 .box[data-box='Curiosidade'] .card .card-header .icone::before {
 	content: 'question_mark';
@@ -163,10 +168,6 @@
 }
 
 /* Dica */
-.box[data-box='Importante'] .card .card-header .icone::before {
-	content: 'crisis_alert';
-}
-
 .box[data-box='Dica'] .card .card-header .icone::before {
 	/* content: 'tips_and_updates'; */
 	/* content: 'star'; */
@@ -207,6 +208,11 @@
 /* Para ler */
 .box[data-box='Para Ler'] .card .card-header .icone::before {
 	content: 'auto_stories';
+}
+
+/* Legislação */
+.box[data-box='Legislação'] .card .card-header .icone::before {
+	content: 'gavel';
 }
 
 /* Sugestão de Leitura */
